@@ -12,30 +12,85 @@ run_or_show() {
   fi
 }
 
-echo "== Global tools =="
+echo "== Prerequisites and global tools =="
 echo "APPLY=$APPLY"
 echo
 
 if ! command -v brew >/dev/null 2>&1; then
-  echo "Homebrew not found. Install Homebrew manually first: https://brew.sh"
-  exit 1
+  if [ "$APPLY" = "1" ]; then
+    echo "Installing Homebrew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  else
+    echo "DRY-RUN: install Homebrew from https://brew.sh"
+    echo "Homebrew is required before installing the rest automatically."
+    exit 0
+  fi
 fi
 
-if ! command -v rtk >/dev/null 2>&1; then
-  run_or_show brew install rtk
-else
-  echo "OK rtk already installed: $(command -v rtk)"
-fi
+has_app() {
+  local app="$1"
+  [ -d "/Applications/$app" ] || [ -d "$HOME/Applications/$app" ]
+}
 
-if command -v rtk >/dev/null 2>&1; then
-  rtk --version || true
-fi
+install_formula_if_missing() {
+  local command_name="$1"
+  local formula_name="$2"
+  if command -v "$command_name" >/dev/null 2>&1; then
+    echo "OK formula command $command_name: $(command -v "$command_name")"
+  else
+    run_or_show brew install "$formula_name"
+  fi
+}
+
+install_cask_if_missing() {
+  local app_name="$1"
+  local cask_name="$2"
+  local command_name="${3:-}"
+
+  if has_app "$app_name"; then
+    echo "OK app $app_name"
+    return
+  fi
+
+  if [ -n "$command_name" ] && command -v "$command_name" >/dev/null 2>&1; then
+    echo "OK command $command_name: $(command -v "$command_name")"
+    return
+  fi
+
+  run_or_show brew install --cask "$cask_name"
+}
+
+echo "== CLI prerequisites =="
+install_formula_if_missing git git
+install_formula_if_missing node node
+install_formula_if_missing python3 python
+install_formula_if_missing rg ripgrep
+
+echo
+echo "== Desktop apps and agent CLIs =="
+install_cask_if_missing "Docker.app" docker-desktop docker
+install_cask_if_missing "IntelliJ IDEA.app" intellij-idea idea
+install_cask_if_missing "Cursor.app" cursor cursor
+install_cask_if_missing "Codex.app" codex codex
+install_cask_if_missing "Antigravity.app" antigravity agy
+
+echo
+echo "== Optional global optimizer =="
+install_formula_if_missing rtk rtk
+
+echo
+echo "== Versions after check/install =="
+for cmd in git node npm python3 docker jq rg codex rtk cursor agy idea; do
+  if command -v "$cmd" >/dev/null 2>&1; then
+    echo "-- $cmd"
+    "$cmd" --version 2>/dev/null || true
+  fi
+done
 
 echo
 echo "Next manual checks:"
-echo "- Docker Desktop installed and running"
-echo "- Codex installed and authenticated"
-echo "- Cursor installed and authenticated"
-echo "- Antigravity installed and authenticated"
-echo "- IntelliJ IDEA installed with JetBrains AI/MCP Server"
-
+echo "- Open Docker Desktop once and finish privileged helper setup"
+echo "- Authenticate Codex"
+echo "- Authenticate Cursor"
+echo "- Authenticate Antigravity"
+echo "- Sign in to IntelliJ IDEA and confirm JetBrains AI/MCP Server"
