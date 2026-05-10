@@ -5,6 +5,7 @@ APPLY="${APPLY:-0}"
 PROFILE="${PROFILE:-all}"
 
 CATALOG="mcp/docker-mcp-catalog:latest"
+DEFAULT_FILESYSTEM_PATHS='["/Users/rafaelpereirafreitas/Sites"]'
 
 create_profile() {
   local id="$1"
@@ -44,6 +45,18 @@ configure_database_allowlist() {
     --enable oracle.get_table_indexes
 }
 
+configure_filesystem_paths() {
+  local id="$1"
+  local paths="${FILESYSTEM_PATHS:-$DEFAULT_FILESYSTEM_PATHS}"
+
+  if [ "$APPLY" != "1" ]; then
+    echo "DRY  would set filesystem.paths=$paths for $id"
+    return 0
+  fi
+
+  docker mcp profile config "$id" --set "filesystem.paths=$paths"
+}
+
 echo "== Antigravity Docker MCP profile creation =="
 echo "PROFILE=$PROFILE"
 echo "APPLY=$APPLY"
@@ -70,6 +83,7 @@ if [ "$PROFILE" = "all" ] || [ "$PROFILE" = "backend" ]; then
     antigravity-backend \
     "Antigravity Backend" \
     --server "catalog://$CATALOG/github-official" \
+    --server "catalog://$CATALOG/filesystem" \
     --server "catalog://$CATALOG/context7" \
     --server "catalog://$CATALOG/sequentialthinking" \
     --server "catalog://$CATALOG/docker-docs" \
@@ -77,6 +91,7 @@ if [ "$PROFILE" = "all" ] || [ "$PROFILE" = "backend" ]; then
     --server "catalog://$CATALOG/javadocs" \
     --server "catalog://$CATALOG/openapi" \
     --server "catalog://$CATALOG/node-code-sandbox"
+  configure_filesystem_paths antigravity-backend
 fi
 
 if [ "$PROFILE" = "all" ] || [ "$PROFILE" = "product-architecture" ]; then
@@ -84,11 +99,13 @@ if [ "$PROFILE" = "all" ] || [ "$PROFILE" = "product-architecture" ]; then
     antigravity-product-architecture \
     "Antigravity Product Architecture" \
     --server "catalog://$CATALOG/github-official" \
+    --server "catalog://$CATALOG/filesystem" \
     --server "catalog://$CATALOG/obsidian" \
     --server "catalog://$CATALOG/context7" \
     --server "catalog://$CATALOG/sequentialthinking" \
     --server "catalog://$CATALOG/docker-docs" \
     --server "catalog://$CATALOG/openapi"
+  configure_filesystem_paths antigravity-product-architecture
 fi
 
 if [ "$PROFILE" = "all" ] || [ "$PROFILE" = "database-readonly" ]; then

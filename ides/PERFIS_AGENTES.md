@@ -198,7 +198,7 @@ Tools configuradas:
 Observacao:
 
 - PostgreSQL/MySQL/SQL Server/DB2 continuam fora do gateway automatico ate haver MCP read-only validado nesta maquina.
-- `database-server` do catalogo Docker foi testado e removido do perfil automatico porque a imagem nao tem manifest arm64 nesta maquina.
+- `database-server` do catalogo Docker foi testado e removido do perfil automatico porque falhou no gateway mesmo apos pull `linux/amd64` e configuracao de `database_url`.
 
 Nao incluir:
 

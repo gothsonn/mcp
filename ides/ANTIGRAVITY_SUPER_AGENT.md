@@ -64,15 +64,15 @@ APPLY=1 ./scripts/14-create-antigravity-docker-profiles.sh
 
 | Perfil | Servidores | Dry-run observado |
 | --- | --- | --- |
-| `antigravity-backend` | GitHub Official, Context7, Sequential Thinking, Docker Docs, Maven Tools, Javadocs, OpenAPI, Node.js Sandbox | 75 tools |
-| `antigravity-product-architecture` | GitHub Official, Obsidian, Context7, Sequential Thinking, Docker Docs, OpenAPI | 62 tools |
+| `antigravity-backend` | GitHub Official, Filesystem scoped, Context7, Sequential Thinking, Docker Docs, Maven Tools, Javadocs, OpenAPI, Node.js Sandbox | 86 tools |
+| `antigravity-product-architecture` | GitHub Official, Filesystem scoped, Obsidian, Context7, Sequential Thinking, Docker Docs, OpenAPI | 73 tools |
 | `antigravity-database-readonly` | Oracle Database com allowlist read-only | 5 tools |
 
 Observacoes:
 
-- `filesystem` foi removido dos perfis automaticos porque precisa de configuracao de paths e falhou sem ela.
-- `semgrep` remoto foi removido do perfil automatico porque exige autenticacao.
-- `database-server` foi removido do perfil automatico porque a imagem nao possui manifest arm64 nesta maquina.
+- `filesystem` foi reabilitado nos perfis automaticos com `filesystem.paths=["/Users/rafaelpereirafreitas/Sites"]`.
+- `semgrep` remoto ficou fora do perfil automatico porque o gateway retornou `Unauthorized`; usar Semgrep local/CLI ou autenticar a integracao antes de reativar.
+- `database-server` ficou fora do perfil automatico porque falhou no gateway mesmo com imagem `linux/amd64` pre-puxada e `database_url` configurado; usar Oracle read-only no gateway e tratar PostgreSQL/MySQL/SQL Server/DB2 em MCP dedicado depois.
 - GitHub e Obsidian podem listar tools em dry-run, mas tarefas reais ainda exigem secrets/config local no Docker MCP.
 
 ### Opcao 2 - Gateway/proxy dedicado
@@ -123,6 +123,7 @@ Nao incluir:
 Ferramentas:
 
 - GitHub Official.
+- Filesystem scoped a `/Users/rafaelpereirafreitas/Sites`.
 - Context7.
 - Sequential Thinking.
 - Docker Docs.
@@ -173,11 +174,13 @@ Regras:
 
 Ferramentas:
 
-- Graphify.
 - Obsidian.
-- GitHub.
-- Filesystem scoped.
-- JetBrains MCP.
+- GitHub Official.
+- Filesystem scoped a `/Users/rafaelpereirafreitas/Sites`.
+- Context7.
+- Sequential Thinking.
+- Docker Docs.
+- OpenAPI.
 
 Usar para:
 
