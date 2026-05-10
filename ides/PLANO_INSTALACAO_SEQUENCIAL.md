@@ -664,6 +664,6 @@ Gate:
 | 2 - Base compartilhada | Validado parcial | RTK global instalado; estrategia global vs repo documentada. | Aprovado para IDEs |
 | 3 - IntelliJ IDEA | Validado | JetBrains MCP habilitado e `./scripts/06-validate-jetbrains-mcp.sh`. | Aprovado |
 | 4 - Cursor | Validado | `./scripts/07-validate-cursor-mcp.sh`; MCP_DOCKER, GitKraken, OpenAI Docs, Playwright e JetBrains preservados. | Aprovado |
-| 5 - Antigravity | Em validacao | Docker MCP profile `antigravity-frontend` com dry-run validado em 26 tools dos servidores do perfil. | Pendente restart/teste no app |
+| 5 - Antigravity | Validado | Docker MCP profile `antigravity-frontend` com dry-run de 26 tools; `gateway-frontend` aparece conectado no Antigravity. | Aprovado |
 | 6 - Obsidian completo | Pendente |  |  |
 | 7 - Complementos por projeto | Pendente |  |  |
