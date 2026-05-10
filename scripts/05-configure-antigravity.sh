@@ -25,9 +25,15 @@ case "$PROFILE" in
   gateway-database-readonly-stdio)
     TEMPLATE="$ROOT_DIR/templates/antigravity/mcp_config.gateway-database-readonly-stdio.example.json"
     ;;
+  gateway-task-intake-stdio)
+    TEMPLATE="$ROOT_DIR/templates/antigravity/mcp_config.gateway-task-intake-stdio.example.json"
+    ;;
+  gateway-pr-review-stdio)
+    TEMPLATE="$ROOT_DIR/templates/antigravity/mcp_config.gateway-pr-review-stdio.example.json"
+    ;;
   *)
     echo "Unknown PROFILE=$PROFILE"
-    echo "Allowed: empty, gateway-frontend, gateway-frontend-stdio, gateway-backend-stdio, gateway-product-architecture-stdio, gateway-database-readonly-stdio"
+    echo "Allowed: empty, gateway-frontend, gateway-frontend-stdio, gateway-backend-stdio, gateway-product-architecture-stdio, gateway-database-readonly-stdio, gateway-task-intake-stdio, gateway-pr-review-stdio"
     exit 1
     ;;
 esac

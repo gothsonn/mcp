@@ -65,11 +65,11 @@ echo
 docker mcp catalog pull "$CATALOG" >/dev/null
 
 case "$PROFILE" in
-  all|frontend|backend|product-architecture|database-readonly)
+  all|frontend|backend|product-architecture|database-readonly|task-intake|pr-review)
     ;;
   *)
     echo "Unknown PROFILE=$PROFILE"
-    echo "Allowed: all, frontend, backend, product-architecture, database-readonly"
+    echo "Allowed: all, frontend, backend, product-architecture, database-readonly, task-intake, pr-review"
     exit 1
     ;;
 esac
@@ -114,6 +114,27 @@ if [ "$PROFILE" = "all" ] || [ "$PROFILE" = "database-readonly" ]; then
     "Antigravity Database Readonly" \
     --server "catalog://$CATALOG/oracle"
   configure_database_allowlist
+fi
+
+if [ "$PROFILE" = "all" ] || [ "$PROFILE" = "task-intake" ]; then
+  create_profile \
+    antigravity-task-intake \
+    "Antigravity Task Intake" \
+    --server "catalog://$CATALOG/atlassian-remote" \
+    --server "catalog://$CATALOG/context7" \
+    --server "catalog://$CATALOG/sequentialthinking"
+fi
+
+if [ "$PROFILE" = "all" ] || [ "$PROFILE" = "pr-review" ]; then
+  create_profile \
+    antigravity-pr-review \
+    "Antigravity PR Review" \
+    --server "catalog://$CATALOG/github-official" \
+    --server "catalog://$CATALOG/gitlab" \
+    --server "catalog://$CATALOG/atlassian-remote" \
+    --server "catalog://$CATALOG/filesystem" \
+    --server "catalog://$CATALOG/sequentialthinking"
+  configure_filesystem_paths antigravity-pr-review
 fi
 
 echo

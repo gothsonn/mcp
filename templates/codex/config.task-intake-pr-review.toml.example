@@ -1,0 +1,23 @@
+# Optional MCPs for task intake and PR review.
+# Merge into ~/.codex/config.toml only for the providers you use.
+# Secrets and organization names must stay outside git.
+
+[mcp_servers.atlassian-task-intake]
+url = "https://mcp.atlassian.com/v1/mcp/authv2"
+
+[mcp_servers.atlassian-bitbucket-pr-review]
+url = "https://mcp.atlassian.com/v1/mcp/authv2"
+
+[mcp_servers.gitlab-pr-review]
+url = "https://gitlab.com/api/v4/mcp"
+
+[mcp_servers.gitlab-pr-review.headers]
+X-Gitlab-Mcp-Server-Tool-Name-Prefix = "gitlab_"
+
+[mcp_servers.azure-devops-task-intake]
+command = "zsh"
+args = ["-lc", "test -n \"$AZURE_DEVOPS_ORG\" && npx -y @azure-devops/mcp \"$AZURE_DEVOPS_ORG\" -d core work work-items"]
+
+[mcp_servers.azure-devops-pr-review]
+command = "zsh"
+args = ["-lc", "test -n \"$AZURE_DEVOPS_ORG\" && npx -y @azure-devops/mcp \"$AZURE_DEVOPS_ORG\" -d core repositories pipelines"]

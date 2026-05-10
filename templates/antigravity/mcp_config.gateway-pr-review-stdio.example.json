@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "gateway-pr-review": {
+      "command": "docker",
+      "args": ["mcp", "gateway", "run", "--profile", "antigravity-pr-review"]
+    }
+  }
+}

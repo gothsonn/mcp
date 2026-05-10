@@ -18,6 +18,12 @@ case "$PROFILE" in
   antigravity-database-readonly)
     SERVER_KEY="gateway-database-readonly"
     ;;
+  antigravity-task-intake)
+    SERVER_KEY="gateway-task-intake"
+    ;;
+  antigravity-pr-review)
+    SERVER_KEY="gateway-pr-review"
+    ;;
   *)
     SERVER_KEY="${SERVER_KEY:-gateway-frontend}"
     ;;

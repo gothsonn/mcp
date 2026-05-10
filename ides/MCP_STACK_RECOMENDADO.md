@@ -23,6 +23,9 @@ Instalar primeiro porque melhora quase qualquer fluxo.
 | OpenAI Developer Docs | MCP | Codex, Cursor | Docs atuais para OpenAI APIs, Codex, Agents e MCP. |
 | JetBrains MCP Server | MCP | Codex, Cursor | Contexto real do IntelliJ: modulos, run configs, problemas, inspecoes. |
 | GitHub | Plugin/MCP | Codex primeiro | PR, review, issues, CI e repos. |
+| Atlassian Rovo MCP | MCP | Codex, Cursor, Antigravity por perfil | Jira para entendimento de tarefa; Bitbucket Cloud para PRs quando habilitado. |
+| Azure DevOps MCP | MCP | Codex e Cursor por demanda | Boards, repos, pipelines e PRs com dominios filtrados. |
+| GitLab MCP | MCP | Cursor/Antigravity por demanda | Merge requests e projetos GitLab quando a instancia suportar MCP. |
 | Playwright MCP | MCP | Cursor, Antigravity, Codex quando necessario | UI automation por accessibility snapshots, testes e screenshots. |
 | Docker MCP Gateway | Gateway | Cursor e Antigravity | Agrega MCPs e reduz configuracao duplicada por cliente. |
 | RTK | CLI/proxy | Codex, Cursor, Antigravity | Reduz tokens em comandos shell comuns. |

@@ -107,5 +107,6 @@ Prerequisitos cobertos pelo script:
 - `ides/GUIA_USO_PERFIS_SKILLS_OBSIDIAN.md`
 - `ides/BOOTSTRAP_NOVO_REPOSITORIO.md`
 - `ides/MCP_CONTROL_GLOBAL.md`
+- `ides/MCP_TASKS_AND_PR_REVIEW.md`
 - `ides/OBSIDIAN.md`
 - `ides/COMPLEMENTOS_OPCIONAIS.md`

@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "gateway-task-intake": {
+      "command": "docker",
+      "args": ["mcp", "gateway", "run", "--profile", "antigravity-task-intake"]
+    }
+  }
+}
