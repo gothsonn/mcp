@@ -6,6 +6,15 @@
 /Users/rafaelpereirafreitas/Sites/rafaelfreitas
 ```
 
+## GitHub
+
+```text
+origin: https://github.com/gothsonn/rafaelfreitas.git
+remote main: a7a910ec0187b32eafef4285e427d910d23b4095
+```
+
+O remote foi vinculado ao repo local. O repo local ainda esta sem commit inicial, enquanto o remoto ja possui `main`; antes do primeiro push, reconciliar o conteudo remoto com a baseline local.
+
 ## Estrutura
 
 ```text
