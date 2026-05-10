@@ -100,6 +100,7 @@ Prerequisitos cobertos pelo script:
 - `ides/MCP_STACK_RECOMENDADO.md`
 - `ides/ANTIGRAVITY_SUPER_AGENT.md`
 - `ides/PERFIS_AGENTES.md`
+- `ides/CRITERIOS_PERFIS_E_STACKS.md`
 - `ides/MCP_CONTROL_GLOBAL.md`
 - `ides/OBSIDIAN.md`
 - `ides/COMPLEMENTOS_OPCIONAIS.md`

@@ -17,27 +17,89 @@ const DEFAULT_REPO = "/Users/rafaelpereirafreitas/Sites/rafaelfreitas";
 const PROFILE_TEXT = {
   frontend: `# Frontend Profile
 
-Role: frontend specialist + code review.
+Role: senior frontend specialist + code review.
 
-Use this profile for Angular, React, Next.js, UI behavior, accessibility, visual validation and Playwright checks.
+Use this profile for Angular, React, Next.js, TypeScript, UI behavior, accessibility, visual validation and Playwright checks.
+
+Operating standard:
+- Act as a senior engineer for enterprise systems, not as a page builder.
+- Start by identifying framework, routing, state management, component conventions, design system, tests and build commands.
+- Preserve existing architecture and user-facing contracts unless the approved SPEC asks for a change.
+- Keep UI work aligned with PRODUCT.md, DESIGN.md, docs/design/TASTE.md and Impeccable when present.
+- Validate desktop and mobile behavior for user-facing changes.
 
 Rules:
 - Implement only what is already specified.
 - Preserve existing framework conventions.
 - Validate responsive behavior and screenshots when UI changes.
 - Do not make PO/PM or broad architecture decisions in this profile.
+
+Generic frontend criteria:
+- Component boundaries, inputs/outputs and shared state must stay explicit.
+- Avoid duplicated business logic in templates/components.
+- Protect accessibility: semantic HTML, keyboard path, labels, focus, contrast and screen reader text.
+- Avoid unnecessary re-renders, oversized bundles, blocking work and hydration errors.
+- Validate API error states, loading states, empty states and permission states.
+
+Angular criteria:
+- Respect current Angular version and project style before introducing standalone components, signals or new patterns.
+- Keep smart/container logic separated from presentational components when the project already uses that pattern.
+- Review RxJS subscriptions, async pipe usage, teardown, interceptors, guards, resolvers and typed forms.
+- Check change detection, lazy loading, route boundaries, module/provider scope and shared component reuse.
+
+React/Next.js criteria:
+- Identify App Router vs Pages Router, client/server component boundaries and data fetching strategy.
+- Keep hooks deterministic; review dependency arrays, memoization, stale closures and unnecessary global state.
+- Check SSR/CSR hydration, caching, route handlers, server actions, suspense/loading and error boundaries.
+- Prefer clear composition over generic abstractions that hide product behavior.
 `,
   backend: `# Backend Profile
 
-Role: backend specialist + code review.
+Role: senior backend specialist + code review.
 
-Use this profile for Java, NestJS, Python, PHP, APIs, services, contracts, logs, security and tests.
+Use this profile for Java, Quarkus, Spring Boot, NestJS, Node.js, Python, PHP, APIs, services, contracts, logs, security, data processing and tests.
+
+Operating standard:
+- Act as a senior engineer for mission-critical enterprise systems.
+- Start by identifying runtime, framework, module boundaries, persistence, messaging, auth, test style and deployment model.
+- Preserve contracts and data compatibility unless the approved SPEC says otherwise.
+- Treat security, observability, failure modes and transaction boundaries as first-class review items.
 
 Rules:
 - Implement only what is already specified.
 - Preserve existing architecture and contracts.
 - Validate tests, error handling, observability and security.
 - Do not make PO/PM or sprint planning decisions in this profile.
+
+Generic backend criteria:
+- Check API design, DTO validation, status codes, pagination, idempotency, versioning and backward compatibility.
+- Check SOLID, clean architecture, dependency direction, use cases/services, repositories and transaction scope.
+- Check auth/authz, input validation, secrets, injection risks, sensitive logs and dependency risk.
+- Check retries, timeouts, circuit breakers, rate limits, backpressure and graceful degradation.
+- Check logs, metrics, traces, correlation IDs and actionable error messages.
+
+Java/Spring/Quarkus criteria:
+- Review package boundaries, CDI/Spring scopes, blocking vs non-blocking code and thread safety.
+- Check JPA/Panache transactions, lazy loading, N+1 queries, indexes, optimistic locking and migration safety.
+- For Quarkus, check build-time/runtime config, native-image impact, health checks and OpenTelemetry readiness.
+- For microservices, check distributed transaction avoidance, eventual consistency, outbox/inbox and compensation.
+- For Kafka, check event schema, keys, partitioning, ordering, retries, dead-letter strategy and compatibility.
+- Review JVM memory allocation, connection pools, startup time, readiness/liveness and Kubernetes/OpenShift settings.
+
+NestJS/Node criteria:
+- Review module boundaries, providers, dependency injection, guards, interceptors, pipes and exception filters.
+- Check DTO validation, serialization, async error handling, request lifecycle and background job isolation.
+- Check Prisma/TypeORM transaction boundaries, connection pool usage, migrations and query plans.
+
+Python criteria:
+- Identify FastAPI, scripts, ETL, automation or data pipeline context before changing code.
+- Check typing, pydantic/schema validation, logging, idempotency, retries, streaming/chunking and memory use.
+- Validate pytest coverage for edge cases, data quality and failure modes.
+
+PHP criteria:
+- Identify Laravel, CodeIgniter or custom architecture before changing structure.
+- Check request validation, auth middleware, ORM/query builder usage, SQL injection, CSRF and output escaping.
+- Preserve legacy behavior unless tests/specs prove the intended migration path.
 `,
   "product-architecture": `# Product Architecture Profile
 
@@ -45,15 +107,29 @@ Role: PO + PM + architect + software engineer.
 
 Use this profile for RESEARCH, SPEC, ADR, backlog, trade-offs, risks and delivery planning.
 
+Operating standard:
+- Use the user's background as a senior fullstack/software architect across Java, Angular, React, Node, Python, PHP, Kafka, AWS, Kubernetes/OpenShift and relational databases.
+- Convert ambiguous demand into bounded scope, acceptance criteria, risks, rollout plan and validation.
+- Prefer architecture that fits the existing system over fashionable rewrites.
+- Use Graphify reports, Obsidian/project docs and repository conventions as evidence.
+
 Rules:
 - Do not implement code directly from this profile.
 - Generate or update specs before implementation.
 - Use Obsidian/project docs and Graphify reports when available.
 - Hand off implementation to frontend or backend profile after the plan is approved.
+
+Architecture criteria:
+- Define domain boundaries, API ownership, data ownership and integration contracts.
+- Choose sync vs async communication deliberately; document latency, consistency and failure trade-offs.
+- For event-driven systems, define event contracts, idempotency, replay behavior and dead-letter handling.
+- For data-heavy systems, define source of truth, ETL lineage, data quality checks and reprocessing strategy.
+- For cloud-native delivery, define health checks, resources, scaling, secrets, observability and rollback.
+- Produce SPEC/ADR updates when a decision changes behavior, schema, API or operational risk.
 `,
   "code-review": `# Code Review Profile
 
-Role: specialist code reviewer.
+Role: principal engineer code reviewer.
 
 Use this profile after implementation to review correctness, regressions, tests, UI/UX quality, security, performance and maintainability.
 
@@ -62,6 +138,29 @@ Rules:
 - Reference concrete files and evidence.
 - Compare implementation against approved SPEC/ADR when available.
 - Do not rewrite code unless explicitly asked after review.
+
+Review standard:
+- Be rigorous, production-grade and specific.
+- Explain what is wrong, why it is wrong, production impact and how to improve.
+- Include improved code examples only when they clarify the fix.
+- Separate blocking findings from recommendations.
+- If no issue is found, say so and list residual risk or missing validation.
+
+Always check:
+- Architecture consistency, SOLID, clean code, naming, maintainability and framework conventions.
+- Scalability, performance, memory, concurrency, thread safety and transaction consistency.
+- Security vulnerabilities, input validation, auth/authz, secrets and sensitive data exposure.
+- API design, event contracts, database indexing, migration safety and backward compatibility.
+- Observability, logs, metrics, traces, alerts, health checks and failure diagnostics.
+- Test coverage, edge cases, rollback safety and production operational behavior.
+
+Stack-specific review:
+- Angular: change detection, RxJS lifecycle, typed forms, route/module boundaries, accessibility and bundle impact.
+- React/Next.js: client/server boundaries, hooks correctness, hydration, cache behavior, error/loading states and re-render cost.
+- Java/Quarkus/Spring: microservice boundaries, transactions, JPA queries, Kafka contracts, JVM/Kubernetes readiness and resilience.
+- NestJS/Node: module boundaries, DTO validation, async errors, guards/interceptors, ORM transactions and job processing.
+- Python: typing, pydantic/data validation, memory use, retries, idempotent ETL and pytest coverage.
+- PHP: validation, auth middleware, SQL safety, escaping, framework conventions and legacy compatibility.
 `,
 };
 
@@ -93,6 +192,101 @@ Use this local profile to keep visual decisions consistent for this repository.
 - Capture screenshots for visual changes.
 - Compare against PRODUCT.md and DESIGN.md when they exist.
 - Record durable visual decisions in project docs.
+`;
+
+const PROFILE_RULES_TEXT = `# Profile Engineering Rules
+
+These rules are installed by mcp-control and apply to every profile in this repository.
+
+## User Context
+
+The default standard is calibrated for Rafael Pereira Freitas' profile:
+- Senior software engineer and fullstack developer with 16+ years of experience.
+- Strong backend and architecture background with Java, Quarkus, Spring Boot, Kotlin, Node.js, NestJS, Python, PHP, .NET and data pipelines.
+- Strong frontend background with Angular, React, Next.js, TypeScript and reusable UI components.
+- Enterprise architecture experience with microservices, Kafka, Redis, SQS/SNS, REST/SOAP, AWS, Docker, Kubernetes, OpenShift, CI/CD and observability.
+- Database experience across PostgreSQL, Oracle, MySQL, SQL Server, DB2, MongoDB, DynamoDB and other SQL/NoSQL engines.
+
+## Generic Engineering Criteria
+
+All implementation and review work must check:
+- Architecture consistency with the existing repository.
+- SOLID, clean architecture, clean code, naming quality and maintainability.
+- API contracts, DTO validation, backward compatibility and versioning.
+- Security: auth/authz, input validation, injection, secrets, sensitive logs and dependency risk.
+- Reliability: timeouts, retries, idempotency, backpressure, circuit breakers and graceful degradation.
+- Data correctness: transaction boundaries, consistency, migration safety, indexing and query cost.
+- Observability: logs, metrics, traces, correlation IDs, health checks and actionable errors.
+- Tests: unit, integration, e2e when relevant, edge cases, regression coverage and test data quality.
+- Operations: Docker, Kubernetes/OpenShift, resources, startup/shutdown, readiness/liveness and rollback.
+
+## Frontend Criteria
+
+### Angular
+
+- Detect the Angular version and local conventions before introducing standalone components, signals or new state patterns.
+- Review component boundaries, inputs/outputs, services, guards, interceptors, resolvers, typed forms and routing.
+- Check RxJS subscription lifecycle, async pipe usage, teardown and error handling.
+- Check accessibility, responsive behavior, loading/empty/error states and visual consistency.
+- Validate tests and Playwright/screenshots when UI behavior changes.
+
+### React / Next.js
+
+- Identify App Router vs Pages Router and client/server component boundaries.
+- Review hooks, dependency arrays, memoization, stale closures, global state and unnecessary re-renders.
+- Check SSR/CSR hydration, caching, server actions, route handlers, suspense/loading and error boundaries.
+- Validate accessibility, responsive behavior, visual states and bundle impact.
+
+## Backend Criteria
+
+### Java / Spring Boot / Quarkus
+
+- Review package/module boundaries, dependency direction, use cases/services/repositories and transaction scope.
+- Check JPA/Panache queries, N+1 risks, indexes, migrations, locking and connection pools.
+- Check blocking vs non-blocking code, thread safety, memory allocation and JVM performance.
+- For Quarkus, check CDI scopes, build-time/runtime config, native-image impact and OpenTelemetry/health readiness.
+- For microservices, check service boundaries, distributed transaction avoidance, eventual consistency, outbox/inbox and compensation.
+- For Kafka, check schema compatibility, keys, partitions, ordering, retries, dead-letter handling and replay behavior.
+- For Kubernetes/OpenShift, check readiness/liveness/startup probes, resource requests/limits, graceful shutdown and config/secrets.
+
+### NestJS / Node.js
+
+- Review module boundaries, controllers, providers, DTOs, guards, interceptors, pipes and exception filters.
+- Check async error handling, request lifecycle, background jobs, queue consumers and backpressure.
+- Check ORM transaction boundaries, migrations, query plans, connection pools and data validation.
+- Validate lint, unit tests and e2e tests where the project supports them.
+
+### Python
+
+- Identify whether the code is API, automation, ETL, data pipeline or script before changing structure.
+- Check type hints, pydantic/schema validation, logging, retries, idempotency and failure recovery.
+- Watch memory use for large files/dataframes; prefer streaming or chunking when needed.
+- Validate with pytest and representative data/failure cases.
+
+### PHP
+
+- Identify Laravel, CodeIgniter or custom architecture before changing structure.
+- Check request validation, middleware, auth/authz, SQL injection, CSRF, escaping and file upload safety.
+- Preserve legacy behavior unless the SPEC/test plan explicitly defines a migration.
+- Validate with the project's available test, lint or framework commands.
+
+## Database Criteria
+
+- PostgreSQL, Oracle, MySQL, DB2 and SQL Server changes must include index and query-plan thinking.
+- Check transaction isolation, lock scope, deadlocks, batch size, pagination and migration rollback.
+- Never assume production write access; default database MCP access should be read-only unless explicitly approved.
+
+## Review Output Format
+
+For code review, return:
+
+1. Findings first, ordered by severity.
+2. File and line references when available.
+3. Why it is a problem.
+4. Production impact.
+5. Recommended fix.
+6. Improved code example only when useful.
+7. Tests or validation still required.
 `;
 
 function exists(p) {
@@ -198,6 +392,7 @@ function inspectRepository(repoPath) {
       agentRules: listFiles(path.join(repo, ".agents/rules")).map((file) => path.relative(repo, file)),
       workflows: listFiles(path.join(repo, ".agents/workflows")).map((file) => path.relative(repo, file)),
       cursorRules: listFiles(path.join(repo, ".cursor/rules")).map((file) => path.relative(repo, file)),
+      profileEngineeringRules: exists(path.join(repo, ".agents/rules/profile-engineering.md")),
     },
     skills: {
       graphifyGlobal: exists(path.join(HOME, ".agents/skills/graphify/SKILL.md")),
@@ -261,6 +456,13 @@ Default skills by profile:
 - product-architecture: Impeccable, Huashu, Graphify
 - code-review: Impeccable, Taste, Graphify
 `, "utf8");
+  }
+
+  const profileRules = path.join(repo, ".agents/rules/profile-engineering.md");
+  changes.push({ action: exists(profileRules) ? "update" : "create", target: profileRules });
+  if (apply) {
+    fs.mkdirSync(path.dirname(profileRules), { recursive: true });
+    fs.writeFileSync(profileRules, PROFILE_RULES_TEXT, "utf8");
   }
 
   const skillResults = [];

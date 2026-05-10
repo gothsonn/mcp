@@ -22,7 +22,7 @@ mcp-control
 | --- | --- |
 | `global_mcp_status` | Verifica se Codex, Cursor e Antigravity tem `mcp-control` configurado. |
 | `inspect_repository_profiles` | Lista perfis, regras, skills e artefatos Graphify de um repositorio. |
-| `install_repository_profiles` | Cria perfis padrao em `.agents/profiles/` e instala as skills padrao do perfil dentro do repo. |
+| `install_repository_profiles` | Cria perfis padrao em `.agents/profiles/`, instala `.agents/rules/profile-engineering.md` e instala as skills padrao do perfil dentro do repo. |
 | `install_repository_skill` | Instala regras/skills suportadas por repo: `graphify`, `impeccable`, `huashu`, `taste`. |
 
 ## Perfis padrao
@@ -49,6 +49,12 @@ APPLY=1 ./scripts/12-configure-global-mcp-control.sh
 ```
 
 Codex, Cursor e Antigravity sao configurados automaticamente pelo script.
+
+Os criterios enriquecidos de engenharia ficam documentados em `ides/CRITERIOS_PERFIS_E_STACKS.md` e sao materializados por repositorio em:
+
+```text
+.agents/rules/profile-engineering.md
+```
 
 Para JetBrains AI / Junie, usar o JSON em:
 

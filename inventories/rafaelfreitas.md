@@ -10,7 +10,7 @@
 
 ```text
 origin: https://github.com/gothsonn/rafaelfreitas.git
-remote main: 5afcaaf Add default profile skills
+remote main: 14caca5 Enrich agent profiles with stack criteria
 ```
 
 O remote foi vinculado ao repo local, o baseline fullstack foi enviado para `origin/main` e o repo piloto recebeu os perfis/skills padrao.
@@ -32,6 +32,7 @@ Estado publicado:
 
 ```text
 ## main...origin/main
+14caca5 Enrich agent profiles with stack criteria
 5afcaaf Add default profile skills
 5cfa8b5 Add standard agent profiles
 736fc05 Add fullstack portfolio baseline and agent rules
@@ -127,6 +128,14 @@ Skills instaladas por padrao:
 - `backend`: Impeccable, Graphify
 - `product-architecture`: Impeccable, Huashu, Graphify
 - `code-review`: Impeccable, Taste, Graphify
+
+Regra enriquecida instalada:
+
+```text
+.agents/rules/profile-engineering.md
+```
+
+Ela cobre criterios genericos e especificos para Angular, React/Next.js, Java/Spring/Quarkus, NestJS/Node.js, Python, PHP, bancos, Kafka e Kubernetes/OpenShift.
 
 ### product-architecture
 

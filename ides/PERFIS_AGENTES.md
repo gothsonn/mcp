@@ -24,6 +24,22 @@ Sempre que um perfil for instalado via `mcp-control`, as skills abaixo tambem en
 | `product-architecture` | Impeccable, Huashu, Graphify |
 | `code-review` | Impeccable, Taste, Graphify |
 
+## Regras padrao por repositorio
+
+Todo repo configurado por `mcp-control` recebe:
+
+```text
+.agents/rules/profile-engineering.md
+```
+
+Essa regra contem criterios genericos e especificos para Angular, React/Next.js, Java/Spring/Quarkus, NestJS/Node.js, Python, PHP, bancos SQL/NoSQL, Kafka e Kubernetes/OpenShift.
+
+Referencia detalhada no kit:
+
+```text
+ides/CRITERIOS_PERFIS_E_STACKS.md
+```
+
 ## Por que nao misturar tudo em frontend/backend
 
 Evitar este modelo como padrao:
