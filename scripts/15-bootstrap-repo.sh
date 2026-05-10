@@ -240,6 +240,20 @@ AZURE_DEVOPS_ORG=
 AZURE_DEVOPS_PROJECT=
 AZURE_DEVOPS_TEAM=
 
+# Jira Cloud / Jira Server
+JIRA_BASE_URL=
+JIRA_EMAIL=
+JIRA_API_TOKEN=
+JIRA_BEARER_TOKEN=
+
+# Bitbucket Server/Data Center/Stash
+BITBUCKET_BASE_URL=
+BITBUCKET_PROJECT_KEY=
+BITBUCKET_REPO_SLUG=
+BITBUCKET_USERNAME=
+BITBUCKET_HTTP_TOKEN=
+BITBUCKET_BEARER_TOKEN=
+
 # Docker MCP Gateway secrets file keys.
 # Keep the dotted names because Docker MCP reads them as secret IDs.
 github.personal_access_token=

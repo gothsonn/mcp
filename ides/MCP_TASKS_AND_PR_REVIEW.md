@@ -17,10 +17,12 @@ nomes e respeita o limite de tools do Antigravity.
 | Provedor | Fluxo | MCP recomendado | Observacao |
 | --- | --- | --- | --- |
 | Jira Cloud | `task-intake` | Atlassian Rovo MCP | OAuth 2.1; respeita permissoes do usuario. |
+| Jira Cloud corporativo | `task-intake` | `mcp-control` read-only | Usa `JIRA_BASE_URL` no `credential_mcp.env` do repo. |
 | Azure DevOps Boards | `task-intake` | `@azure-devops/mcp` | Usar dominios `core`, `work`, `work-items`. |
 | GitHub PR | `pr-review` | GitHub Official MCP / plugin GitHub do Codex | Preferir plugin no Codex; gateway no Antigravity. |
 | GitLab MR | `pr-review` | GitLab MCP HTTP | Requer GitLab Premium/Ultimate e recurso MCP disponivel. |
-| Bitbucket PR | `pr-review` | Atlassian Rovo / Bitbucket MCP | Usar somente com scopes de PR/pipeline necessarios. |
+| Bitbucket Cloud PR | `pr-review` | Atlassian Rovo / Bitbucket MCP | Usar somente com scopes de PR/pipeline necessarios. |
+| Bitbucket Server/Data Center/Stash | `pr-review` | `mcp-control` read-only | Usa REST `/rest/api/1.0` para instancias corporativas. |
 | Azure DevOps PR | `pr-review` | `@azure-devops/mcp` | Usar dominios `core`, `repositories`, `pipelines`. |
 
 ## Antigravity
@@ -112,6 +114,20 @@ dependencias, riscos, links, anexos e impacto tecnico.
 Depois gere um FEATURE-SPEC.md antes de implementar.
 ```
 
+Para Jira corporativo no `mcp-control`, o repo precisa ter:
+
+```env
+JIRA_BASE_URL=https://sua-empresa.atlassian.net
+JIRA_EMAIL=seu-email
+JIRA_API_TOKEN=seu-token
+```
+
+Ferramenta:
+
+```text
+read_jira_issue(repoPath, issueKeyOrUrl)
+```
+
 ### Avaliar PR
 
 Prompt base:
@@ -122,6 +138,24 @@ Compare contra a tarefa/spec vinculada, leia comentarios existentes,
 diff, arquivos alterados, status de pipeline e testes.
 Responda com findings por severidade, impacto em producao e sugestao objetiva.
 Nao aprove, mergeie ou comente no PR sem confirmacao explicita.
+```
+
+Para Bitbucket Server/Data Center/Stash no `mcp-control`, o repo precisa
+ter:
+
+```env
+BITBUCKET_BASE_URL=https://stash.sua-empresa.intranet
+BITBUCKET_PROJECT_KEY=PROJECT
+BITBUCKET_REPO_SLUG=repo-slug
+BITBUCKET_USERNAME=seu-usuario
+BITBUCKET_HTTP_TOKEN=seu-token
+```
+
+Ferramentas:
+
+```text
+list_bitbucket_pull_requests(repoPath, projectKey, repoSlug, state)
+read_bitbucket_pull_request(repoPath, projectKey, repoSlug, prId, includeDiff)
 ```
 
 ## Segurança

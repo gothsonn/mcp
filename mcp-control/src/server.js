@@ -340,6 +340,190 @@ function gitStatus(repoPath) {
   }
 }
 
+function parseCredentialFile(file) {
+  if (!exists(file)) return {};
+  const env = {};
+  const lines = fs.readFileSync(file, "utf8").split(/\r?\n/);
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith("#")) continue;
+    const idx = trimmed.indexOf("=");
+    if (idx < 0) continue;
+    const key = trimmed.slice(0, idx).trim();
+    let value = trimmed.slice(idx + 1).trim();
+    if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
+      value = value.slice(1, -1);
+    }
+    env[key] = value;
+  }
+  return env;
+}
+
+function repoCredentials(repoPath) {
+  const repo = assertRepoPath(repoPath);
+  const file = process.env.MCP_CREDENTIAL_FILE || path.join(repo, "credential_mcp.env");
+  return {
+    repo,
+    file,
+    env: parseCredentialFile(file),
+  };
+}
+
+function firstValue(env, keys) {
+  for (const key of keys) {
+    if (env[key]) return env[key];
+    if (process.env[key]) return process.env[key];
+  }
+  return "";
+}
+
+function basicAuth(user, token) {
+  return `Basic ${Buffer.from(`${user}:${token}`).toString("base64")}`;
+}
+
+function authHeaders(env, service) {
+  if (service === "jira") {
+    const bearer = firstValue(env, ["JIRA_BEARER_TOKEN", "ATLASSIAN_REMOTE_PERSONAL_ACCESS_TOKEN"]);
+    if (bearer) return { Authorization: `Bearer ${bearer}` };
+    const email = firstValue(env, ["JIRA_EMAIL", "ATLASSIAN_EMAIL"]);
+    const token = firstValue(env, ["JIRA_API_TOKEN", "ATLASSIAN_API_TOKEN"]);
+    if (email && token) return { Authorization: basicAuth(email, token) };
+    throw new Error("Missing Jira credentials. Set JIRA_EMAIL + JIRA_API_TOKEN, or JIRA_BEARER_TOKEN, in credential_mcp.env.");
+  }
+
+  if (service === "bitbucket") {
+    const bearer = firstValue(env, ["BITBUCKET_BEARER_TOKEN", "BITBUCKET_PERSONAL_ACCESS_TOKEN"]);
+    if (bearer) return { Authorization: `Bearer ${bearer}` };
+    const user = firstValue(env, ["BITBUCKET_USERNAME"]);
+    const token = firstValue(env, ["BITBUCKET_HTTP_TOKEN", "BITBUCKET_PASSWORD"]);
+    if (user && token) return { Authorization: basicAuth(user, token) };
+    throw new Error("Missing Bitbucket credentials. Set BITBUCKET_BEARER_TOKEN or BITBUCKET_USERNAME + BITBUCKET_HTTP_TOKEN in credential_mcp.env.");
+  }
+
+  return {};
+}
+
+function normalizeBaseUrl(url, name) {
+  if (!url) throw new Error(`Missing ${name} in credential_mcp.env.`);
+  return url.replace(/\/+$/, "");
+}
+
+async function httpJson(url, headers) {
+  const response = await fetch(url, {
+    headers: {
+      Accept: "application/json",
+      ...headers,
+    },
+  });
+  const text = await response.text();
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status} for ${url}: ${text.slice(0, 800)}`);
+  }
+  if (!text.trim()) return null;
+  try {
+    return JSON.parse(text);
+  } catch {
+    return { raw: text };
+  }
+}
+
+function jiraIssueKey(issueKeyOrUrl) {
+  const value = String(issueKeyOrUrl || "").trim();
+  const selectedIssue = value.match(/[?&]selectedIssue=([A-Z][A-Z0-9]+-\d+)/i);
+  if (selectedIssue) return selectedIssue[1].toUpperCase();
+  const direct = value.match(/\b([A-Z][A-Z0-9]+-\d+)\b/i);
+  if (direct) return direct[1].toUpperCase();
+  throw new Error("Could not parse Jira issue key. Provide TXP-1175 or a Jira URL with selectedIssue=TXP-1175.");
+}
+
+function bitbucketRepoDefaults(env, overrides = {}) {
+  const projectKey = overrides.projectKey || firstValue(env, ["BITBUCKET_PROJECT_KEY"]);
+  const repoSlug = overrides.repoSlug || firstValue(env, ["BITBUCKET_REPO_SLUG"]);
+  if (!projectKey) throw new Error("Missing Bitbucket project key. Set BITBUCKET_PROJECT_KEY in credential_mcp.env or pass projectKey.");
+  if (!repoSlug) throw new Error("Missing Bitbucket repository slug. Set BITBUCKET_REPO_SLUG in credential_mcp.env or pass repoSlug.");
+  return { projectKey, repoSlug };
+}
+
+async function readJiraIssue(repoPath, issueKeyOrUrl) {
+  const { repo, file, env } = repoCredentials(repoPath);
+  const baseUrl = normalizeBaseUrl(firstValue(env, ["JIRA_BASE_URL", "ATLASSIAN_JIRA_BASE_URL"]), "JIRA_BASE_URL");
+  const key = jiraIssueKey(issueKeyOrUrl);
+  const fields = [
+    "summary",
+    "description",
+    "status",
+    "issuetype",
+    "priority",
+    "assignee",
+    "reporter",
+    "labels",
+    "components",
+    "fixVersions",
+    "parent",
+    "issuelinks",
+    "subtasks",
+    "created",
+    "updated",
+  ].join(",");
+  const issue = await httpJson(`${baseUrl}/rest/api/3/issue/${encodeURIComponent(key)}?fields=${fields}`, authHeaders(env, "jira"));
+  return {
+    repo,
+    credentialFile: file,
+    issueKey: key,
+    url: `${baseUrl}/browse/${key}`,
+    issue,
+  };
+}
+
+async function listBitbucketPullRequests(repoPath, options = {}) {
+  const { repo, file, env } = repoCredentials(repoPath);
+  const baseUrl = normalizeBaseUrl(firstValue(env, ["BITBUCKET_BASE_URL", "STASH_BASE_URL"]), "BITBUCKET_BASE_URL");
+  const { projectKey, repoSlug } = bitbucketRepoDefaults(env, options);
+  const state = options.state || "OPEN";
+  const limit = Number(options.limit || 25);
+  const url = `${baseUrl}/rest/api/1.0/projects/${encodeURIComponent(projectKey)}/repos/${encodeURIComponent(repoSlug)}/pull-requests?state=${encodeURIComponent(state)}&limit=${encodeURIComponent(limit)}`;
+  const pullRequests = await httpJson(url, authHeaders(env, "bitbucket"));
+  return {
+    repo,
+    credentialFile: file,
+    baseUrl,
+    projectKey,
+    repoSlug,
+    state,
+    pullRequests,
+  };
+}
+
+async function readBitbucketPullRequest(repoPath, options = {}) {
+  const { repo, file, env } = repoCredentials(repoPath);
+  const baseUrl = normalizeBaseUrl(firstValue(env, ["BITBUCKET_BASE_URL", "STASH_BASE_URL"]), "BITBUCKET_BASE_URL");
+  const { projectKey, repoSlug } = bitbucketRepoDefaults(env, options);
+  const prId = options.prId || options.pullRequestId;
+  if (!prId) throw new Error("Missing prId.");
+  const headers = authHeaders(env, "bitbucket");
+  const root = `${baseUrl}/rest/api/1.0/projects/${encodeURIComponent(projectKey)}/repos/${encodeURIComponent(repoSlug)}/pull-requests/${encodeURIComponent(prId)}`;
+  const [pullRequest, activities, changes] = await Promise.all([
+    httpJson(root, headers),
+    httpJson(`${root}/activities?limit=${encodeURIComponent(Number(options.activityLimit || 100))}`, headers),
+    httpJson(`${root}/changes?limit=${encodeURIComponent(Number(options.changeLimit || 300))}`, headers),
+  ]);
+  const result = {
+    repo,
+    credentialFile: file,
+    baseUrl,
+    projectKey,
+    repoSlug,
+    prId,
+    pullRequest,
+    activities,
+    changes,
+  };
+  if (options.includeDiff) {
+    result.diff = await httpJson(`${root}/diff?contextLines=${encodeURIComponent(Number(options.contextLines || 10))}`, headers);
+  }
+  return result;
+}
+
 function globalStatus() {
   const codexConfig = path.join(HOME, ".codex/config.toml");
   const cursorConfig = path.join(HOME, ".cursor/mcp.json");
@@ -662,6 +846,50 @@ async function main() {
           required: ["skill"],
         },
       },
+      {
+        name: "read_jira_issue",
+        description: "Read a Jira issue using per-repository credential_mcp.env. Read-only.",
+        inputSchema: {
+          type: "object",
+          properties: {
+            repoPath: { type: "string" },
+            issueKeyOrUrl: { type: "string", description: "Issue key like TXP-1175 or a Jira URL." },
+          },
+          required: ["issueKeyOrUrl"],
+        },
+      },
+      {
+        name: "list_bitbucket_pull_requests",
+        description: "List Bitbucket Server/Data Center pull requests using per-repository credential_mcp.env. Read-only.",
+        inputSchema: {
+          type: "object",
+          properties: {
+            repoPath: { type: "string" },
+            projectKey: { type: "string" },
+            repoSlug: { type: "string" },
+            state: { type: "string", enum: ["OPEN", "MERGED", "DECLINED", "ALL"] },
+            limit: { type: "number" },
+          },
+        },
+      },
+      {
+        name: "read_bitbucket_pull_request",
+        description: "Read Bitbucket Server/Data Center PR metadata, activities, changed files and optional diff. Read-only.",
+        inputSchema: {
+          type: "object",
+          properties: {
+            repoPath: { type: "string" },
+            projectKey: { type: "string" },
+            repoSlug: { type: "string" },
+            prId: { type: "number" },
+            includeDiff: { type: "boolean" },
+            contextLines: { type: "number" },
+            activityLimit: { type: "number" },
+            changeLimit: { type: "number" },
+          },
+          required: ["prId"],
+        },
+      },
     ],
   }));
 
@@ -677,6 +905,12 @@ async function main() {
       result = installProfiles(args.repoPath, args.profiles, Boolean(args.apply));
     } else if (request.params.name === "install_repository_skill") {
       result = installSkill(args.repoPath, args.skill, Boolean(args.apply));
+    } else if (request.params.name === "read_jira_issue") {
+      result = await readJiraIssue(args.repoPath, args.issueKeyOrUrl);
+    } else if (request.params.name === "list_bitbucket_pull_requests") {
+      result = await listBitbucketPullRequests(args.repoPath, args);
+    } else if (request.params.name === "read_bitbucket_pull_request") {
+      result = await readBitbucketPullRequest(args.repoPath, args);
     } else {
       throw new Error(`Unknown tool: ${request.params.name}`);
     }
