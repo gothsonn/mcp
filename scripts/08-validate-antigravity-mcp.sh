@@ -5,9 +5,28 @@ CONFIG="$HOME/.gemini/antigravity/mcp_config.json"
 PROFILE="${PROFILE:-antigravity-frontend}"
 MAX_TOOLS="${MAX_TOOLS:-100}"
 
+case "$PROFILE" in
+  antigravity-frontend)
+    SERVER_KEY="gateway-frontend"
+    ;;
+  antigravity-backend)
+    SERVER_KEY="gateway-backend"
+    ;;
+  antigravity-product-architecture)
+    SERVER_KEY="gateway-product-architecture"
+    ;;
+  antigravity-database-readonly)
+    SERVER_KEY="gateway-database-readonly"
+    ;;
+  *)
+    SERVER_KEY="${SERVER_KEY:-gateway-frontend}"
+    ;;
+esac
+
 echo "== Antigravity MCP validation =="
 echo "Config:  $CONFIG"
 echo "Profile: $PROFILE"
+echo "Server:  $SERVER_KEY"
 echo
 
 if [ ! -f "$CONFIG" ]; then
@@ -18,10 +37,10 @@ fi
 jq . "$CONFIG" >/dev/null
 echo "OK   valid JSON"
 
-if jq -e '.mcpServers["gateway-frontend"] != null' "$CONFIG" >/dev/null; then
-  echo "OK   gateway-frontend configured"
+if jq -e --arg key "$SERVER_KEY" '.mcpServers[$key] != null' "$CONFIG" >/dev/null; then
+  echo "OK   $SERVER_KEY configured"
 else
-  echo "MISS gateway-frontend"
+  echo "MISS $SERVER_KEY"
   exit 1
 fi
 echo

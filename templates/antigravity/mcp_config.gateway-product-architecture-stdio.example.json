@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "gateway-product-architecture": {
+      "command": "docker",
+      "args": ["mcp", "gateway", "run", "--profile", "antigravity-product-architecture"]
+    }
+  }
+}

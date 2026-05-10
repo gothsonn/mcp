@@ -56,6 +56,25 @@ docker mcp gateway run --profile antigravity-frontend --dry-run
 
 Resultado esperado do dry-run: 26 tools dos servidores do perfil, abaixo do limite de 100. O Docker MCP Gateway tambem pode listar tools internas de gerenciamento dinamico depois dessa contagem.
 
+Perfis adicionais criados nesta maquina:
+
+```bash
+APPLY=1 ./scripts/14-create-antigravity-docker-profiles.sh
+```
+
+| Perfil | Servidores | Dry-run observado |
+| --- | --- | --- |
+| `antigravity-backend` | GitHub Official, Context7, Sequential Thinking, Docker Docs, Maven Tools, Javadocs, OpenAPI, Node.js Sandbox | 75 tools |
+| `antigravity-product-architecture` | GitHub Official, Obsidian, Context7, Sequential Thinking, Docker Docs, OpenAPI | 62 tools |
+| `antigravity-database-readonly` | Oracle Database com allowlist read-only | 5 tools |
+
+Observacoes:
+
+- `filesystem` foi removido dos perfis automaticos porque precisa de configuracao de paths e falhou sem ela.
+- `semgrep` remoto foi removido do perfil automatico porque exige autenticacao.
+- `database-server` foi removido do perfil automatico porque a imagem nao possui manifest arm64 nesta maquina.
+- GitHub e Obsidian podem listar tools em dry-run, mas tarefas reais ainda exigem secrets/config local no Docker MCP.
+
 ### Opcao 2 - Gateway/proxy dedicado
 
 Avaliar depois:
@@ -103,11 +122,14 @@ Nao incluir:
 
 Ferramentas:
 
-- GitHub.
-- Filesystem scoped ao projeto.
-- Docker.
-- JetBrains MCP, se o projeto principal estiver aberto no IntelliJ.
-- Semgrep.
+- GitHub Official.
+- Context7.
+- Sequential Thinking.
+- Docker Docs.
+- Maven Tools.
+- Javadocs.
+- OpenAPI.
+- Node.js Sandbox.
 
 Usar para:
 
@@ -130,9 +152,8 @@ Nao incluir:
 
 Ferramentas:
 
-- MCP Toolbox for Databases.
-- Ferramentas SQL com usuario read-only.
-- Schema docs.
+- Oracle Database MCP com allowlist sem `execute_query`.
+- PostgreSQL/MySQL/SQL Server/DB2 entram depois de validar MCP read-only compativel com esta maquina.
 
 Usar para:
 
@@ -239,6 +260,7 @@ Use o perfil product-architecture. Transforme a demanda em epico, historias, cri
 - Todo MCP com token deve ficar fora do repositorio.
 - Todo acesso a banco deve ter usuario proprio para agente.
 - Toda tarefa com ferramenta externa deve deixar log/auditoria.
+- Nao criar perfil separado para `code-review`: review roda junto com `frontend` ou `backend`.
 
 ## Checklist de validacao
 

@@ -104,7 +104,7 @@ Use o perfil product-architecture. Atue como PO, PM, Arquiteto e Engenheiro de s
 | Codex | `product-architecture`, `frontend`, `backend`, `code-review` | Codex pode orquestrar a sequencia e versionar docs/scripts. |
 | Cursor | `frontend`, `backend`, `code-review` | Melhor para iteracao rapida de codigo. Produto/arquitetura entram como contexto aprovado. |
 | IntelliJ IDEA | `backend` | Principalmente Java/Spring/Quarkus, run configs, problemas e modulos. |
-| Antigravity | `frontend`, futuro `backend`, futuro `product-architecture` | Manter poucos tools por perfil por causa do limite de 100 tools. |
+| Antigravity | `frontend`, `backend`, `product-architecture`, auxiliar `database-readonly` | Manter um gateway por vez por causa do limite de 100 tools. |
 | Obsidian | `product-architecture` | Segundo cerebro, decisoes, ADRs, specs e runbooks. |
 
 ## Perfis Docker MCP Gateway
@@ -130,7 +130,7 @@ Nao incluir:
 - Obsidian com escrita.
 - GitHub amplo.
 
-### Futuro `antigravity-backend`
+### `antigravity-backend`
 
 Responsabilidade:
 
@@ -138,12 +138,16 @@ Responsabilidade:
 - Code review backend/API.
 - Testes, contratos, logs, seguranca e performance.
 
-Possiveis tools:
+Tools configuradas:
 
-- JetBrains MCP proxy, quando fizer sentido.
-- Semgrep.
-- GitHub scoped.
-- Filesystem scoped ao repo.
+- GitHub Official.
+- Context7.
+- Sequential Thinking.
+- Docker Docs.
+- Maven Tools.
+- Javadocs.
+- OpenAPI.
+- Node.js Sandbox.
 
 Nao incluir:
 
@@ -151,7 +155,7 @@ Nao incluir:
 - Banco com escrita.
 - Cloud admin.
 
-### Futuro `antigravity-product-architecture`
+### `antigravity-product-architecture`
 
 Responsabilidade:
 
@@ -161,12 +165,14 @@ Responsabilidade:
 - Engenheiro de software.
 - Specs, ADRs, riscos, trade-offs e criterios de aceite.
 
-Possiveis tools:
+Tools configuradas:
 
 - Obsidian scoped.
-- Graphify.
-- GitHub issues/PR read.
-- Filesystem scoped a docs/specs.
+- GitHub Official.
+- Context7.
+- Sequential Thinking.
+- Docker Docs.
+- OpenAPI.
 
 Nao incluir:
 
@@ -174,6 +180,41 @@ Nao incluir:
 - Escrita em banco.
 - Cloud admin.
 - Implementacao automatica sem gate humano.
+
+### `antigravity-database-readonly`
+
+Responsabilidade:
+
+- Diagnostico de banco.
+- Leitura de schema.
+- Indices.
+- Constraints.
+- Queries diagnosticas aprovadas.
+
+Tools configuradas:
+
+- Oracle Database com allowlist sem `execute_query`.
+
+Observacao:
+
+- PostgreSQL/MySQL/SQL Server/DB2 continuam fora do gateway automatico ate haver MCP read-only validado nesta maquina.
+- `database-server` do catalogo Docker foi testado e removido do perfil automatico porque a imagem nao tem manifest arm64 nesta maquina.
+
+Nao incluir:
+
+- DDL.
+- DML.
+- Credenciais de producao com escrita.
+- Queries livres sem usuario read-only.
+
+## Code review
+
+Nao existe perfil Docker MCP Gateway separado para `code-review`.
+
+O review fica embutido em:
+
+- `antigravity-frontend`: code review frontend/UI.
+- `antigravity-backend`: code review backend/API.
 
 ## Regra de composicao
 

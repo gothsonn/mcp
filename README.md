@@ -63,6 +63,7 @@ Este repositorio nao deve versionar:
 | `scripts/11-install-optional-complements.sh` | Instala complementos opcionais aprovados, com escopo explicito. | Sim, com confirmacao por variavel |
 | `scripts/12-configure-global-mcp-control.sh` | Configura o MCP global de controle em Codex, Cursor e Antigravity. | Sim, com confirmacao por variavel |
 | `scripts/13-validate-global-mcp-control.sh` | Valida o MCP global de controle. | Nao |
+| `scripts/14-create-antigravity-docker-profiles.sh` | Cria perfis Docker MCP Gateway para Antigravity. | Sim, com confirmacao por variavel |
 
 ## Como rodar em modo seguro
 

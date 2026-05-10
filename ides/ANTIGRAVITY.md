@@ -104,6 +104,28 @@ Docker MCP Gateway via stdio, recomendado para o perfil validado nesta maquina:
 }
 ```
 
+Templates adicionais por perfil:
+
+```text
+templates/antigravity/mcp_config.gateway-backend-stdio.example.json
+templates/antigravity/mcp_config.gateway-product-architecture-stdio.example.json
+templates/antigravity/mcp_config.gateway-database-readonly-stdio.example.json
+```
+
+Aplicar um perfil por vez:
+
+```bash
+APPLY=1 PROFILE=gateway-backend-stdio ./scripts/05-configure-antigravity.sh
+APPLY=1 PROFILE=gateway-product-architecture-stdio ./scripts/05-configure-antigravity.sh
+APPLY=1 PROFILE=gateway-database-readonly-stdio ./scripts/05-configure-antigravity.sh
+```
+
+Criar ou validar os perfis Docker MCP Gateway:
+
+```bash
+APPLY=1 ./scripts/14-create-antigravity-docker-profiles.sh
+```
+
 ## O que evitar
 
 - Nao adicionar varios MCPs globais de uma vez.
