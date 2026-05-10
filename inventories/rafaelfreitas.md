@@ -10,10 +10,10 @@
 
 ```text
 origin: https://github.com/gothsonn/rafaelfreitas.git
-remote main: a7a910ec0187b32eafef4285e427d910d23b4095
+remote main: 736fc05 Add fullstack portfolio baseline and agent rules
 ```
 
-O remote foi vinculado ao repo local. O repo local ainda esta sem commit inicial, enquanto o remoto ja possui `main`; antes do primeiro push, reconciliar o conteudo remoto com a baseline local.
+O remote foi vinculado ao repo local e o baseline fullstack foi enviado para `origin/main`.
 
 ## Estrutura
 
@@ -28,20 +28,15 @@ rafaelfreitas/
 
 ## Estado Git observado
 
-O repositorio existe, mas ainda esta sem commit inicial:
+Baseline publicado:
 
 ```text
-## No commits yet on main
-?? .DS_Store
-?? .idea/
-?? README.md
-?? backend/
-?? deploy/
-?? docker-compose.yml
-?? frontend/
+## main...origin/main
+736fc05 Add fullstack portfolio baseline and agent rules
+a7a910e Initial commit
 ```
 
-Antes de instalar complementos por projeto ou gerar `graphify-out/`, criar uma baseline minima no proprio repo `rafaelfreitas`.
+Arquivos locais ignorados continuam fora do Git: `.DS_Store`, `.idea/`, `deploy/keys/`, `frontend/node_modules/`, `frontend/dist/`, `frontend/.angular/`, `backend/target/` e `backend/spring-petclinic/`.
 
 ## Subprojetos
 
@@ -87,9 +82,8 @@ Excluir:
 
 ## Ordem segura
 
-1. Ajustar `.gitignore` na raiz de `rafaelfreitas`.
-2. Fazer commit inicial do repo `rafaelfreitas`, se esse for o plano.
-3. Instalar regras Graphify no repo:
+1. Baseline Git publicado.
+2. Regras Graphify instaladas no repo:
 
 ```bash
 TARGET_REPO=/Users/rafaelpereirafreitas/Sites/rafaelfreitas \
@@ -97,14 +91,14 @@ APPLY=1 INSTALL_GRAPHIFY_PROJECT=1 \
 /Users/rafaelpereirafreitas/Sites/mcp/scripts/11-install-optional-complements.sh
 ```
 
-4. Gerar grafo inicial:
+3. Gerar grafo inicial:
 
 ```bash
 cd /Users/rafaelpereirafreitas/Sites/rafaelfreitas
 graphify .
 ```
 
-5. Revisar `graphify-out/GRAPH_REPORT.md` antes de decidir se algum artefato entra no Git.
+4. Revisar `graphify-out/GRAPH_REPORT.md` antes de decidir se algum artefato entra no Git.
 
 ## Perfis a usar
 
