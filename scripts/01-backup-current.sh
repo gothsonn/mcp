@@ -18,6 +18,8 @@ copy_if_exists() {
 }
 
 copy_if_exists "$HOME/.codex/config.toml" "codex-config.toml"
+copy_if_exists "$HOME/.codex/AGENTS.md" "codex-AGENTS.md"
+copy_if_exists "$HOME/.codex/RTK.md" "codex-RTK.md"
 copy_if_exists "$HOME/.cursor/mcp.json" "cursor-mcp.json"
 copy_if_exists "$HOME/.gemini/antigravity/mcp_config.json" "antigravity-mcp_config.json"
 
@@ -32,4 +34,3 @@ fi
 
 echo
 echo "Backup directory: $BACKUP_DIR"
-

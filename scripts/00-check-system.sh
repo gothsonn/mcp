@@ -34,6 +34,8 @@ echo
 echo "== Config files =="
 for path in \
   "$HOME/.codex/config.toml" \
+  "$HOME/.codex/AGENTS.md" \
+  "$HOME/.codex/RTK.md" \
   "$HOME/.cursor/mcp.json" \
   "$HOME/.gemini/antigravity/mcp_config.json"; do
   if [ -f "$path" ]; then
@@ -57,4 +59,3 @@ find "$HOME/Sites" -maxdepth 3 -type f \( \
   -name composer.json -o \
   -name angular.json \
 \) -print 2>/dev/null | sort || true
-
