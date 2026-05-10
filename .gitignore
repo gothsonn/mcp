@@ -1,0 +1,25 @@
+# Local backups and generated inventories
+backups/
+reports/
+tmp/
+*.bak
+*.local
+
+# Secrets and environment files
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+
+# OS/editor noise
+.DS_Store
+.idea/
+.vscode/
+
+# Generated Graphify outputs when this repo is used as a target
+graphify-out/
+

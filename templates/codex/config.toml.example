@@ -1,0 +1,48 @@
+# Codex config template without secrets.
+# Copy to: ~/.codex/config.toml
+# Review before applying on each machine.
+
+model = "gpt-5.5"
+model_reasoning_effort = "medium"
+personality = "pragmatic"
+
+[features]
+multi_agent = true
+memories = true
+
+[mcp_servers]
+# Add external MCP servers one by one after validation.
+# Example:
+# [mcp_servers.openaiDeveloperDocs]
+# url = "https://developers.openai.com/mcp"
+
+[plugins]
+[plugins.'github@openai-curated']
+enabled = true
+
+[plugins."cloudflare@openai-curated"]
+enabled = false
+
+[plugins."computer-use@openai-bundled"]
+enabled = true
+
+[plugins."documents@openai-primary-runtime"]
+enabled = true
+
+[plugins."spreadsheets@openai-primary-runtime"]
+enabled = true
+
+[plugins."presentations@openai-primary-runtime"]
+enabled = true
+
+[plugins."browser-use@openai-bundled"]
+enabled = true
+
+[projects]
+# Add trusted projects explicitly on each machine.
+# [projects."${HOME}/Sites/mcp"]
+# trust_level = "trusted"
+
+[memories]
+no_memories_if_mcp_or_web_search = true
+
