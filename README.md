@@ -54,6 +54,7 @@ Este repositorio nao deve versionar:
 | `scripts/03-configure-codex.sh` | Prepara configuracao Codex a partir de template. | Sim, com confirmacao por variavel |
 | `scripts/04-configure-cursor.sh` | Prepara configuracao Cursor a partir de template. | Sim, com confirmacao por variavel |
 | `scripts/05-configure-antigravity.sh` | Prepara configuracao Antigravity a partir de template. | Sim, com confirmacao por variavel |
+| `scripts/06-validate-jetbrains-mcp.sh` | Valida plugin/config MCP JetBrains e clientes externos. | Nao |
 
 ## Como rodar em modo seguro
 

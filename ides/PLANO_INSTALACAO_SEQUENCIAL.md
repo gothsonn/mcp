@@ -257,6 +257,11 @@ Transformar o IntelliJ IDEA na fonte de contexto Java/backend para Codex e, depo
 4. Habilitar MCP Server.
 5. Usar `Clients Auto-Configuration` para Codex.
 6. Manter execucao de run configurations com confirmacao humana.
+7. Se Auto-Configure nao aplicar no Codex, registrar manualmente:
+
+```bash
+codex mcp add jetbrains -- npx -y @jetbrains/mcp-proxy
+```
 
 ### Arquivos envolvidos
 
@@ -270,6 +275,7 @@ Transformar o IntelliJ IDEA na fonte de contexto Java/backend para Codex e, depo
 ```bash
 sed -n '1,220p' "/Users/rafaelpereirafreitas/Library/Application Support/JetBrains/IntelliJIdea2025.3/options/llm.mcpServers.xml"
 codex mcp list
+./scripts/06-validate-jetbrains-mcp.sh
 ```
 
 ### Teste funcional

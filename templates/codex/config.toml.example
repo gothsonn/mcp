@@ -11,10 +11,13 @@ multi_agent = true
 memories = true
 
 [mcp_servers]
-# Add external MCP servers one by one after validation.
-# Example:
-# [mcp_servers.openaiDeveloperDocs]
-# url = "https://developers.openai.com/mcp"
+
+[mcp_servers.openaiDeveloperDocs]
+url = "https://developers.openai.com/mcp"
+
+[mcp_servers.jetbrains]
+command = "npx"
+args = ["-y", "@jetbrains/mcp-proxy"]
 
 [plugins]
 [plugins.'github@openai-curated']
@@ -45,4 +48,3 @@ enabled = true
 
 [memories]
 no_memories_if_mcp_or_web_search = true
-

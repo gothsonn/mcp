@@ -23,6 +23,11 @@ Estado encontrado no IntelliJ IDEA 2025.3:
 - `google-ai-mcp-local` habilitado.
 - Plugin `mcpserver` instalado.
 
+Estado encontrado no IntelliJ IDEA 2026.1:
+
+- `google-ai-mcp-local` habilitado.
+- Plugin `mcpserver` instalado.
+
 Outros IDEs JetBrains encontrados:
 
 - WebStorm 2025.3 tem `google-ai-mcp-local`, mas desabilitado.
@@ -95,6 +100,8 @@ No Codex, depois do Auto-Configure:
 
 ```bash
 codex mcp list
+codex mcp get jetbrains
+./scripts/06-validate-jetbrains-mcp.sh
 ```
 
 Checklist:

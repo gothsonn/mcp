@@ -61,6 +61,13 @@ JetBrains MCP Server, apos configurar o IntelliJ IDEA:
 codex mcp list
 ```
 
+Configuracao manual validada:
+
+```bash
+codex mcp add jetbrains -- npx -y @jetbrains/mcp-proxy
+codex mcp get jetbrains
+```
+
 Uso esperado:
 
 - Ler problemas de arquivos via inspecoes do IntelliJ.
@@ -88,6 +95,8 @@ Depois de cada alteracao:
 
 ```bash
 codex mcp list
+codex mcp get openaiDeveloperDocs
+codex mcp get jetbrains
 sed -n '1,220p' /Users/rafaelpereirafreitas/.codex/config.toml
 ```
 
