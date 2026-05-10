@@ -6,7 +6,14 @@
     },
     "openaiDeveloperDocs": {
       "url": "https://developers.openai.com/mcp"
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["@playwright/mcp@latest"]
+    },
+    "jetbrains": {
+      "command": "npx",
+      "args": ["-y", "@jetbrains/mcp-proxy"]
     }
   }
 }
-

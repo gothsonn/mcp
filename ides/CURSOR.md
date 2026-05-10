@@ -81,6 +81,20 @@ Playwright MCP para projetos frontend:
 }
 ```
 
+Configuracao Cursor validada na maquina:
+
+- `MCP_DOCKER`
+- `GitKraken`
+- `openaiDeveloperDocs`
+- `playwright`
+- `jetbrains`
+
+Validar com:
+
+```bash
+./scripts/07-validate-cursor-mcp.sh
+```
+
 Skills recomendadas:
 
 - Impeccable em Angular/React/Next.js.

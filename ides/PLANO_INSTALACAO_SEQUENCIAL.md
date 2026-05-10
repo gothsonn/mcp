@@ -350,6 +350,7 @@ Adicionar sem apagar os existentes:
 
 ```bash
 jq . /Users/rafaelpereirafreitas/.cursor/mcp.json
+./scripts/07-validate-cursor-mcp.sh
 ```
 
 Se `cursor-agent` estiver disponivel:
