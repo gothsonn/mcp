@@ -96,5 +96,6 @@ Prerequisitos cobertos pelo script:
 - `ides/GLOBAL_VS_REPOSITORIO.md`
 - `ides/MCP_STACK_RECOMENDADO.md`
 - `ides/ANTIGRAVITY_SUPER_AGENT.md`
+- `ides/PERFIS_AGENTES.md`
 - `ides/OBSIDIAN.md`
 - `ides/COMPLEMENTOS_OPCIONAIS.md`

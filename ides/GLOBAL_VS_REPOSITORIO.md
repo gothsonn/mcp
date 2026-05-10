@@ -94,7 +94,7 @@ npx skills add JuliusBrussee/caveman -a antigravity
 | Config por repositorio | Sim, sempre. `graphify-out/` e `GRAPH_REPORT.md` devem ser por repo/grupo. |
 | Usar em Codex | Sim, para arquitetura, code review e onboarding. |
 | Usar em Cursor | Sim, para repos frontend/fullstack grandes. |
-| Usar em Antigravity | Via perfil `architecture`, nao global. |
+| Usar em Antigravity | Via perfil `product-architecture`, nao global. |
 | Usar em IntelliJ | Indireto; o IntelliJ fornece contexto Java, Graphify fornece mapa do repo. |
 | Risco | Artefatos podem ficar grandes; decidir se entram no git ou ficam locais. |
 
@@ -182,7 +182,7 @@ Decisao:
 | --- | --- | --- | --- | --- |
 | RTK | Global + ativar primeiro | Indireto | Ativar depois do Cursor | Ativar depois do gateway |
 | Caveman | Opcional por perfil | Nao prioridade | Opcional por perfil | Opcional, baixa prioridade |
-| Graphify | Skill + grafo por repo | Contexto indireto | Skill + grafo por repo | Perfil `architecture` |
+| Graphify | Skill + grafo por repo | Contexto indireto | Skill + grafo por repo | Perfil `product-architecture` |
 | Impeccable | Por repo frontend | Nao prioridade | Por repo frontend | Skill no perfil `frontend` |
 | Huashu | Por projeto visual | Nao prioridade | Por projeto visual | Perfil `frontend`, com Playwright |
 | Taste | Perfil local + por projeto | Nao prioridade | Perfil local + por projeto | Somente apos validar MCP/OAuth |
@@ -233,4 +233,3 @@ Antes de instalar complementos, escolher um repo piloto por categoria:
 2. Frontend React/Vite: `/Users/rafaelpereirafreitas/Sites/projeto_qrcode_movidesk`
 3. Monorepo grande: `/Users/rafaelpereirafreitas/Sites/easysuite`
 4. RPA/Python: `/Users/rafaelpereirafreitas/Sites/automacao-pontos`
-

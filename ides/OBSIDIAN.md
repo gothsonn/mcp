@@ -73,12 +73,12 @@ Consulte as notas de arquitetura do projeto no Obsidian e depois use o contexto 
 
 ### Antigravity
 
-Usar Obsidian somente nos perfis `architecture` ou `product-delivery`, nao no perfil `frontend` validado inicialmente.
+Usar Obsidian somente no perfil `product-architecture`, nao nos perfis `frontend` ou `backend` validados para execucao.
 
 Prompt recomendado:
 
 ```text
-Use o perfil architecture. Leia as notas do projeto no Obsidian, gere riscos, trade-offs e ADR. Nao implemente codigo ainda.
+Use o perfil product-architecture. Leia as notas do projeto no Obsidian, gere riscos, trade-offs, SPEC e ADR. Nao implemente codigo ainda.
 ```
 
 ## MCP de Obsidian

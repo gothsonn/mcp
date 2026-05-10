@@ -229,7 +229,7 @@ Primeiro ciclo:
 | Frontend React/Vite | `/Users/rafaelpereirafreitas/Sites/projeto_qrcode_movidesk` | Impeccable, Taste, Playwright |
 | Frontend Angular | `/Users/rafaelpereirafreitas/Sites/PortoSeguro/auto-cotacao-web` | Impeccable, Playwright |
 | Fullstack pessoal | `/Users/rafaelpereirafreitas/Sites/rafaelfreitas` | Graphify, Impeccable, Taste |
-| Monorepo grande | `/Users/rafaelpereirafreitas/Sites/easysuite` | Graphify, architecture profile |
+| Monorepo grande | `/Users/rafaelpereirafreitas/Sites/easysuite` | Graphify, product-architecture profile |
 | Java/Next corporativo | `/Users/rafaelpereirafreitas/Sites/Cresol` | Graphify, JetBrains, Playwright por UI |
 
 ## Por IDE
@@ -239,4 +239,4 @@ Primeiro ciclo:
 | Codex | RTK global, Graphify skill, Impeccable por repo, Obsidian scoped. |
 | Cursor | Playwright, Impeccable por repo, Graphify por repo. |
 | IntelliJ IDEA | JetBrains MCP como contexto principal; Graphify como artefato externo. |
-| Antigravity | Somente via perfis Docker MCP Gateway; Graphify no perfil `architecture`, Huashu no perfil `frontend` quando necessario. |
+| Antigravity | Somente via perfis Docker MCP Gateway; Graphify no perfil `product-architecture`, Huashu no perfil `frontend` quando necessario. |

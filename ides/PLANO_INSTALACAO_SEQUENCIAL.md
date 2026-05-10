@@ -157,8 +157,14 @@ Perfis planejados:
 - `frontend`.
 - `backend`.
 - `database-readonly`.
-- `architecture`.
-- `product-delivery`.
+- `product-architecture`.
+
+Regra fixa:
+
+- `frontend` = especialista frontend + code review.
+- `backend` = especialista backend + code review.
+- `product-architecture` = PO + PM + Arquiteto + Engenheiro de software, sem implementar codigo direto.
+- Tarefas ponta a ponta devem compor perfis em sequencia, nao misturar todas as responsabilidades dentro de `frontend` ou `backend`.
 
 Validacao inicial:
 
@@ -411,8 +417,7 @@ Usar:
 1. `frontend`.
 2. `backend`.
 3. `database-readonly`.
-4. `architecture`.
-5. `product-delivery`.
+4. `product-architecture`.
 
 ### Configuracao inicial recomendada
 
@@ -525,7 +530,7 @@ Primeiro ciclo:
 
 - Codex acessa arquivos Markdown via filesystem quando necessario.
 - Cursor acessa somente notas do projeto aberto.
-- Antigravity acessa Obsidian somente pelo perfil `architecture` ou `product-delivery`.
+- Antigravity acessa Obsidian somente pelo perfil `product-architecture`.
 
 Segundo ciclo, se fizer sentido:
 

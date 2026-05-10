@@ -69,6 +69,10 @@ Eu nao instalaria esses antes de testar o Docker MCP Gateway, porque voce ja tem
 
 ## Perfis recomendados
 
+Decisao fixa: `frontend` e `backend` sao perfis de execucao especializada + code review. PO, PM, Arquiteto e Engenheiro de software ficam em perfil separado de governanca, chamado `product-architecture`.
+
+Referencia: `ides/PERFIS_AGENTES.md`.
+
 ### Perfil `frontend`
 
 Ferramentas:
@@ -86,12 +90,14 @@ Usar para:
 - Next.js.
 - Validacao visual.
 - Prototipos.
+- Code review frontend.
 
 Nao incluir:
 
 - Banco de producao.
 - AWS/GCP admin.
 - Slack/Gmail.
+- PO/PM/arquitetura ampla.
 
 ### Perfil `backend`
 
@@ -111,12 +117,14 @@ Usar para:
 - PHP.
 - Testes.
 - CI/CD.
+- Code review backend/API.
 
 Nao incluir:
 
 - Browser se nao houver UI.
 - Figma.
 - Banco com escrita.
+- PO/PM/planejamento de sprint.
 
 ### Perfil `database-readonly`
 
@@ -140,7 +148,7 @@ Regras:
 - Mascarar PII.
 - Logar toda consulta.
 
-### Perfil `architecture`
+### Perfil `product-architecture`
 
 Ferramentas:
 
@@ -152,27 +160,20 @@ Ferramentas:
 
 Usar para:
 
+- PO.
+- PM.
 - ADR.
 - desenho de solucao.
 - analise de legado.
 - planejamento tecnico.
-
-### Perfil `product-delivery`
-
-Ferramentas:
-
-- Obsidian.
-- GitHub issues.
-- Notion ou docs, se houver.
-- Sem acesso a banco por padrao.
-
-Usar para:
-
-- PO.
-- Scrum Master.
-- especificacao.
-- backlog.
 - criterios de aceite.
+- riscos e trade-offs.
+
+Nao incluir:
+
+- implementacao automatica sem SPEC aprovada.
+- deploy.
+- banco/cloud com escrita.
 
 ## Configuracao do Antigravity
 
@@ -220,13 +221,13 @@ Use o perfil database-readonly. Nao escreva no banco. Gere diagnostico, explain 
 ### Arquitetura
 
 ```text
-Use o perfil architecture. Gere mapa de componentes, riscos, trade-offs e ADR. Nao implemente ainda.
+Use o perfil product-architecture. Gere mapa de componentes, riscos, trade-offs, RESEARCH, SPEC e ADR. Nao implemente ainda.
 ```
 
-### PO/Scrum
+### PO/PM
 
 ```text
-Use o perfil product-delivery. Transforme a demanda em epico, historias, criterios de aceite, riscos e plano de sprint.
+Use o perfil product-architecture. Transforme a demanda em epico, historias, criterios de aceite, riscos e plano de entrega.
 ```
 
 ## Politica de seguranca
