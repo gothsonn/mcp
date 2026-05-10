@@ -43,6 +43,9 @@ RUN_GRAPHIFY=0 \
 ./scripts/15-bootstrap-repo.sh
 ```
 
+Use `RUN_GRAPHIFY=0` para repositorios corporativos ou sensiveis ate aprovar
+explicitamente a indexacao do conteudo pelo backend configurado do Graphify.
+
 ## Tipos detectados
 
 | Tipo | Indicadores | Perfis |
@@ -93,3 +96,5 @@ No Obsidian:
 - `graphify-out/` fica local por padrao.
 - Obsidian recebe resumo operacional, nao logs brutos.
 - `.gitignore` recebe apenas padroes ausentes sob o marcador `# mcp bootstrap defaults`.
+- Skills instaladas via `npx`, como Impeccable, sao executadas pelo MCP global
+  com registry publico do npm para nao herdar `.npmrc` corporativo do repo alvo.

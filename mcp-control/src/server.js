@@ -580,8 +580,15 @@ Rules:
       continue;
     }
     try {
+      const env = { ...process.env };
+      if (command[0] === "npx") {
+        env.NPM_CONFIG_REGISTRY = "https://registry.npmjs.org/";
+        env.npm_config_registry = "https://registry.npmjs.org/";
+        env.npm_config_always_auth = "false";
+      }
       const output = execFileSync(command[0], command.slice(1), {
         cwd: repo,
+        env,
         encoding: "utf8",
         stdio: ["ignore", "pipe", "pipe"],
       });
