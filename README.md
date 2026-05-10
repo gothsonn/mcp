@@ -64,6 +64,7 @@ Este repositorio nao deve versionar:
 | `scripts/12-configure-global-mcp-control.sh` | Configura o MCP global de controle em Codex, Cursor e Antigravity. | Sim, com confirmacao por variavel |
 | `scripts/13-validate-global-mcp-control.sh` | Valida o MCP global de controle. | Nao |
 | `scripts/14-create-antigravity-docker-profiles.sh` | Cria perfis Docker MCP Gateway para Antigravity. | Sim, com confirmacao por variavel |
+| `scripts/15-bootstrap-repo.sh` | Detecta stack e prepara perfis, skills, `.gitignore`, Graphify e Obsidian para um repo. | Sim, com confirmacao por variavel |
 
 ## Como rodar em modo seguro
 
@@ -104,6 +105,7 @@ Prerequisitos cobertos pelo script:
 - `ides/PERFIS_AGENTES.md`
 - `ides/CRITERIOS_PERFIS_E_STACKS.md`
 - `ides/GUIA_USO_PERFIS_SKILLS_OBSIDIAN.md`
+- `ides/BOOTSTRAP_NOVO_REPOSITORIO.md`
 - `ides/MCP_CONTROL_GLOBAL.md`
 - `ides/OBSIDIAN.md`
 - `ides/COMPLEMENTOS_OPCIONAIS.md`

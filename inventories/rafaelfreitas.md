@@ -10,7 +10,7 @@
 
 ```text
 origin: https://github.com/gothsonn/rafaelfreitas.git
-remote main: 14caca5 Enrich agent profiles with stack criteria
+remote main: 1541763 Bootstrap repository agent stack
 ```
 
 O remote foi vinculado ao repo local, o baseline fullstack foi enviado para `origin/main` e o repo piloto recebeu os perfis/skills padrao.
@@ -32,6 +32,7 @@ Estado publicado:
 
 ```text
 ## main...origin/main
+1541763 Bootstrap repository agent stack
 14caca5 Enrich agent profiles with stack criteria
 5afcaaf Add default profile skills
 5cfa8b5 Add standard agent profiles
@@ -113,6 +114,16 @@ graphify-out/GRAPH_REPORT.md
 
 Grafo inicial: 110 nodes, 156 edges, 15 communities.
 
+Bootstrap validado em 2026-05-10:
+
+```bash
+TARGET_REPO=/Users/rafaelpereirafreitas/Sites/rafaelfreitas \
+APPLY=1 RUN_GRAPHIFY=1 UPDATE_OBSIDIAN=1 \
+/Users/rafaelpereirafreitas/Sites/mcp/scripts/15-bootstrap-repo.sh
+```
+
+Resultado Graphify apos bootstrap: 116 nodes, 162 edges, 16 communities.
+
 ## Perfis a usar
 
 Perfis instalados em `.agents/profiles/`:
@@ -121,6 +132,13 @@ Perfis instalados em `.agents/profiles/`:
 - `backend`
 - `product-architecture`
 - `code-review`
+- `repo-stack`
+
+Tipo detectado no bootstrap:
+
+```text
+fullstack-monorepo
+```
 
 Skills instaladas por padrao:
 
