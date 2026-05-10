@@ -108,9 +108,11 @@ Repos candidatos para primeiro uso:
 Comandos:
 
 ```bash
-pip install graphifyy
-graphify install
-graphify /Users/rafaelpereirafreitas/Sites/easysuite
+uv tool install 'graphifyy[gemini]'
+graphify install --platform codex
+cd /Users/rafaelpereirafreitas/Sites/easysuite
+graphify extract . --backend gemini
+graphify cluster-only .
 ```
 
 ### Impeccable

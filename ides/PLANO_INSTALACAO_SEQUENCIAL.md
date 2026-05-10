@@ -197,9 +197,11 @@ Primeiro ciclo:
 Instalar somente se houver repo piloto grande/legado para validar:
 
 ```bash
-pip install graphifyy
-graphify install
-graphify /caminho/do/projeto
+uv tool install 'graphifyy[gemini]'
+graphify install --platform codex
+cd /caminho/do/projeto
+graphify extract . --backend gemini
+graphify cluster-only .
 ```
 
 Se nao houver repo piloto, deixar como pendente e seguir.
@@ -605,12 +607,13 @@ npx skills add JuliusBrussee/caveman -a antigravity
 Objetivo: conhecimento estrutural de repos grandes.
 
 ```bash
-uv tool install graphifyy
+uv tool install 'graphifyy[gemini]'
 graphify install --platform codex
 cd /caminho/do/projeto
 graphify cursor install
 graphify antigravity install
-graphify /caminho/do/projeto
+graphify extract . --backend gemini
+graphify cluster-only .
 ```
 
 Gate:

@@ -95,10 +95,21 @@ APPLY=1 INSTALL_GRAPHIFY_PROJECT=1 \
 
 ```bash
 cd /Users/rafaelpereirafreitas/Sites/rafaelfreitas
-graphify .
+graphify extract . --backend gemini
+graphify cluster-only .
 ```
 
 4. Revisar `graphify-out/GRAPH_REPORT.md` antes de decidir se algum artefato entra no Git.
+
+Resultado validado:
+
+```text
+graphify-out/graph.json
+graphify-out/graph.html
+graphify-out/GRAPH_REPORT.md
+```
+
+Grafo inicial: 110 nodes, 156 edges, 15 communities.
 
 ## Perfis a usar
 

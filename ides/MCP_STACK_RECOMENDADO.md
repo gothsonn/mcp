@@ -105,14 +105,15 @@ Uso: arquitetura, code review em repos grandes, onboarding em projeto desconheci
 Instalacao:
 
 ```bash
-pip install graphifyy
-graphify install
+uv tool install 'graphifyy[gemini]'
+graphify install --platform codex
 ```
 
 Uso por projeto:
 
 ```bash
-graphify /caminho/do/projeto
+graphify extract /caminho/do/projeto --backend gemini
+graphify cluster-only /caminho/do/projeto
 ```
 
 Artefatos esperados:
@@ -217,4 +218,3 @@ Modo isolado para evitar misturar sessoes:
 - Impeccable: https://github.com/pbakaus/impeccable
 - Huashu Design: https://github.com/alchaincyf/huashu-design
 - Taste: https://www.alexkehr.com/projects/taste
-

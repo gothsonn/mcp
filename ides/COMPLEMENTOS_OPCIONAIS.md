@@ -18,7 +18,7 @@ Regra:
 | RTK | Instalado em `/opt/homebrew/bin/rtk`, versao `0.39.0`. | Global aprovado. |
 | uv | Instalado via Homebrew. | Usar para instalar CLIs Python isoladas. |
 | npx | Instalado via Node/NVM. | Usar para skills por projeto. |
-| Graphify | Instalado via `uv tool install graphifyy`; binario em `~/.local/bin/graphify`. | CLI global aprovado; regras e grafo por repo. |
+| Graphify | Instalado via `uv tool install 'graphifyy[gemini]'`; binario em `~/.local/bin/graphify`. | CLI global aprovado; regras e grafo por repo. |
 | Caveman | Nao instalado ainda. | Primeiro rodar dry-run, depois por IDE/perfil. |
 | Impeccable | Nao instalado globalmente. | Instalar por projeto frontend piloto. |
 | Huashu Design | Nao instalado globalmente. | Instalar por projeto visual/piloto. |
@@ -89,7 +89,7 @@ Uso:
 Instalacao segura:
 
 ```bash
-uv tool install graphifyy
+uv tool install 'graphifyy[gemini]'
 graphify install --platform codex
 ```
 
@@ -101,7 +101,7 @@ Estado aplicado neste repo:
 .cursor/rules/graphify.mdc
 ```
 
-Essas regras foram geradas para o repo `mcp`. Elas nao geram o grafo por si so; o grafo continua sendo criado por projeto com `/graphify .` ou `graphify .`.
+Essas regras foram geradas para o repo `mcp`. Elas nao geram o grafo por si so. No terminal, o grafo e criado com `graphify extract . --backend gemini`. Dentro de agentes que suportam slash commands, a skill pode aceitar `/graphify .`.
 
 Regras por projeto:
 
@@ -115,7 +115,8 @@ Uso por projeto:
 
 ```bash
 cd /caminho/do/repo
-graphify .
+graphify extract . --backend gemini
+graphify cluster-only .
 ```
 
 Artefatos esperados:
@@ -133,6 +134,7 @@ Politica:
 - Decidir por repo se o `GRAPH_REPORT.md` entra no Git.
 - Nao rodar Graphify em repos com dados sensiveis sem revisar escopo.
 - Se `graphify` nao estiver no PATH, usar `~/.local/bin/graphify` ou rodar `uv tool update-shell`.
+- Para atualizacoes depois de mudancas de codigo, usar `graphify update .`.
 
 ## Impeccable
 

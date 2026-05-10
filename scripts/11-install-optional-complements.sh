@@ -63,7 +63,7 @@ if [ "$INSTALL_GRAPHIFY" = "1" ]; then
     exit 1
   fi
 
-  run_or_print uv tool install graphifyy
+  run_or_print uv tool install 'graphifyy[gemini]'
   run_or_print uvx --from graphifyy graphify install --platform codex
 fi
 
