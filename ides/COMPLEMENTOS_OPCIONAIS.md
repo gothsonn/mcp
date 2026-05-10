@@ -240,3 +240,22 @@ Primeiro ciclo:
 | Cursor | Playwright, Impeccable por repo, Graphify por repo. |
 | IntelliJ IDEA | JetBrains MCP como contexto principal; Graphify como artefato externo. |
 | Antigravity | Somente via perfis Docker MCP Gateway; Graphify no perfil `product-architecture`, Huashu no perfil `frontend` quando necessario. |
+
+## Caso `rafaelfreitas`
+
+O repo `/Users/rafaelpereirafreitas/Sites/rafaelfreitas` deve ser tratado como grupo fullstack:
+
+```text
+deploy/    -> infraestrutura, AWS, Cloudflare, Nginx, Caddy
+frontend/  -> Angular
+backend/   -> Java/Spring/Maven
+```
+
+Antes de instalar skills por projeto ou gerar grafo:
+
+- criar `.gitignore` na raiz;
+- excluir `deploy/keys`, `frontend/node_modules`, `frontend/dist`, `frontend/.angular`, `backend/target`, `.idea` e `.DS_Store`;
+- decidir se `backend/spring-petclinic` e parte do produto ou apenas exemplo/vendor;
+- instalar Graphify na raiz somente depois dessa baseline.
+
+Detalhes: `inventories/rafaelfreitas.md`.
