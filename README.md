@@ -20,6 +20,7 @@ Este repositorio pode versionar:
 
 - Documentacao.
 - Templates sem secrets.
+- `credential_mcp.env.example` como contrato de credenciais por repositorio.
 - Scripts de check, backup e configuracao.
 - Inventarios.
 - Planos de instalacao.
@@ -28,6 +29,7 @@ Este repositorio nao deve versionar:
 
 - Tokens.
 - `.env`.
+- `credential_mcp.env`.
 - Chaves privadas.
 - Arquivos com credenciais reais.
 - Sessoes de navegador.

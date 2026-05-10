@@ -9,6 +9,8 @@ tmp/
 .env
 .env.*
 !.env.example
+credential_mcp.env
+!credential_mcp.env.example
 *.pem
 *.key
 *.p12

@@ -1,8 +1,11 @@
 {
   "mcpServers": {
     "gateway-task-intake": {
-      "command": "docker",
-      "args": ["mcp", "gateway", "run", "--profile", "antigravity-task-intake"]
+      "command": "zsh",
+      "args": [
+        "-lc",
+        "repo=\"${MCP_WORKSPACE:-${PWD}}\"; secrets=\"$repo/credential_mcp.env\"; if [ -f \"$secrets\" ]; then exec docker mcp gateway run --profile antigravity-task-intake --secrets \"$secrets\"; else exec docker mcp gateway run --profile antigravity-task-intake; fi"
+      ]
     }
   }
 }

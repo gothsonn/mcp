@@ -130,16 +130,14 @@ write_file() {
 append_gitignore_once() {
   local gitignore="$REPO/.gitignore"
   local marker="# mcp bootstrap defaults"
-  if [ -f "$gitignore" ] && rg -q "^$marker$" "$gitignore"; then
-    echo "OK   .gitignore already has mcp bootstrap defaults"
-    return 0
-  fi
   if [ "$APPLY" != "1" ]; then
     echo "DRY  would append .gitignore defaults"
     return 0
   fi
   touch "$gitignore"
-  printf '\n%s\n' "$marker" >> "$gitignore"
+  if ! rg -q "^$marker$" "$gitignore"; then
+    printf '\n%s\n' "$marker" >> "$gitignore"
+  fi
   local patterns=(
     ".DS_Store"
     ".idea/"
@@ -147,6 +145,8 @@ append_gitignore_once() {
     ".env"
     ".env.*"
     "!.env.example"
+    "credential_mcp.env"
+    "!credential_mcp.env.example"
     "*.pem"
     "*.key"
     "*.p12"
@@ -229,6 +229,36 @@ write_file "$REPO/.agents/profiles/repo-stack.md" "$repo_stack_content"
 echo
 echo "== Updating .gitignore =="
 append_gitignore_once
+
+credential_example_content="# credential_mcp.env.example
+#
+# Copy to credential_mcp.env inside this repository and fill only the providers used by this repo.
+# Do not commit credential_mcp.env.
+
+# Azure DevOps MCP
+AZURE_DEVOPS_ORG=
+AZURE_DEVOPS_PROJECT=
+AZURE_DEVOPS_TEAM=
+
+# Docker MCP Gateway secrets file keys.
+# Keep the dotted names because Docker MCP reads them as secret IDs.
+github.personal_access_token=
+gitlab.personal_access_token=
+atlassian-remote.personal_access_token=
+
+# Optional aliases for tools that expect environment-style names.
+GITHUB_PERSONAL_ACCESS_TOKEN=
+GITLAB_PERSONAL_ACCESS_TOKEN=
+ATLASSIAN_REMOTE_PERSONAL_ACCESS_TOKEN=
+"
+
+echo
+echo "== MCP credential template =="
+if [ -f "$REPO/credential_mcp.env.example" ]; then
+  echo "OK   credential_mcp.env.example already exists"
+else
+  write_file "$REPO/credential_mcp.env.example" "$credential_example_content"
+fi
 
 if [ "$RUN_GRAPHIFY" = "1" ]; then
   echo

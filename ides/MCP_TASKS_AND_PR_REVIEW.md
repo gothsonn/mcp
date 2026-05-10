@@ -66,13 +66,19 @@ templates/cursor/mcp.task-intake.example.json
 templates/cursor/mcp.pr-review.example.json
 ```
 
-Antes de habilitar Azure DevOps:
+Cada repositorio que usar MCPs externos deve ter um arquivo local:
 
 ```bash
-export AZURE_DEVOPS_ORG="sua-organizacao"
+cp credential_mcp.env.example credential_mcp.env
 ```
 
-Depois mesclar no `~/.cursor/mcp.json` apenas os provedores usados no dia.
+Preencha somente as credenciais daquele repositorio. O arquivo
+`credential_mcp.env` deve ficar ignorado pelo git; o arquivo
+`credential_mcp.env.example` pode ser versionado.
+
+Depois mesclar no `~/.cursor/mcp.json` apenas os provedores usados no dia. Os
+templates procuram `credential_mcp.env` no diretorio atual do repo, ou no caminho
+definido por `MCP_CREDENTIAL_FILE`.
 
 ## Codex
 
@@ -85,6 +91,13 @@ templates/codex/config.task-intake-pr-review.toml.example
 No Codex, manter GitHub pelo plugin `github@openai-curated` quando possivel.
 Adicionar MCP direto para Atlassian, GitLab ou Azure DevOps somente quando a
 tarefa exigir.
+
+Para MCPs que precisam de variaveis por repositorio, rode o Codex a partir da
+raiz do repo ou defina:
+
+```bash
+export MCP_CREDENTIAL_FILE=/caminho/do/repo/credential_mcp.env
+```
 
 ## Fluxo de uso
 
@@ -114,6 +127,8 @@ Nao aprove, mergeie ou comente no PR sem confirmacao explicita.
 ## Segurança
 
 - Nunca versionar tokens, PATs, refresh tokens ou `.env`.
+- Credenciais MCP ficam por repositorio em `credential_mcp.env`.
+- Versionar somente `credential_mcp.env.example`.
 - Usar OAuth quando o provedor suportar.
 - Habilitar somente o provedor necessario para o trabalho atual.
 - Para PR review, começar read-only; comentarios/aprovacao/merge exigem

@@ -7,6 +7,7 @@ Padronizar um repositorio novo ou existente com:
 - deteccao de stack;
 - perfis e skills padrao;
 - `.gitignore` inicial;
+- `credential_mcp.env.example` por repositorio;
 - Graphify;
 - nota no Obsidian;
 - ajuste de orientacao por tipo de repo.
@@ -74,6 +75,7 @@ No repositorio alvo:
 PRODUCT.md
 DESIGN.md
 docs/design/TASTE.md
+credential_mcp.env.example
 .gitignore
 graphify-out/
 ```
@@ -98,3 +100,5 @@ No Obsidian:
 - `.gitignore` recebe apenas padroes ausentes sob o marcador `# mcp bootstrap defaults`.
 - Skills instaladas via `npx`, como Impeccable, sao executadas pelo MCP global
   com registry publico do npm para nao herdar `.npmrc` corporativo do repo alvo.
+- `credential_mcp.env` e sempre local por repositorio e nunca deve ser
+  versionado; `credential_mcp.env.example` e o contrato versionavel.
