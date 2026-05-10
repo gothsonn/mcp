@@ -12,6 +12,7 @@ Padronizar a configuracao de:
 - Antigravity.
 - Obsidian / segundo cerebro.
 - Complementos: RTK, Caveman, Graphify, Impeccable, Huashu Design e Taste.
+- MCP global `mcp-control` para inspecionar e instalar perfis/skills por repositorio.
 
 ## Regra principal
 
@@ -60,6 +61,8 @@ Este repositorio nao deve versionar:
 | `scripts/09-validate-obsidian-vault.sh` | Valida vault Obsidian e notas do projeto `mcp`. | Nao |
 | `scripts/10-validate-optional-complements.sh` | Valida RTK, Graphify, npx, uv e repos piloto para complementos opcionais. | Nao |
 | `scripts/11-install-optional-complements.sh` | Instala complementos opcionais aprovados, com escopo explicito. | Sim, com confirmacao por variavel |
+| `scripts/12-configure-global-mcp-control.sh` | Configura o MCP global de controle em Codex, Cursor e Antigravity. | Sim, com confirmacao por variavel |
+| `scripts/13-validate-global-mcp-control.sh` | Valida o MCP global de controle. | Nao |
 
 ## Como rodar em modo seguro
 
@@ -97,5 +100,6 @@ Prerequisitos cobertos pelo script:
 - `ides/MCP_STACK_RECOMENDADO.md`
 - `ides/ANTIGRAVITY_SUPER_AGENT.md`
 - `ides/PERFIS_AGENTES.md`
+- `ides/MCP_CONTROL_GLOBAL.md`
 - `ides/OBSIDIAN.md`
 - `ides/COMPLEMENTOS_OPCIONAIS.md`

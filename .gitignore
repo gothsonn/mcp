@@ -20,6 +20,9 @@ tmp/
 .idea/
 .vscode/
 
+# Node dependencies
+node_modules/
+mcp-control/node_modules/
+
 # Generated Graphify outputs when this repo is used as a target
 graphify-out/
-

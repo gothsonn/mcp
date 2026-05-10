@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "mcp-control": {
+      "command": "node",
+      "args": [
+        "/Users/rafaelpereirafreitas/Sites/mcp/mcp-control/src/server.js"
+      ]
+    }
+  }
+}

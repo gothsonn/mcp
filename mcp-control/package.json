@@ -1,0 +1,16 @@
+{
+  "name": "gothsonn-mcp-control",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "gothsonn-mcp-control": "./src/server.js"
+  },
+  "scripts": {
+    "start": "node ./src/server.js",
+    "check": "node --check ./src/server.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0"
+  }
+}
