@@ -538,7 +538,7 @@ Segundo ciclo, se fizer sentido:
 Criar uma nota manual:
 
 ```text
-Projetos/mcp/IDE-MCP-Setup.md
+10-Projects/mcp/AI Agent Operating Model.md
 ```
 
 Pedir ao Codex:
@@ -553,6 +553,7 @@ Leia a nota do projeto mcp no vault Obsidian e gere um resumo operacional sem al
 - Estrutura criada.
 - Agente consegue ler nota scoped.
 - Escrita automatica continua bloqueada ou exige aprovacao.
+- `./scripts/09-validate-obsidian-vault.sh` executa sem erro.
 
 ## Fase 7 - Complementos opcionais por projeto
 
@@ -665,5 +666,5 @@ Gate:
 | 3 - IntelliJ IDEA | Validado | JetBrains MCP habilitado e `./scripts/06-validate-jetbrains-mcp.sh`. | Aprovado |
 | 4 - Cursor | Validado | `./scripts/07-validate-cursor-mcp.sh`; MCP_DOCKER, GitKraken, OpenAI Docs, Playwright e JetBrains preservados. | Aprovado |
 | 5 - Antigravity | Validado | Docker MCP profile `antigravity-frontend` com dry-run de 26 tools; `gateway-frontend` aparece conectado no Antigravity. | Aprovado |
-| 6 - Obsidian completo | Pendente |  |  |
+| 6 - Obsidian completo | Validado | Vault `/Users/rafaelpereirafreitas/Documents/Obsidian Vault`; projeto `10-Projects/mcp` criado e `./scripts/09-validate-obsidian-vault.sh` executado sem erro. | Aprovado |
 | 7 - Complementos por projeto | Pendente |  |  |

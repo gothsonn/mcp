@@ -57,6 +57,7 @@ Este repositorio nao deve versionar:
 | `scripts/06-validate-jetbrains-mcp.sh` | Valida plugin/config MCP JetBrains e clientes externos. | Nao |
 | `scripts/07-validate-cursor-mcp.sh` | Valida configuracao MCP do Cursor. | Nao |
 | `scripts/08-validate-antigravity-mcp.sh` | Valida Antigravity com Docker MCP Gateway e limite de tools. | Nao |
+| `scripts/09-validate-obsidian-vault.sh` | Valida vault Obsidian e notas do projeto `mcp`. | Nao |
 
 ## Como rodar em modo seguro
 
@@ -93,3 +94,4 @@ Prerequisitos cobertos pelo script:
 - `ides/GLOBAL_VS_REPOSITORIO.md`
 - `ides/MCP_STACK_RECOMENDADO.md`
 - `ides/ANTIGRAVITY_SUPER_AGENT.md`
+- `ides/OBSIDIAN.md`
