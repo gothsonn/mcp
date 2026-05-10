@@ -13,9 +13,12 @@ case "$PROFILE" in
   gateway-frontend)
     TEMPLATE="$ROOT_DIR/templates/antigravity/mcp_config.gateway-frontend.example.json"
     ;;
+  gateway-frontend-stdio)
+    TEMPLATE="$ROOT_DIR/templates/antigravity/mcp_config.gateway-frontend-stdio.example.json"
+    ;;
   *)
     echo "Unknown PROFILE=$PROFILE"
-    echo "Allowed: empty, gateway-frontend"
+    echo "Allowed: empty, gateway-frontend, gateway-frontend-stdio"
     exit 1
     ;;
 esac
@@ -44,4 +47,3 @@ fi
 cp "$TEMPLATE" "$TARGET"
 jq . "$TARGET" >/dev/null
 echo "Wrote valid JSON to $TARGET"
-

@@ -15,11 +15,16 @@ Guias complementares:
 ## Estado atual encontrado
 
 - Arquivo: `/Users/rafaelpereirafreitas/.gemini/antigravity/mcp_config.json`
-- Estado atual:
+- Estado recomendado para esta maquina:
 
 ```json
 {
-  "mcpServers": {}
+  "mcpServers": {
+    "gateway-frontend": {
+      "command": "docker",
+      "args": ["mcp", "gateway", "run", "--profile", "antigravity-frontend"]
+    }
+  }
 }
 ```
 
@@ -86,6 +91,19 @@ HTTP remoto, quando a integracao pedir `serverUrl`:
 }
 ```
 
+Docker MCP Gateway via stdio, recomendado para o perfil validado nesta maquina:
+
+```json
+{
+  "mcpServers": {
+    "gateway-frontend": {
+      "command": "docker",
+      "args": ["mcp", "gateway", "run", "--profile", "antigravity-frontend"]
+    }
+  }
+}
+```
+
 ## O que evitar
 
 - Nao adicionar varios MCPs globais de uma vez.
@@ -99,6 +117,7 @@ Depois de editar:
 
 ```bash
 jq . /Users/rafaelpereirafreitas/.gemini/antigravity/mcp_config.json
+./scripts/08-validate-antigravity-mcp.sh
 ```
 
 Checklist:

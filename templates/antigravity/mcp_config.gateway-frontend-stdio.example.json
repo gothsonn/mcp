@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "gateway-frontend": {
+      "command": "docker",
+      "args": ["mcp", "gateway", "run", "--profile", "antigravity-frontend"]
+    }
+  }
+}

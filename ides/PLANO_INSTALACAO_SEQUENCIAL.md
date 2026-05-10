@@ -416,19 +416,20 @@ Usar:
 
 ### Configuracao inicial recomendada
 
-Comecar so com um perfil, por exemplo `frontend`:
+Comecar so com o perfil `antigravity-frontend` via Docker MCP Gateway stdio:
 
 ```json
 {
   "mcpServers": {
     "gateway-frontend": {
-      "serverUrl": "http://localhost:8931/mcp"
+      "command": "docker",
+      "args": ["mcp", "gateway", "run", "--profile", "antigravity-frontend"]
     }
   }
 }
 ```
 
-Se a versao do cliente exigir `url`, trocar para:
+Se a versao do cliente exigir gateway HTTP em vez de stdio, trocar para `serverUrl`:
 
 ```json
 {
@@ -443,8 +444,17 @@ Se a versao do cliente exigir `url`, trocar para:
 ### Comandos
 
 ```bash
+docker mcp catalog pull mcp/docker-mcp-catalog:latest
+docker mcp profile create \
+  --name "Antigravity Frontend" \
+  --id antigravity-frontend \
+  --server catalog://mcp/docker-mcp-catalog/playwright \
+  --server catalog://mcp/docker-mcp-catalog/context7 \
+  --server catalog://mcp/docker-mcp-catalog/sequentialthinking
 docker mcp gateway run --help
+docker mcp gateway run --profile antigravity-frontend --dry-run
 jq . /Users/rafaelpereirafreitas/.gemini/antigravity/mcp_config.json
+./scripts/08-validate-antigravity-mcp.sh
 ```
 
 ### Teste funcional
@@ -457,8 +467,8 @@ Use o perfil frontend. Liste as tools disponiveis, confirme que esta abaixo do l
 
 ### Criterio de pronto
 
-- Antigravity carrega o perfil.
-- Lista de tools fica abaixo do limite.
+- Antigravity carrega o perfil `gateway-frontend`.
+- Lista de tools fica abaixo do limite. Nesta maquina, o dry-run esperado e 26 tools dos servidores do perfil, alem de possiveis tools internas do Docker MCP Gateway.
 - O agente usa somente tools do perfil ativo.
 - Logs do gateway mostram chamadas.
 - Nenhum MCP de banco/cloud foi adicionado globalmente.
@@ -649,11 +659,11 @@ Gate:
 
 | Fase | Status | Evidencia | Aprovacao |
 | --- | --- | --- | --- |
-| 0 - Baseline | Pendente |  |  |
-| 1 - Codex | Pendente |  |  |
-| 2 - Base compartilhada | Pendente |  |  |
-| 3 - IntelliJ IDEA | Pendente |  |  |
-| 4 - Cursor | Pendente |  |  |
-| 5 - Antigravity | Pendente |  |  |
+| 0 - Baseline | Validado | Backups locais criados em `backups/`; configs lidas sem erro. | Aprovado |
+| 1 - Codex | Validado | `openaiDeveloperDocs` e `jetbrains` em `codex mcp list`. | Aprovado |
+| 2 - Base compartilhada | Validado parcial | RTK global instalado; estrategia global vs repo documentada. | Aprovado para IDEs |
+| 3 - IntelliJ IDEA | Validado | JetBrains MCP habilitado e `./scripts/06-validate-jetbrains-mcp.sh`. | Aprovado |
+| 4 - Cursor | Validado | `./scripts/07-validate-cursor-mcp.sh`; MCP_DOCKER, GitKraken, OpenAI Docs, Playwright e JetBrains preservados. | Aprovado |
+| 5 - Antigravity | Em validacao | Docker MCP profile `antigravity-frontend` com dry-run validado em 26 tools dos servidores do perfil. | Pendente restart/teste no app |
 | 6 - Obsidian completo | Pendente |  |  |
 | 7 - Complementos por projeto | Pendente |  |  |

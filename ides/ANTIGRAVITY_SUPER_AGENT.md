@@ -41,6 +41,21 @@ docker mcp gateway run --profile backend
 docker mcp gateway run --profile database-readonly
 ```
 
+Perfil validado nesta maquina:
+
+```bash
+docker mcp catalog pull mcp/docker-mcp-catalog:latest
+docker mcp profile create \
+  --name "Antigravity Frontend" \
+  --id antigravity-frontend \
+  --server catalog://mcp/docker-mcp-catalog/playwright \
+  --server catalog://mcp/docker-mcp-catalog/context7 \
+  --server catalog://mcp/docker-mcp-catalog/sequentialthinking
+docker mcp gateway run --profile antigravity-frontend --dry-run
+```
+
+Resultado esperado do dry-run: 26 tools dos servidores do perfil, abaixo do limite de 100. O Docker MCP Gateway tambem pode listar tools internas de gerenciamento dinamico depois dessa contagem.
+
 ### Opcao 2 - Gateway/proxy dedicado
 
 Avaliar depois:
@@ -173,13 +188,14 @@ Exemplo com gateway local:
 {
   "mcpServers": {
     "gateway-frontend": {
-      "serverUrl": "http://localhost:8931/mcp"
+      "command": "docker",
+      "args": ["mcp", "gateway", "run", "--profile", "antigravity-frontend"]
     }
   }
 }
 ```
 
-Se o cliente exigir `url` em vez de `serverUrl`, ajustar conforme o formato aceito pela versao instalada.
+Se for usar um gateway HTTP externo em vez do stdio local, ajustar para `serverUrl` ou `url` conforme o formato aceito pela versao instalada.
 
 ## Como usar
 
@@ -228,6 +244,7 @@ Use o perfil product-delivery. Transforme a demanda em epico, historias, criteri
 ```bash
 jq . /Users/rafaelpereirafreitas/.gemini/antigravity/mcp_config.json
 docker mcp gateway run --help
+./scripts/08-validate-antigravity-mcp.sh
 ```
 
 Validar no Antigravity:
@@ -237,4 +254,3 @@ Validar no Antigravity:
 - O agente usa apenas tools do perfil.
 - Uma tarefa simples executa ponta a ponta.
 - Logs do gateway mostram quais tools foram chamadas.
-

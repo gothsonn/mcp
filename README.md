@@ -56,6 +56,7 @@ Este repositorio nao deve versionar:
 | `scripts/05-configure-antigravity.sh` | Prepara configuracao Antigravity a partir de template. | Sim, com confirmacao por variavel |
 | `scripts/06-validate-jetbrains-mcp.sh` | Valida plugin/config MCP JetBrains e clientes externos. | Nao |
 | `scripts/07-validate-cursor-mcp.sh` | Valida configuracao MCP do Cursor. | Nao |
+| `scripts/08-validate-antigravity-mcp.sh` | Valida Antigravity com Docker MCP Gateway e limite de tools. | Nao |
 
 ## Como rodar em modo seguro
 
