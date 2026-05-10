@@ -103,6 +103,7 @@ Prerequisitos cobertos pelo script:
 - `ides/ANTIGRAVITY_GATEWAY_TROUBLESHOOTING.md`
 - `ides/PERFIS_AGENTES.md`
 - `ides/CRITERIOS_PERFIS_E_STACKS.md`
+- `ides/GUIA_USO_PERFIS_SKILLS_OBSIDIAN.md`
 - `ides/MCP_CONTROL_GLOBAL.md`
 - `ides/OBSIDIAN.md`
 - `ides/COMPLEMENTOS_OPCIONAIS.md`

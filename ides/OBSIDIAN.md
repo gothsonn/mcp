@@ -98,6 +98,25 @@ Reavaliar MCP de Obsidian somente depois de:
 - Separar leitura e escrita.
 - Ter pelo menos um projeto piloto com notas estaveis.
 
+## Quando atualizar o Obsidian
+
+Atualizar quando houver:
+
+- decisao de arquitetura;
+- mudanca de perfil, skill, gateway ou MCP;
+- novo runbook;
+- validacao operacional importante;
+- incidente, rollback ou correcao de processo;
+- resumo de Graphify que mude o entendimento do repo.
+
+Nao atualizar para cada commit pequeno, log bruto de terminal, segredo, token, connection string ou detalhe temporario.
+
+Guia operacional completo:
+
+```text
+ides/GUIA_USO_PERFIS_SKILLS_OBSIDIAN.md
+```
+
 ## Validacao
 
 ```bash
