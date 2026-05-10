@@ -51,7 +51,49 @@ Rules:
 - Use Obsidian/project docs and Graphify reports when available.
 - Hand off implementation to frontend or backend profile after the plan is approved.
 `,
+  "code-review": `# Code Review Profile
+
+Role: specialist code reviewer.
+
+Use this profile after implementation to review correctness, regressions, tests, UI/UX quality, security, performance and maintainability.
+
+Rules:
+- Start with findings ordered by severity.
+- Reference concrete files and evidence.
+- Compare implementation against approved SPEC/ADR when available.
+- Do not rewrite code unless explicitly asked after review.
+`,
 };
+
+const PROFILE_SKILLS = {
+  frontend: ["impeccable", "taste", "graphify"],
+  backend: ["impeccable", "graphify"],
+  "product-architecture": ["impeccable", "huashu", "graphify"],
+  "code-review": ["impeccable", "taste", "graphify"],
+};
+
+const TASTE_TEXT = `# Taste Profile
+
+Use this local profile to keep visual decisions consistent for this repository.
+
+## Preferences
+
+- Prefer clear hierarchy, strong information scent and restrained decoration.
+- Use product-specific design constraints before personal preference.
+- Favor evidence from screenshots, design system rules and user workflows.
+
+## Anti-Preferences
+
+- Do not apply generic AI gradients or one-note palettes.
+- Do not override a corporate design system without explicit approval.
+- Do not treat visual taste as a substitute for accessibility or usability.
+
+## Validation
+
+- Capture screenshots for visual changes.
+- Compare against PRODUCT.md and DESIGN.md when they exist.
+- Record durable visual decisions in project docs.
+`;
 
 function exists(p) {
   return fs.existsSync(p);
@@ -67,6 +109,19 @@ function listFiles(dir, filter = () => true) {
   return fs.readdirSync(dir, { withFileTypes: true })
     .filter((entry) => entry.isFile() && filter(entry.name))
     .map((entry) => path.join(dir, entry.name));
+}
+
+function copyGitSubdir(repoUrl, subdir, target) {
+  const temp = fs.mkdtempSync(path.join(os.tmpdir(), "mcp-control-skill-"));
+  try {
+    execFileSync("git", ["clone", "--depth", "1", repoUrl, temp], {
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "pipe"],
+    });
+    fs.cpSync(path.join(temp, subdir), target, { recursive: true });
+  } finally {
+    fs.rmSync(temp, { recursive: true, force: true });
+  }
 }
 
 function assertRepoPath(repoPath) {
@@ -133,8 +188,11 @@ function inspectRepository(repoPath) {
     gitStatus: gitStatus(repo),
     profiles: {
       directory: profileDir,
-      configured: listFiles(profileDir, (name) => name.endsWith(".md")).map((file) => path.basename(file, ".md")),
+      configured: listFiles(profileDir, (name) => name.endsWith(".md"))
+        .map((file) => path.basename(file, ".md"))
+        .filter((name) => name !== "README"),
       expected: Object.keys(PROFILE_TEXT),
+      defaultSkills: PROFILE_SKILLS,
     },
     rules: {
       agentRules: listFiles(path.join(repo, ".agents/rules")).map((file) => path.relative(repo, file)),
@@ -145,6 +203,9 @@ function inspectRepository(repoPath) {
       graphifyGlobal: exists(path.join(HOME, ".agents/skills/graphify/SKILL.md")),
       graphifyProjectRules: exists(path.join(repo, ".agents/rules/graphify.md")) || exists(path.join(repo, ".cursor/rules/graphify.mdc")),
       impeccableProjectHints: exists(path.join(repo, "PRODUCT.md")) || exists(path.join(repo, "DESIGN.md")),
+      tasteProjectProfile: exists(path.join(repo, ".agents/skills/taste.md")) || exists(path.join(repo, "docs/design/TASTE.md")),
+      huashuProjectHints: exists(path.join(repo, ".agents/skills/huashu.md")),
+      huashuDesignSkill: exists(path.join(repo, ".agents/skills/huashu-design/SKILL.md")),
       cavemanGlobal: exists(path.join(HOME, ".agents/skills/caveman/SKILL.md")),
     },
     graphify: {
@@ -160,6 +221,7 @@ function installProfiles(repoPath, profiles, apply) {
   const repo = assertRepoPath(repoPath);
   const wanted = profiles?.length ? profiles : Object.keys(PROFILE_TEXT);
   const changes = [];
+  const skillsToInstall = new Set();
   const profileDir = path.join(repo, ".agents/profiles");
 
   for (const profile of wanted) {
@@ -171,6 +233,9 @@ function installProfiles(repoPath, profiles, apply) {
     if (apply) {
       fs.mkdirSync(profileDir, { recursive: true });
       fs.writeFileSync(target, PROFILE_TEXT[profile], "utf8");
+    }
+    for (const skill of PROFILE_SKILLS[profile]) {
+      skillsToInstall.add(skill);
     }
   }
 
@@ -188,13 +253,27 @@ Available profiles:
 - frontend
 - backend
 - product-architecture
+- code-review
+
+Default skills by profile:
+- frontend: Impeccable, Taste, Graphify
+- backend: Impeccable, Graphify
+- product-architecture: Impeccable, Huashu, Graphify
+- code-review: Impeccable, Taste, Graphify
 `, "utf8");
+  }
+
+  const skillResults = [];
+  for (const skill of skillsToInstall) {
+    skillResults.push(installSkill(repo, skill, apply));
   }
 
   return {
     repo,
     apply,
     changes,
+    defaultSkills: Object.fromEntries(wanted.map((profile) => [profile, PROFILE_SKILLS[profile]])),
+    skillResults,
     next: apply ? "Review git diff and commit in the target repository." : "Re-run with apply=true to write files.",
   };
 }
@@ -202,30 +281,116 @@ Available profiles:
 function installSkill(repoPath, skill, apply) {
   const repo = assertRepoPath(repoPath);
   const commands = [];
+  const fileChanges = [];
+  const dirChanges = [];
+  const symlinkChanges = [];
 
   if (skill === "graphify") {
     commands.push(["graphify", "cursor", "install"]);
     commands.push(["graphify", "antigravity", "install"]);
   } else if (skill === "impeccable") {
+    for (const name of ["PRODUCT.md", "DESIGN.md"]) {
+      const source = path.join(MCP_REPO, "templates/frontend", `${name}.example`);
+      const target = path.join(repo, name);
+      fileChanges.push({ source, target });
+    }
     commands.push(["npx", "skills", "add", "pbakaus/impeccable"]);
   } else if (skill === "huashu") {
-    commands.push(["npx", "playbooks", "add", "skill", "alchaincyf/huashu-skills", "--skill", "huashu-design"]);
+    fileChanges.push({
+      target: path.join(repo, ".agents/skills/huashu.md"),
+      content: `# Huashu Design
+
+Use Huashu for visual exploration, prototypes, decks, animations and infographics.
+
+Rules:
+- Use it for ideation and visual proposals.
+- Validate generated UI with Playwright or screenshots.
+- Do not replace an existing design system without review.
+`,
+    });
+    dirChanges.push({
+      target: path.join(repo, ".agents/skills/huashu-design"),
+      repoUrl: "https://github.com/alchaincyf/huashu-skills.git",
+      subdir: "huashu-design",
+    });
+    symlinkChanges.push({
+      target: path.join(repo, ".agent/skills/huashu-design"),
+      linkTo: "../../.agents/skills/huashu-design",
+    });
+  } else if (skill === "taste") {
+    fileChanges.push({
+      target: path.join(repo, ".agents/skills/taste.md"),
+      content: TASTE_TEXT,
+    });
+    fileChanges.push({
+      target: path.join(repo, "docs/design/TASTE.md"),
+      content: TASTE_TEXT,
+    });
   } else {
-    throw new Error("Unknown skill. Allowed: graphify, impeccable, huashu");
+    throw new Error("Unknown skill. Allowed: graphify, impeccable, huashu, taste");
   }
 
   const results = [];
+  for (const change of fileChanges) {
+    const existsAlready = exists(change.target);
+    results.push({
+      file: change.target,
+      status: apply ? (existsAlready ? "kept-existing" : "created") : (existsAlready ? "would-keep-existing" : "would-create"),
+    });
+    if (apply && !existsAlready) {
+      fs.mkdirSync(path.dirname(change.target), { recursive: true });
+      if (change.source) {
+        fs.copyFileSync(change.source, change.target);
+      } else {
+        fs.writeFileSync(change.target, change.content, "utf8");
+      }
+    }
+  }
+
+  for (const change of dirChanges) {
+    const existsAlready = exists(change.target);
+    results.push({
+      directory: change.target,
+      status: apply ? (existsAlready ? "kept-existing" : "created") : (existsAlready ? "would-keep-existing" : "would-create"),
+    });
+    if (apply && !existsAlready) {
+      fs.mkdirSync(path.dirname(change.target), { recursive: true });
+      copyGitSubdir(change.repoUrl, change.subdir, change.target);
+    }
+  }
+
+  for (const change of symlinkChanges) {
+    const existsAlready = exists(change.target);
+    results.push({
+      symlink: change.target,
+      linkTo: change.linkTo,
+      status: apply ? (existsAlready ? "kept-existing" : "created") : (existsAlready ? "would-keep-existing" : "would-create"),
+    });
+    if (apply && !existsAlready) {
+      fs.mkdirSync(path.dirname(change.target), { recursive: true });
+      fs.symlinkSync(change.linkTo, change.target);
+    }
+  }
+
   for (const command of commands) {
     if (!apply) {
       results.push({ command: command.join(" "), status: "dry-run" });
       continue;
     }
-    const output = execFileSync(command[0], command.slice(1), {
-      cwd: repo,
-      encoding: "utf8",
-      stdio: ["ignore", "pipe", "pipe"],
-    });
-    results.push({ command: command.join(" "), status: "applied", output: output.trim() });
+    try {
+      const output = execFileSync(command[0], command.slice(1), {
+        cwd: repo,
+        encoding: "utf8",
+        stdio: ["ignore", "pipe", "pipe"],
+      });
+      results.push({ command: command.join(" "), status: "applied", output: output.trim() });
+    } catch (error) {
+      results.push({
+        command: command.join(" "),
+        status: "failed",
+        error: String(error.stderr || error.message).trim(),
+      });
+    }
   }
 
   return {
@@ -262,14 +427,14 @@ async function main() {
       },
       {
         name: "install_repository_profiles",
-        description: "Create or update standard agent profile files inside a repository.",
+        description: "Create or update standard agent profile files and their default skills inside a repository.",
         inputSchema: {
           type: "object",
           properties: {
             repoPath: { type: "string" },
             profiles: {
               type: "array",
-              items: { type: "string", enum: ["frontend", "backend", "product-architecture"] },
+              items: { type: "string", enum: ["frontend", "backend", "product-architecture", "code-review"] },
             },
             apply: { type: "boolean", description: "When false, returns planned changes only." },
           },
@@ -282,7 +447,7 @@ async function main() {
           type: "object",
           properties: {
             repoPath: { type: "string" },
-            skill: { type: "string", enum: ["graphify", "impeccable", "huashu"] },
+            skill: { type: "string", enum: ["graphify", "impeccable", "huashu", "taste"] },
             apply: { type: "boolean", description: "When false, returns commands only." },
           },
           required: ["skill"],

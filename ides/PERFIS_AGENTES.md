@@ -11,6 +11,18 @@ Modelo aprovado:
 | `frontend` | Especialista frontend + code review de UI/frontend. | PO, PM, arquitetura ampla, banco/cloud. |
 | `backend` | Especialista backend + code review de backend/API/servicos. | PO, PM, design visual, planejamento de sprint. |
 | `product-architecture` | PO + PM + Arquiteto + Engenheiro de software. | Implementar codigo direto sem gerar SPEC/ADR/plano. |
+| `code-review` | Review especializado apos implementacao. | Planejar produto, assumir escopo novo ou reescrever sem pedido explicito. |
+
+## Skills padrao
+
+Sempre que um perfil for instalado via `mcp-control`, as skills abaixo tambem entram no repositorio:
+
+| Perfil | Skills |
+| --- | --- |
+| `frontend` | Impeccable, Taste, Graphify |
+| `backend` | Impeccable, Graphify |
+| `product-architecture` | Impeccable, Huashu, Graphify |
+| `code-review` | Impeccable, Taste, Graphify |
 
 ## Por que nao misturar tudo em frontend/backend
 
@@ -35,24 +47,28 @@ Motivos:
 
 1. `product-architecture`: transforma demanda em `RESEARCH.md`, `SPEC.md`, riscos, criterios de aceite e decisoes.
 2. `frontend`: implementa a menor mudanca correta seguindo a SPEC.
-3. `frontend`: faz code review especializado, validacao visual, Playwright e screenshot.
+3. `code-review`: faz review especializado, validacao visual, Playwright e screenshot.
 
 Prompt:
 
 ```text
-Use o perfil frontend. Implemente somente o que esta na SPEC aprovada. Depois faca code review frontend e valide com Playwright/screenshot.
+Use o perfil frontend. Implemente somente o que esta na SPEC aprovada.
+
+Depois use o perfil code-review para revisar frontend, validar com Playwright/screenshot e apontar regressoes.
 ```
 
 ### Fluxo backend
 
 1. `product-architecture`: define contrato, regras de negocio, riscos, ADR e criterio de aceite.
 2. `backend`: implementa endpoint, servico, persistencia e testes.
-3. `backend`: faz code review especializado, contratos, logs, seguranca e performance.
+3. `code-review`: faz review especializado, contratos, logs, seguranca e performance.
 
 Prompt:
 
 ```text
-Use o perfil backend. Leia a SPEC aprovada, implemente a mudanca no menor escopo e rode testes. Depois revise contrato, logs, erros e seguranca.
+Use o perfil backend. Leia a SPEC aprovada, implemente a mudanca no menor escopo e rode testes.
+
+Depois use o perfil code-review para revisar contrato, logs, erros, seguranca e performance.
 ```
 
 ### Fluxo de planejamento
@@ -69,8 +85,8 @@ Use o perfil product-architecture. Atue como PO, PM, Arquiteto e Engenheiro de s
 
 | IDE | Perfil principal | Observacao |
 | --- | --- | --- |
-| Codex | `product-architecture`, `frontend`, `backend` | Codex pode orquestrar a sequencia e versionar docs/scripts. |
-| Cursor | `frontend`, `backend` | Melhor para iteracao rapida de codigo. Produto/arquitetura entram como contexto aprovado. |
+| Codex | `product-architecture`, `frontend`, `backend`, `code-review` | Codex pode orquestrar a sequencia e versionar docs/scripts. |
+| Cursor | `frontend`, `backend`, `code-review` | Melhor para iteracao rapida de codigo. Produto/arquitetura entram como contexto aprovado. |
 | IntelliJ IDEA | `backend` | Principalmente Java/Spring/Quarkus, run configs, problemas e modulos. |
 | Antigravity | `frontend`, futuro `backend`, futuro `product-architecture` | Manter poucos tools por perfil por causa do limite de 100 tools. |
 | Obsidian | `product-architecture` | Segundo cerebro, decisoes, ADRs, specs e runbooks. |
@@ -148,7 +164,7 @@ Nao incluir:
 Quando a tarefa exigir produto + arquitetura + codigo + review, executar em etapas:
 
 ```text
-product-architecture -> frontend/backend -> code review especializado
+product-architecture -> frontend/backend -> code-review
 ```
 
 Nao transformar `frontend` e `backend` em perfis universais.

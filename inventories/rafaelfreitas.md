@@ -10,10 +10,10 @@
 
 ```text
 origin: https://github.com/gothsonn/rafaelfreitas.git
-remote main: 736fc05 Add fullstack portfolio baseline and agent rules
+remote main: 5afcaaf Add default profile skills
 ```
 
-O remote foi vinculado ao repo local e o baseline fullstack foi enviado para `origin/main`.
+O remote foi vinculado ao repo local, o baseline fullstack foi enviado para `origin/main` e o repo piloto recebeu os perfis/skills padrao.
 
 ## Estrutura
 
@@ -28,12 +28,13 @@ rafaelfreitas/
 
 ## Estado Git observado
 
-Baseline publicado:
+Estado publicado:
 
 ```text
 ## main...origin/main
+5afcaaf Add default profile skills
+5cfa8b5 Add standard agent profiles
 736fc05 Add fullstack portfolio baseline and agent rules
-a7a910e Initial commit
 ```
 
 Arquivos locais ignorados continuam fora do Git: `.DS_Store`, `.idea/`, `deploy/keys/`, `frontend/node_modules/`, `frontend/dist/`, `frontend/.angular/`, `backend/target/` e `backend/spring-petclinic/`.
@@ -113,6 +114,20 @@ Grafo inicial: 110 nodes, 156 edges, 15 communities.
 
 ## Perfis a usar
 
+Perfis instalados em `.agents/profiles/`:
+
+- `frontend`
+- `backend`
+- `product-architecture`
+- `code-review`
+
+Skills instaladas por padrao:
+
+- `frontend`: Impeccable, Taste, Graphify
+- `backend`: Impeccable, Graphify
+- `product-architecture`: Impeccable, Huashu, Graphify
+- `code-review`: Impeccable, Taste, Graphify
+
 ### product-architecture
 
 Usar para:
@@ -142,4 +157,4 @@ Usar para:
 
 ## Proxima acao recomendada
 
-Criar uma `.gitignore` raiz no repo `rafaelfreitas` antes de rodar Graphify ou instalar complementos por projeto.
+Usar o `mcp-control` para instalar a mesma composicao em outros repositorios e validar se cada repo precisa de ajustes locais em `PRODUCT.md`, `DESIGN.md` e `docs/design/TASTE.md`.
