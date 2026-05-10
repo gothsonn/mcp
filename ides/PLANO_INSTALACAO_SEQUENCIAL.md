@@ -600,8 +600,11 @@ npx skills add JuliusBrussee/caveman -a antigravity
 Objetivo: conhecimento estrutural de repos grandes.
 
 ```bash
-pip install graphifyy
-graphify install
+uv tool install graphifyy
+graphify install --platform codex
+cd /caminho/do/projeto
+graphify cursor install
+graphify antigravity install
 graphify /caminho/do/projeto
 ```
 
@@ -618,7 +621,8 @@ Objetivo: elevar UI/UX em Angular, React e Next.js.
 Instalar primeiro em um projeto piloto, nao global:
 
 ```bash
-# seguir README do projeto impeccable para copiar dist da skill no projeto
+cd /caminho/do/repo-frontend
+npx skills add pbakaus/impeccable
 ```
 
 Gate:
@@ -632,7 +636,8 @@ Gate:
 Objetivo: prototipos, decks, animacoes e infograficos.
 
 ```bash
-npx skills add alchaincyf/huashu-design
+cd /caminho/do/repo
+npx playbooks add skill alchaincyf/huashu-skills --skill huashu-design
 ```
 
 Gate:
@@ -656,6 +661,20 @@ Gate:
 - Resultado visual melhora de forma consistente.
 - Anti-preferencias ficam claras.
 
+### Validacao da fase
+
+```bash
+./scripts/10-validate-optional-complements.sh
+```
+
+Instalacao somente com escopo explicito:
+
+```bash
+APPLY=1 INSTALL_GRAPHIFY=1 ./scripts/11-install-optional-complements.sh
+TARGET_REPO=/Users/rafaelpereirafreitas/Sites/rafaelfreitas APPLY=1 INSTALL_GRAPHIFY_PROJECT=1 ./scripts/11-install-optional-complements.sh
+TARGET_REPO=/Users/rafaelpereirafreitas/Sites/projeto_qrcode_movidesk APPLY=1 INSTALL_IMPECCABLE=1 ./scripts/11-install-optional-complements.sh
+```
+
 ## Quadro de progresso
 
 | Fase | Status | Evidencia | Aprovacao |
@@ -667,4 +686,4 @@ Gate:
 | 4 - Cursor | Validado | `./scripts/07-validate-cursor-mcp.sh`; MCP_DOCKER, GitKraken, OpenAI Docs, Playwright e JetBrains preservados. | Aprovado |
 | 5 - Antigravity | Validado | Docker MCP profile `antigravity-frontend` com dry-run de 26 tools; `gateway-frontend` aparece conectado no Antigravity. | Aprovado |
 | 6 - Obsidian completo | Validado | Vault `/Users/rafaelpereirafreitas/Documents/Obsidian Vault`; projeto `10-Projects/mcp` criado e `./scripts/09-validate-obsidian-vault.sh` executado sem erro. | Aprovado |
-| 7 - Complementos por projeto | Pendente |  |  |
+| 7 - Complementos por projeto | Em validacao | Graphify CLI instalado via `uv`; docs, templates e scripts criados para instalar skills por repo apenas com `APPLY=1` e escopo explicito. | Pendente piloto por repo |

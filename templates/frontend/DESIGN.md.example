@@ -1,0 +1,56 @@
+# DESIGN
+
+## Design Register
+
+Choose one:
+
+- Product surface: utilitarian, dense, task focused.
+- Brand surface: expressive, editorial, high signal.
+- Hybrid:
+
+## Layout Principles
+
+- Grid:
+- Density:
+- Navigation:
+- Page structure:
+
+## Typography
+
+- Primary font:
+- Scale:
+- Heading behavior:
+- Body text behavior:
+
+## Color
+
+- Primary palette:
+- Neutral palette:
+- Semantic colors:
+- Contrast rules:
+
+## Components
+
+- Buttons:
+- Forms:
+- Tables/lists:
+- Cards:
+- Modals:
+- Empty/loading/error states:
+
+## Motion
+
+- Allowed motion:
+- Reduced-motion behavior:
+- Transitions to avoid:
+
+## Visual Anti-Patterns
+
+- Do not use:
+- Avoid unless explicitly approved:
+
+## Validation
+
+- Screenshot required:
+- Playwright flow required:
+- Responsive breakpoints:

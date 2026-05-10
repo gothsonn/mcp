@@ -58,6 +58,8 @@ Este repositorio nao deve versionar:
 | `scripts/07-validate-cursor-mcp.sh` | Valida configuracao MCP do Cursor. | Nao |
 | `scripts/08-validate-antigravity-mcp.sh` | Valida Antigravity com Docker MCP Gateway e limite de tools. | Nao |
 | `scripts/09-validate-obsidian-vault.sh` | Valida vault Obsidian e notas do projeto `mcp`. | Nao |
+| `scripts/10-validate-optional-complements.sh` | Valida RTK, Graphify, npx, uv e repos piloto para complementos opcionais. | Nao |
+| `scripts/11-install-optional-complements.sh` | Instala complementos opcionais aprovados, com escopo explicito. | Sim, com confirmacao por variavel |
 
 ## Como rodar em modo seguro
 
@@ -95,3 +97,4 @@ Prerequisitos cobertos pelo script:
 - `ides/MCP_STACK_RECOMENDADO.md`
 - `ides/ANTIGRAVITY_SUPER_AGENT.md`
 - `ides/OBSIDIAN.md`
+- `ides/COMPLEMENTOS_OPCIONAIS.md`
