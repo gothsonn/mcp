@@ -102,3 +102,17 @@ No Obsidian:
   com registry publico do npm para nao herdar `.npmrc` corporativo do repo alvo.
 - `credential_mcp.env` e sempre local por repositorio e nunca deve ser
   versionado; `credential_mcp.env.example` e o contrato versionavel.
+
+## Fechamento de feature
+
+Ao finalizar uma feature, usar:
+
+```bash
+TARGET_REPO=/Users/rafaelpereirafreitas/Sites/NOME_DO_REPO \
+FEATURE_KEY=ISSUE-123 \
+APPLY=1 \
+./scripts/16-feature-done.sh
+```
+
+Esse comando atualiza Obsidian, registra a feature no `Decision Log.md`, atualiza
+Graphify e valida o projeto no vault.

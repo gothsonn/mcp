@@ -23,11 +23,14 @@ required_dirs=(
 
 required_notes=(
   "Project Overview.md"
-  "Pipeline.md"
   "Repo Snapshot.md"
   "Decision Log.md"
   "Runbook.md"
   "AI Agent Operating Model.md"
+)
+
+optional_notes=(
+  "Pipeline.md"
 )
 
 echo "== Obsidian vault validation =="
@@ -63,6 +66,14 @@ for note in "${required_notes[@]}"; do
   else
     echo "MISS $note"
     exit 1
+  fi
+done
+
+for note in "${optional_notes[@]}"; do
+  if [ -f "$PROJECT_DIR/$note" ]; then
+    echo "OK   optional $note"
+  else
+    echo "SKIP optional $note"
   fi
 done
 

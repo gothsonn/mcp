@@ -67,6 +67,7 @@ Este repositorio nao deve versionar:
 | `scripts/13-validate-global-mcp-control.sh` | Valida o MCP global de controle. | Nao |
 | `scripts/14-create-antigravity-docker-profiles.sh` | Cria perfis Docker MCP Gateway para Antigravity. | Sim, com confirmacao por variavel |
 | `scripts/15-bootstrap-repo.sh` | Detecta stack e prepara perfis, skills, `.gitignore`, Graphify e Obsidian para um repo. | Sim, com confirmacao por variavel |
+| `scripts/16-feature-done.sh` | Atualiza Obsidian e Graphify ao finalizar uma feature. | Sim, com confirmacao por variavel |
 
 ## Como rodar em modo seguro
 

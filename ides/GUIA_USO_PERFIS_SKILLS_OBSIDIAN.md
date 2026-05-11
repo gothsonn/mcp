@@ -233,3 +233,33 @@ Nao copie o relatorio inteiro.
 - Obsidian foi atualizado se houve decisao duravel.
 - Git nao contem secrets.
 - Repo ficou limpo ou com pendencias explicadas.
+
+## Comando de fechamento de feature
+
+Ao finalizar uma feature, rode sempre o fluxo de fechamento:
+
+```bash
+cd /Users/rafaelpereirafreitas/Sites/mcp
+
+TARGET_REPO=/Users/rafaelpereirafreitas/Sites/livelo/liv-mfe-transfer-details \
+FEATURE_KEY=TXP-1175 \
+FEATURE_TITLE="WEB | Alteracoes na jornada por Tier" \
+FEATURE_SUMMARY="UI passou a refletir minimoAplicavel retornado pela API." \
+VALIDATION="lint/testes/review executados conforme repo." \
+APPLY=1 \
+./scripts/16-feature-done.sh
+```
+
+Para repositorios sensiveis onde a indexacao ainda nao foi aprovada:
+
+```bash
+TARGET_REPO=/Users/rafaelpereirafreitas/Sites/livelo/liv-mfe-transfer-details \
+FEATURE_KEY=TXP-1175 \
+RUN_GRAPHIFY=0 \
+APPLY=1 \
+./scripts/16-feature-done.sh
+```
+
+O script cria ou atualiza a nota `Feature <ID>.md`, registra entrada no
+`Decision Log.md`, atualiza Graphify quando habilitado e valida o projeto no
+Obsidian.
