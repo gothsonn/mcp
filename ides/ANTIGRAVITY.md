@@ -14,7 +14,7 @@ Guias complementares:
 
 ## Estado atual encontrado
 
-- Arquivo: `/Users/rafaelpereirafreitas/.gemini/antigravity/mcp_config.json`
+- Arquivo: `$HOME/.gemini/antigravity/mcp_config.json`
 - Estado recomendado para esta maquina:
 
 ```json
@@ -126,6 +126,24 @@ Criar ou validar os perfis Docker MCP Gateway:
 APPLY=1 ./scripts/14-create-antigravity-docker-profiles.sh
 ```
 
+## Comando de fechamento
+
+Ao finalizar uma feature, use no Antigravity:
+
+```text
+/feature-done {numero-opcional-da-tarefa}
+```
+
+Exemplo:
+
+```text
+/feature-done TXP-1175
+```
+
+O Antigravity deve seguir `.agents/workflows/feature-done.md`: atualizar
+Graphify por padrao, atualizar Obsidian e validar o vault. Se precisar pular
+Graphify, isso deve ser pedido explicitamente.
+
 ## O que evitar
 
 - Nao adicionar varios MCPs globais de uma vez.
@@ -138,7 +156,7 @@ APPLY=1 ./scripts/14-create-antigravity-docker-profiles.sh
 Depois de editar:
 
 ```bash
-jq . /Users/rafaelpereirafreitas/.gemini/antigravity/mcp_config.json
+jq . $HOME/.gemini/antigravity/mcp_config.json
 ./scripts/08-validate-antigravity-mcp.sh
 ```
 

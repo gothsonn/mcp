@@ -5,7 +5,7 @@ APPLY="${APPLY:-0}"
 PROFILE="${PROFILE:-all}"
 
 CATALOG="mcp/docker-mcp-catalog:latest"
-DEFAULT_FILESYSTEM_PATHS='["/Users/rafaelpereirafreitas/Sites"]'
+DEFAULT_FILESYSTEM_PATHS="[\"$HOME/Sites\"]"
 
 create_profile() {
   local id="$1"

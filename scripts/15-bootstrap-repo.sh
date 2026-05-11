@@ -5,20 +5,20 @@ APPLY="${APPLY:-0}"
 TARGET_REPO="${TARGET_REPO:-${1:-}}"
 RUN_GRAPHIFY="${RUN_GRAPHIFY:-1}"
 UPDATE_OBSIDIAN="${UPDATE_OBSIDIAN:-1}"
-OBSIDIAN_VAULT="${OBSIDIAN_VAULT:-/Users/rafaelpereirafreitas/Documents/Obsidian Vault}"
+OBSIDIAN_VAULT="${OBSIDIAN_VAULT:-$HOME/Documents/Obsidian Vault}"
 MCP_REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 MCP_SERVER="$MCP_REPO/mcp-control/src/server.js"
 
 if [ -z "$TARGET_REPO" ]; then
-  echo "Usage: TARGET_REPO=/Users/rafaelpereirafreitas/Sites/repo APPLY=1 $0"
+  echo "Usage: TARGET_REPO=\$HOME/Sites/repo APPLY=1 $0"
   exit 2
 fi
 
 REPO="$(cd "$TARGET_REPO" && pwd)"
 case "$REPO" in
-  /Users/rafaelpereirafreitas/Sites/*) ;;
+  "$HOME"/Sites/*) ;;
   *)
-    echo "Refusing path outside /Users/rafaelpereirafreitas/Sites: $REPO"
+    echo "Refusing path outside \$HOME/Sites: $REPO"
     exit 2
     ;;
 esac
@@ -273,6 +273,41 @@ if [ -f "$REPO/credential_mcp.env.example" ]; then
 else
   write_file "$REPO/credential_mcp.env.example" "$credential_example_content"
 fi
+
+feature_done_workflow_content="---
+name: feature-done
+description: Finalize a feature by updating Obsidian and Graphify.
+---
+
+# /feature-done {optional issue key}
+
+Use when the user finishes a feature and asks to close the work.
+
+Default behavior:
+- Resolve the current repository as the target repo.
+- Use the optional issue key when provided, for example \`/feature-done TXP-1175\`.
+- Run Graphify by default.
+- Update the Obsidian project note.
+- Append the project Decision Log.
+- Validate the Obsidian project.
+
+Command:
+
+\`\`\`bash
+cd \"\$HOME/Sites/mcp\"
+
+TARGET_REPO=\"<current-repository>\" \\
+FEATURE_KEY=\"<optional-issue-key>\" \\
+APPLY=1 \\
+./scripts/16-feature-done.sh
+\`\`\`
+
+Only set \`RUN_GRAPHIFY=0\` when the user explicitly asks to skip Graphify.
+"
+
+echo
+echo "== Feature done workflow =="
+write_file "$REPO/.agents/workflows/feature-done.md" "$feature_done_workflow_content"
 
 if [ "$RUN_GRAPHIFY" = "1" ]; then
   echo

@@ -11,8 +11,9 @@ import os from "node:os";
 import { execFileSync } from "node:child_process";
 
 const HOME = os.homedir();
-const MCP_REPO = process.env.MCP_CONTROL_REPO || "/Users/rafaelpereirafreitas/Sites/mcp";
-const DEFAULT_REPO = "/Users/rafaelpereirafreitas/Sites/rafaelfreitas";
+const SITES_DIR = path.join(HOME, "Sites");
+const MCP_REPO = process.env.MCP_CONTROL_REPO || path.join(SITES_DIR, "mcp");
+const DEFAULT_REPO = path.join(SITES_DIR, "rafaelfreitas");
 
 const PROFILE_TEXT = {
   frontend: `# Frontend Profile
@@ -320,8 +321,9 @@ function copyGitSubdir(repoUrl, subdir, target) {
 
 function assertRepoPath(repoPath) {
   const resolved = path.resolve(repoPath || DEFAULT_REPO);
-  if (!resolved.startsWith("/Users/rafaelpereirafreitas/Sites/")) {
-    throw new Error(`Refusing path outside /Users/rafaelpereirafreitas/Sites: ${resolved}`);
+  const allowedPrefix = `${SITES_DIR}${path.sep}`;
+  if (!resolved.startsWith(allowedPrefix)) {
+    throw new Error(`Refusing path outside $HOME/Sites: ${resolved}`);
   }
   if (!exists(resolved)) {
     throw new Error(`Repository path does not exist: ${resolved}`);
@@ -814,7 +816,7 @@ async function main() {
         inputSchema: {
           type: "object",
           properties: {
-            repoPath: { type: "string", description: "Repository path under /Users/rafaelpereirafreitas/Sites" },
+            repoPath: { type: "string", description: "Repository path under $HOME/Sites" },
           },
         },
       },

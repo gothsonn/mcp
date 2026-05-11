@@ -1,9 +1,10 @@
 {
   "mcpServers": {
     "mcp-control": {
-      "command": "node",
+      "command": "zsh",
       "args": [
-        "/Users/rafaelpereirafreitas/Sites/mcp/mcp-control/src/server.js"
+        "-lc",
+        "exec node \"$HOME/Sites/mcp/mcp-control/src/server.js\""
       ]
     }
   }

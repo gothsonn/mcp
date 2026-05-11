@@ -10,33 +10,33 @@ Regra principal:
 - Contexto, rules, specs, prompts, grafos, design system e acesso a dados devem ser por repositorio/projeto.
 - MCP com credencial ou dados sensiveis nunca deve ser global sem escopo e aprovacao.
 
-## Inventario atual em `/Users/rafaelpereirafreitas/Sites`
+## Inventario atual em `$HOME/Sites`
 
 ### Grupos corporativos/monorepos
 
 | Caminho | Stacks detectadas | Tratamento |
 | --- | --- | --- |
-| `/Users/rafaelpereirafreitas/Sites/Cresol` | Java/Maven, Docker, Next.js/React/Chakra | Por repositorio/grupo, com IntelliJ + Cursor + Graphify. |
-| `/Users/rafaelpereirafreitas/Sites/PortoSeguro` | Angular, TypeScript, jQuery | Por repositorio/grupo, com Cursor + Playwright + Impeccable. |
-| `/Users/rafaelpereirafreitas/Sites/easysuite` | Java/Maven, Python, Airflow, React/Vite, Kafka, OpenSearch, Docker | Por repositorio/grupo, com Graphify, gateway e specs obrigatorios. |
-| `/Users/rafaelpereirafreitas/Sites/livelo` | Java/Maven, Next.js, React, React Native, single-spa, Docker | Por repositorio/grupo, com perfis frontend/backend/mobile. |
-| `/Users/rafaelpereirafreitas/Sites/rafaelfreitas` | Angular, Java/Maven, Docker | Por repositorio/grupo, bom piloto fullstack. |
+| `$HOME/Sites/Cresol` | Java/Maven, Docker, Next.js/React/Chakra | Por repositorio/grupo, com IntelliJ + Cursor + Graphify. |
+| `$HOME/Sites/PortoSeguro` | Angular, TypeScript, jQuery | Por repositorio/grupo, com Cursor + Playwright + Impeccable. |
+| `$HOME/Sites/easysuite` | Java/Maven, Python, Airflow, React/Vite, Kafka, OpenSearch, Docker | Por repositorio/grupo, com Graphify, gateway e specs obrigatorios. |
+| `$HOME/Sites/livelo` | Java/Maven, Next.js, React, React Native, single-spa, Docker | Por repositorio/grupo, com perfis frontend/backend/mobile. |
+| `$HOME/Sites/rafaelfreitas` | Angular, Java/Maven, Docker | Por repositorio/grupo, bom piloto fullstack. |
 
 ### Projetos menores/especificos
 
 | Caminho | Stacks detectadas | Tratamento |
 | --- | --- | --- |
-| `/Users/rafaelpereirafreitas/Sites/projeto_qrcode_movidesk` | React/Vite/Vitest | Por repositorio, frontend + seguranca no fluxo QR. |
-| `/Users/rafaelpereirafreitas/Sites/automacao-pontos` | Python/Streamlit/RPA | Por repositorio, automacao desktop e evidencias. |
-| `/Users/rafaelpereirafreitas/Sites/rpa_automation` | Python/RPA | Por repositorio, automacao e browser/desktop controlado. |
-| `/Users/rafaelpereirafreitas/Sites/development-setting` | Docker Compose para bancos/infra | Infra local compartilhada, nao tratar como app. |
-| `/Users/rafaelpereirafreitas/Sites/mcp` | Documentacao/configuracao MCP | Repo de controle e inventario. |
-| `/Users/rafaelpereirafreitas/Sites/easysearch` | Java/Maven | Por repositorio. |
-| `/Users/rafaelpereirafreitas/Sites/api_qrcode_movidesk` | README apenas detectado | Verificar manualmente antes de configurar. |
-| `/Users/rafaelpereirafreitas/Sites/imetrics` | Docker Compose/README | Verificar manualmente antes de configurar. |
-| `/Users/rafaelpereirafreitas/Sites/mvno-bb` | OpenAPI docs | Docs/API, nao app completo pelo inventario atual. |
-| `/Users/rafaelpereirafreitas/Sites/Omni` | Sem manifesto detectado | Verificar manualmente. |
-| `/Users/rafaelpereirafreitas/Sites/gestor-pessoal` | Sem manifesto detectado | Verificar manualmente. |
+| `$HOME/Sites/projeto_qrcode_movidesk` | React/Vite/Vitest | Por repositorio, frontend + seguranca no fluxo QR. |
+| `$HOME/Sites/automacao-pontos` | Python/Streamlit/RPA | Por repositorio, automacao desktop e evidencias. |
+| `$HOME/Sites/rpa_automation` | Python/RPA | Por repositorio, automacao e browser/desktop controlado. |
+| `$HOME/Sites/development-setting` | Docker Compose para bancos/infra | Infra local compartilhada, nao tratar como app. |
+| `$HOME/Sites/mcp` | Documentacao/configuracao MCP | Repo de controle e inventario. |
+| `$HOME/Sites/easysearch` | Java/Maven | Por repositorio. |
+| `$HOME/Sites/api_qrcode_movidesk` | README apenas detectado | Verificar manualmente antes de configurar. |
+| `$HOME/Sites/imetrics` | Docker Compose/README | Verificar manualmente antes de configurar. |
+| `$HOME/Sites/mvno-bb` | OpenAPI docs | Docs/API, nao app completo pelo inventario atual. |
+| `$HOME/Sites/Omni` | Sem manifesto detectado | Verificar manualmente. |
+| `$HOME/Sites/gestor-pessoal` | Sem manifesto detectado | Verificar manualmente. |
 
 ## Matriz dos complementos opcionais
 
@@ -100,17 +100,17 @@ npx skills add JuliusBrussee/caveman -a antigravity
 
 Repos candidatos para primeiro uso:
 
-1. `/Users/rafaelpereirafreitas/Sites/easysuite`
-2. `/Users/rafaelpereirafreitas/Sites/Cresol`
-3. `/Users/rafaelpereirafreitas/Sites/livelo`
-4. `/Users/rafaelpereirafreitas/Sites/rafaelfreitas`
+1. `$HOME/Sites/easysuite`
+2. `$HOME/Sites/Cresol`
+3. `$HOME/Sites/livelo`
+4. `$HOME/Sites/rafaelfreitas`
 
 Comandos:
 
 ```bash
 uv tool install 'graphifyy[gemini]'
 graphify install --platform codex
-cd /Users/rafaelpereirafreitas/Sites/easysuite
+cd $HOME/Sites/easysuite
 graphify extract . --backend gemini
 graphify cluster-only .
 ```
@@ -130,13 +130,13 @@ graphify cluster-only .
 
 Repos candidatos:
 
-- `/Users/rafaelpereirafreitas/Sites/PortoSeguro/auto-cotacao-web`
-- `/Users/rafaelpereirafreitas/Sites/PortoSeguro/auto-individual-web`
-- `/Users/rafaelpereirafreitas/Sites/projeto_qrcode_movidesk`
-- `/Users/rafaelpereirafreitas/Sites/easysuite/easysuites-frontend`
-- `/Users/rafaelpereirafreitas/Sites/rafaelfreitas/frontend`
-- UIs Next.js em `/Users/rafaelpereirafreitas/Sites/Cresol`
-- MFEs em `/Users/rafaelpereirafreitas/Sites/livelo`
+- `$HOME/Sites/PortoSeguro/auto-cotacao-web`
+- `$HOME/Sites/PortoSeguro/auto-individual-web`
+- `$HOME/Sites/projeto_qrcode_movidesk`
+- `$HOME/Sites/easysuite/easysuites-frontend`
+- `$HOME/Sites/rafaelfreitas/frontend`
+- UIs Next.js em `$HOME/Sites/Cresol`
+- MFEs em `$HOME/Sites/livelo`
 
 ### Huashu Design
 
@@ -231,7 +231,7 @@ Decisao:
 
 Antes de instalar complementos, escolher um repo piloto por categoria:
 
-1. Fullstack Java + Angular: `/Users/rafaelpereirafreitas/Sites/rafaelfreitas`
-2. Frontend React/Vite: `/Users/rafaelpereirafreitas/Sites/projeto_qrcode_movidesk`
-3. Monorepo grande: `/Users/rafaelpereirafreitas/Sites/easysuite`
-4. RPA/Python: `/Users/rafaelpereirafreitas/Sites/automacao-pontos`
+1. Fullstack Java + Angular: `$HOME/Sites/rafaelfreitas`
+2. Frontend React/Vite: `$HOME/Sites/projeto_qrcode_movidesk`
+3. Monorepo grande: `$HOME/Sites/easysuite`
+4. RPA/Python: `$HOME/Sites/automacao-pontos`

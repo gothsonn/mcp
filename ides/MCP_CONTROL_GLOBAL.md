@@ -7,7 +7,7 @@ Ter um MCP global em Codex, Cursor e Antigravity para controlar a configuracao d
 Servidor:
 
 ```text
-/Users/rafaelpereirafreitas/Sites/mcp/mcp-control/src/server.js
+$HOME/Sites/mcp/mcp-control/src/server.js
 ```
 
 Nome MCP:
@@ -66,7 +66,7 @@ A documentacao atual da JetBrains orienta adicionar MCPs externos por configurac
 
 ## Politica de seguranca
 
-- O MCP so aceita repos em `/Users/rafaelpereirafreitas/Sites/`.
+- O MCP so aceita repos em `$HOME/Sites/`.
 - Instalar perfis/skills exige `apply=true`; sem isso ele retorna dry-run.
 - Skills suportadas inicialmente: Graphify, Impeccable, Huashu e Taste.
 - Caveman continua fora do fluxo automatico ate aprovacao explicita.
@@ -77,7 +77,7 @@ A documentacao atual da JetBrains orienta adicionar MCPs externos por configurac
 Exemplo:
 
 ```text
-Use mcp-control para inspecionar /Users/rafaelpereirafreitas/Sites/rafaelfreitas e diga quais perfis, regras e skills estao configurados.
+Use mcp-control para inspecionar $HOME/Sites/rafaelfreitas e diga quais perfis, regras e skills estao configurados.
 ```
 
 Exemplo com instalacao:

@@ -7,7 +7,7 @@ Usar o Obsidian como base local de conhecimento para decisoes, arquitetura, spec
 ## Vault validado nesta maquina
 
 ```text
-/Users/rafaelpereirafreitas/Documents/Obsidian Vault
+$HOME/Documents/Obsidian Vault
 ```
 
 Estrutura encontrada:
@@ -130,4 +130,4 @@ Checklist:
 - Estrutura principal existe.
 - Projeto `10-Projects/mcp` existe.
 - Notas obrigatorias existem.
-- Repo Snapshot aponta para `/Users/rafaelpereirafreitas/Sites/mcp`.
+- Repo Snapshot aponta para `$HOME/Sites/mcp`.

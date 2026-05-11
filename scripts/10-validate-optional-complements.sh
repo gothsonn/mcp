@@ -63,11 +63,11 @@ done
 echo
 echo "== Candidate repositories =="
 for repo in \
-  "/Users/rafaelpereirafreitas/Sites/projeto_qrcode_movidesk" \
-  "/Users/rafaelpereirafreitas/Sites/rafaelfreitas" \
-  "/Users/rafaelpereirafreitas/Sites/easysuite" \
-  "/Users/rafaelpereirafreitas/Sites/Cresol" \
-  "/Users/rafaelpereirafreitas/Sites/PortoSeguro/auto-cotacao-web"; do
+  "$HOME/Sites/projeto_qrcode_movidesk" \
+  "$HOME/Sites/rafaelfreitas" \
+  "$HOME/Sites/easysuite" \
+  "$HOME/Sites/Cresol" \
+  "$HOME/Sites/PortoSeguro/auto-cotacao-web"; do
   if [ -d "$repo" ]; then
     echo "OK   $repo"
   else

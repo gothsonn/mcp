@@ -97,7 +97,7 @@ Retorne recomendacoes sem alterar o banco.
 Pelo MCP global:
 
 ```text
-Use mcp-control para instalar os perfis frontend, backend e product-architecture no repo /Users/rafaelpereirafreitas/Sites/NOME_DO_REPO com apply=true.
+Use mcp-control para instalar os perfis frontend, backend e product-architecture no repo $HOME/Sites/NOME_DO_REPO com apply=true.
 ```
 
 Isso cria/atualiza:
@@ -118,7 +118,7 @@ docs/design/TASTE.md
 Depois de mudancas relevantes:
 
 ```bash
-cd /Users/rafaelpereirafreitas/Sites/NOME_DO_REPO
+cd $HOME/Sites/NOME_DO_REPO
 graphify extract . --backend gemini
 graphify cluster-only .
 ```
@@ -138,7 +138,7 @@ Por padrao, `graphify-out/` fica fora do Git. Registrar no Obsidian apenas o res
 Vault validado:
 
 ```text
-/Users/rafaelpereirafreitas/Documents/Obsidian Vault
+$HOME/Documents/Obsidian Vault
 ```
 
 Projeto do kit:
@@ -238,10 +238,22 @@ Nao copie o relatorio inteiro.
 
 Ao finalizar uma feature, rode sempre o fluxo de fechamento:
 
-```bash
-cd /Users/rafaelpereirafreitas/Sites/mcp
+```text
+/feature-done {numero-opcional-da-tarefa}
+```
 
-TARGET_REPO=/Users/rafaelpereirafreitas/Sites/livelo/liv-mfe-transfer-details \
+Exemplo:
+
+```text
+/feature-done TXP-1175
+```
+
+Equivalente via terminal:
+
+```bash
+cd $HOME/Sites/mcp
+
+TARGET_REPO=$HOME/Sites/livelo/liv-mfe-transfer-details \
 FEATURE_KEY=TXP-1175 \
 FEATURE_TITLE="WEB | Alteracoes na jornada por Tier" \
 FEATURE_SUMMARY="UI passou a refletir minimoAplicavel retornado pela API." \
@@ -250,10 +262,11 @@ APPLY=1 \
 ./scripts/16-feature-done.sh
 ```
 
-Para repositorios sensiveis onde a indexacao ainda nao foi aprovada:
+Graphify fica ativo por padrao. Para pular Graphify em um caso especifico,
+somente quando solicitado explicitamente:
 
 ```bash
-TARGET_REPO=/Users/rafaelpereirafreitas/Sites/livelo/liv-mfe-transfer-details \
+TARGET_REPO=$HOME/Sites/livelo/liv-mfe-transfer-details \
 FEATURE_KEY=TXP-1175 \
 RUN_GRAPHIFY=0 \
 APPLY=1 \

@@ -70,7 +70,7 @@ APPLY=1 ./scripts/14-create-antigravity-docker-profiles.sh
 
 Observacoes:
 
-- `filesystem` foi reabilitado nos perfis automaticos com `filesystem.paths=["/Users/rafaelpereirafreitas/Sites"]`.
+- `filesystem` foi reabilitado nos perfis automaticos com `filesystem.paths=["$HOME/Sites"]`.
 - `semgrep` remoto ficou fora do perfil automatico porque o gateway retornou `Unauthorized`; usar Semgrep local/CLI ou autenticar a integracao antes de reativar.
 - `database-server` ficou fora do perfil automatico porque falhou no gateway mesmo com imagem `linux/amd64` pre-puxada e `database_url` configurado; usar Oracle read-only no gateway e tratar PostgreSQL/MySQL/SQL Server/DB2 em MCP dedicado depois.
 - GitHub e Obsidian podem listar tools em dry-run, mas tarefas reais ainda exigem secrets/config local no Docker MCP.
@@ -123,7 +123,7 @@ Nao incluir:
 Ferramentas:
 
 - GitHub Official.
-- Filesystem scoped a `/Users/rafaelpereirafreitas/Sites`.
+- Filesystem scoped a `$HOME/Sites`.
 - Context7.
 - Sequential Thinking.
 - Docker Docs.
@@ -176,7 +176,7 @@ Ferramentas:
 
 - Obsidian.
 - GitHub Official.
-- Filesystem scoped a `/Users/rafaelpereirafreitas/Sites`.
+- Filesystem scoped a `$HOME/Sites`.
 - Context7.
 - Sequential Thinking.
 - Docker Docs.
@@ -204,7 +204,7 @@ Nao incluir:
 Arquivo:
 
 ```text
-/Users/rafaelpereirafreitas/.gemini/antigravity/mcp_config.json
+$HOME/.gemini/antigravity/mcp_config.json
 ```
 
 Exemplo com gateway local:
@@ -268,7 +268,7 @@ Use o perfil product-architecture. Transforme a demanda em epico, historias, cri
 ## Checklist de validacao
 
 ```bash
-jq . /Users/rafaelpereirafreitas/.gemini/antigravity/mcp_config.json
+jq . $HOME/.gemini/antigravity/mcp_config.json
 docker mcp gateway run --help
 ./scripts/08-validate-antigravity-mcp.sh
 ```

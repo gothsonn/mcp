@@ -15,8 +15,8 @@ Guias complementares:
 
 Arquivos relevantes:
 
-- `/Users/rafaelpereirafreitas/Library/Application Support/JetBrains/IntelliJIdea2025.3/options/llm.mcpServers.xml`
-- `/Users/rafaelpereirafreitas/Library/Application Support/JetBrains/IntelliJIdea2025.3/plugins/mcpserver`
+- `$HOME/Library/Application Support/JetBrains/IntelliJIdea2025.3/options/llm.mcpServers.xml`
+- `$HOME/Library/Application Support/JetBrains/IntelliJIdea2025.3/plugins/mcpserver`
 
 Estado encontrado no IntelliJ IDEA 2025.3:
 
@@ -80,6 +80,24 @@ Uso recomendado:
 - Java/Spring/Quarkus: usar IntelliJ como fonte de verdade para modulos, dependencias, run configs e inspecoes.
 - Angular/React/Next em monorepo Java: usar IntelliJ para contexto do backend e Cursor/Codex para iterar frontend.
 - Code review Java: combinar inspecoes do IntelliJ com review rigoroso no Codex.
+
+## Comando de fechamento
+
+Ao finalizar uma feature com JetBrains AI/Junie, use:
+
+```text
+/feature-done {numero-opcional-da-tarefa}
+```
+
+Exemplo:
+
+```text
+/feature-done TXP-1175
+```
+
+O comportamento esperado e seguir o workflow local
+`.agents/workflows/feature-done.md`, rodando Graphify por padrao e atualizando o
+Obsidian do projeto.
 
 ## O que evitar
 

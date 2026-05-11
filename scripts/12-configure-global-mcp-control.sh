@@ -4,6 +4,7 @@ set -euo pipefail
 APPLY="${APPLY:-0}"
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 SERVER="$ROOT_DIR/mcp-control/src/server.js"
+SERVER_COMMAND='exec node "$HOME/Sites/mcp/mcp-control/src/server.js"'
 CURSOR_CONFIG="$HOME/.cursor/mcp.json"
 ANTIGRAVITY_CONFIG="$HOME/.gemini/antigravity/mcp_config.json"
 
@@ -23,11 +24,10 @@ if [ "$APPLY" != "1" ]; then
   exit 0
 fi
 
-if ! codex mcp get mcp-control >/dev/null 2>&1; then
-  codex mcp add mcp-control -- node "$SERVER"
-else
-  echo "Codex mcp-control already configured"
+if codex mcp get mcp-control >/dev/null 2>&1; then
+  codex mcp remove mcp-control
 fi
+codex mcp add mcp-control -- zsh -lc "$SERVER_COMMAND"
 
 mkdir -p "$(dirname "$CURSOR_CONFIG")"
 if [ ! -f "$CURSOR_CONFIG" ]; then
@@ -35,10 +35,10 @@ if [ ! -f "$CURSOR_CONFIG" ]; then
 fi
 
 tmp="$(mktemp)"
-jq --arg server "$SERVER" '
+jq --arg serverCommand "$SERVER_COMMAND" '
   .mcpServers["mcp-control"] = {
-    "command": "node",
-    "args": [$server]
+    "command": "zsh",
+    "args": ["-lc", $serverCommand]
   }
 ' "$CURSOR_CONFIG" > "$tmp"
 mv "$tmp" "$CURSOR_CONFIG"
@@ -51,10 +51,10 @@ if [ ! -f "$ANTIGRAVITY_CONFIG" ]; then
 fi
 
 tmp="$(mktemp)"
-jq --arg server "$SERVER" '
+jq --arg serverCommand "$SERVER_COMMAND" '
   .mcpServers["mcp-control"] = {
-    "command": "node",
-    "args": [$server]
+    "command": "zsh",
+    "args": ["-lc", $serverCommand]
   }
 ' "$ANTIGRAVITY_CONFIG" > "$tmp"
 mv "$tmp" "$ANTIGRAVITY_CONFIG"

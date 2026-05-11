@@ -10,10 +10,10 @@ Configuracao aplicada:
 
 ```bash
 docker mcp profile config antigravity-backend \
-  --set 'filesystem.paths=["/Users/rafaelpereirafreitas/Sites"]'
+  --set "filesystem.paths=[\"$HOME/Sites\"]"
 
 docker mcp profile config antigravity-product-architecture \
-  --set 'filesystem.paths=["/Users/rafaelpereirafreitas/Sites"]'
+  --set "filesystem.paths=[\"$HOME/Sites\"]"
 ```
 
 O script `scripts/14-create-antigravity-docker-profiles.sh` agora aplica essa configuracao automaticamente. Dry-run validado:
@@ -39,7 +39,7 @@ Depois validar fora do gateway:
 
 ```bash
 semgrep --version
-semgrep scan --config auto /Users/rafaelpereirafreitas/Sites/rafaelfreitas
+semgrep scan --config auto $HOME/Sites/rafaelfreitas
 ```
 
 So depois reativar no gateway:
@@ -72,6 +72,6 @@ Caminho recomendado:
 
 ## Politica
 
-- `filesystem` pode ficar em backend/product-architecture com escopo `/Users/rafaelpereirafreitas/Sites`.
+- `filesystem` pode ficar em backend/product-architecture com escopo `$HOME/Sites`.
 - `semgrep` entra somente depois de login/config validado.
 - `database-server` fica fora ate existir imagem/servidor compativel e read-only confiavel.

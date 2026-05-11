@@ -47,22 +47,22 @@ Registrar o estado atual para permitir rollback e comparacao.
 ### Comandos
 
 ```bash
-mkdir -p /Users/rafaelpereirafreitas/Sites/mcp/backups
+mkdir -p $HOME/Sites/mcp/backups
 date +%Y%m%d-%H%M%S
 codex mcp list
-jq . /Users/rafaelpereirafreitas/.cursor/mcp.json
-jq . /Users/rafaelpereirafreitas/.gemini/antigravity/mcp_config.json
-sed -n '1,220p' /Users/rafaelpereirafreitas/.codex/config.toml
+jq . $HOME/.cursor/mcp.json
+jq . $HOME/.gemini/antigravity/mcp_config.json
+sed -n '1,220p' $HOME/.codex/config.toml
 ```
 
 ### Backups
 
 ```bash
 ts=$(date +%Y%m%d-%H%M%S)
-cp /Users/rafaelpereirafreitas/.codex/config.toml /Users/rafaelpereirafreitas/Sites/mcp/backups/config.toml.$ts.bak
-cp /Users/rafaelpereirafreitas/.cursor/mcp.json /Users/rafaelpereirafreitas/Sites/mcp/backups/cursor-mcp.json.$ts.bak
-cp /Users/rafaelpereirafreitas/.gemini/antigravity/mcp_config.json /Users/rafaelpereirafreitas/Sites/mcp/backups/antigravity-mcp_config.json.$ts.bak
-cp "/Users/rafaelpereirafreitas/Library/Application Support/JetBrains/IntelliJIdea2025.3/options/llm.mcpServers.xml" "/Users/rafaelpereirafreitas/Sites/mcp/backups/intellij-llm.mcpServers.xml.$ts.bak"
+cp $HOME/.codex/config.toml $HOME/Sites/mcp/backups/config.toml.$ts.bak
+cp $HOME/.cursor/mcp.json $HOME/Sites/mcp/backups/cursor-mcp.json.$ts.bak
+cp $HOME/.gemini/antigravity/mcp_config.json $HOME/Sites/mcp/backups/antigravity-mcp_config.json.$ts.bak
+cp "$HOME/Library/Application Support/JetBrains/IntelliJIdea2025.3/options/llm.mcpServers.xml" "$HOME/Sites/mcp/backups/intellij-llm.mcpServers.xml.$ts.bak"
 ```
 
 ### Criterio de pronto
@@ -89,7 +89,7 @@ Deixar o Codex como agente principal, com docs oficiais e plugins atuais preserv
 codex mcp list
 codex mcp add openaiDeveloperDocs --url https://developers.openai.com/mcp
 codex mcp list
-sed -n '1,260p' /Users/rafaelpereirafreitas/.codex/config.toml
+sed -n '1,260p' $HOME/.codex/config.toml
 ```
 
 ### Teste funcional
@@ -274,14 +274,14 @@ codex mcp add jetbrains -- npx -y @jetbrains/mcp-proxy
 ### Arquivos envolvidos
 
 ```text
-/Users/rafaelpereirafreitas/Library/Application Support/JetBrains/IntelliJIdea2025.3/options/llm.mcpServers.xml
-/Users/rafaelpereirafreitas/.codex/config.toml
+$HOME/Library/Application Support/JetBrains/IntelliJIdea2025.3/options/llm.mcpServers.xml
+$HOME/.codex/config.toml
 ```
 
 ### Validacao
 
 ```bash
-sed -n '1,220p' "/Users/rafaelpereirafreitas/Library/Application Support/JetBrains/IntelliJIdea2025.3/options/llm.mcpServers.xml"
+sed -n '1,220p' "$HOME/Library/Application Support/JetBrains/IntelliJIdea2025.3/options/llm.mcpServers.xml"
 codex mcp list
 ./scripts/06-validate-jetbrains-mcp.sh
 ```
@@ -320,7 +320,7 @@ Configurar o Cursor como editor fullstack rapido, sem virar concentrador global 
 Arquivo:
 
 ```text
-/Users/rafaelpereirafreitas/.cursor/mcp.json
+$HOME/.cursor/mcp.json
 ```
 
 MCPs atuais:
@@ -357,7 +357,7 @@ Adicionar sem apagar os existentes:
 ### Validacao
 
 ```bash
-jq . /Users/rafaelpereirafreitas/.cursor/mcp.json
+jq . $HOME/.cursor/mcp.json
 ./scripts/07-validate-cursor-mcp.sh
 ```
 
@@ -411,7 +411,7 @@ Usar:
 ### Arquivo
 
 ```text
-/Users/rafaelpereirafreitas/.gemini/antigravity/mcp_config.json
+$HOME/.gemini/antigravity/mcp_config.json
 ```
 
 ### Perfis
@@ -460,7 +460,7 @@ docker mcp profile create \
   --server catalog://mcp/docker-mcp-catalog/sequentialthinking
 docker mcp gateway run --help
 docker mcp gateway run --profile antigravity-frontend --dry-run
-jq . /Users/rafaelpereirafreitas/.gemini/antigravity/mcp_config.json
+jq . $HOME/.gemini/antigravity/mcp_config.json
 ./scripts/08-validate-antigravity-mcp.sh
 ```
 
@@ -679,8 +679,8 @@ Instalacao somente com escopo explicito:
 
 ```bash
 APPLY=1 INSTALL_GRAPHIFY=1 ./scripts/11-install-optional-complements.sh
-TARGET_REPO=/Users/rafaelpereirafreitas/Sites/rafaelfreitas APPLY=1 INSTALL_GRAPHIFY_PROJECT=1 ./scripts/11-install-optional-complements.sh
-TARGET_REPO=/Users/rafaelpereirafreitas/Sites/projeto_qrcode_movidesk APPLY=1 INSTALL_IMPECCABLE=1 ./scripts/11-install-optional-complements.sh
+TARGET_REPO=$HOME/Sites/rafaelfreitas APPLY=1 INSTALL_GRAPHIFY_PROJECT=1 ./scripts/11-install-optional-complements.sh
+TARGET_REPO=$HOME/Sites/projeto_qrcode_movidesk APPLY=1 INSTALL_IMPECCABLE=1 ./scripts/11-install-optional-complements.sh
 ```
 
 ## Quadro de progresso
@@ -693,5 +693,5 @@ TARGET_REPO=/Users/rafaelpereirafreitas/Sites/projeto_qrcode_movidesk APPLY=1 IN
 | 3 - IntelliJ IDEA | Validado | JetBrains MCP habilitado e `./scripts/06-validate-jetbrains-mcp.sh`. | Aprovado |
 | 4 - Cursor | Validado | `./scripts/07-validate-cursor-mcp.sh`; MCP_DOCKER, GitKraken, OpenAI Docs, Playwright e JetBrains preservados. | Aprovado |
 | 5 - Antigravity | Validado | Docker MCP profile `antigravity-frontend` com dry-run de 26 tools; `gateway-frontend` aparece conectado no Antigravity. | Aprovado |
-| 6 - Obsidian completo | Validado | Vault `/Users/rafaelpereirafreitas/Documents/Obsidian Vault`; projeto `10-Projects/mcp` criado e `./scripts/09-validate-obsidian-vault.sh` executado sem erro. | Aprovado |
+| 6 - Obsidian completo | Validado | Vault `$HOME/Documents/Obsidian Vault`; projeto `10-Projects/mcp` criado e `./scripts/09-validate-obsidian-vault.sh` executado sem erro. | Aprovado |
 | 7 - Complementos por projeto | Em validacao | Graphify CLI instalado via `uv`; docs, templates e scripts criados para instalar skills por repo apenas com `APPLY=1` e escopo explicito. | Pendente piloto por repo |

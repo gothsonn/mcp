@@ -50,7 +50,7 @@ APPLY=1 INSTALL_GRAPHIFY=1 ./scripts/11-install-optional-complements.sh
 3. Instalar regras Graphify no repo piloto escolhido:
 
 ```bash
-TARGET_REPO=/Users/rafaelpereirafreitas/Sites/rafaelfreitas \
+TARGET_REPO=$HOME/Sites/rafaelfreitas \
 APPLY=1 INSTALL_GRAPHIFY_PROJECT=1 \
 ./scripts/11-install-optional-complements.sh
 ```
@@ -58,7 +58,7 @@ APPLY=1 INSTALL_GRAPHIFY_PROJECT=1 \
 4. Escolher um repo piloto para UI:
 
 ```bash
-TARGET_REPO=/Users/rafaelpereirafreitas/Sites/projeto_qrcode_movidesk \
+TARGET_REPO=$HOME/Sites/projeto_qrcode_movidesk \
 APPLY=1 INSTALL_IMPECCABLE=1 \
 ./scripts/11-install-optional-complements.sh
 ```
@@ -66,7 +66,7 @@ APPLY=1 INSTALL_IMPECCABLE=1 \
 5. Instalar Huashu apenas quando houver demanda visual concreta:
 
 ```bash
-TARGET_REPO=/Users/rafaelpereirafreitas/Sites/projeto_qrcode_movidesk \
+TARGET_REPO=$HOME/Sites/projeto_qrcode_movidesk \
 APPLY=1 INSTALL_HUASHU=1 \
 ./scripts/11-install-optional-complements.sh
 ```
@@ -228,11 +228,11 @@ Primeiro ciclo:
 
 | Categoria | Repo piloto | Complementos |
 | --- | --- | --- |
-| Frontend React/Vite | `/Users/rafaelpereirafreitas/Sites/projeto_qrcode_movidesk` | Impeccable, Taste, Playwright |
-| Frontend Angular | `/Users/rafaelpereirafreitas/Sites/PortoSeguro/auto-cotacao-web` | Impeccable, Playwright |
-| Fullstack pessoal | `/Users/rafaelpereirafreitas/Sites/rafaelfreitas` | Graphify, Impeccable, Taste |
-| Monorepo grande | `/Users/rafaelpereirafreitas/Sites/easysuite` | Graphify, product-architecture profile |
-| Java/Next corporativo | `/Users/rafaelpereirafreitas/Sites/Cresol` | Graphify, JetBrains, Playwright por UI |
+| Frontend React/Vite | `$HOME/Sites/projeto_qrcode_movidesk` | Impeccable, Taste, Playwright |
+| Frontend Angular | `$HOME/Sites/PortoSeguro/auto-cotacao-web` | Impeccable, Playwright |
+| Fullstack pessoal | `$HOME/Sites/rafaelfreitas` | Graphify, Impeccable, Taste |
+| Monorepo grande | `$HOME/Sites/easysuite` | Graphify, product-architecture profile |
+| Java/Next corporativo | `$HOME/Sites/Cresol` | Graphify, JetBrains, Playwright por UI |
 
 ## Por IDE
 
@@ -245,7 +245,7 @@ Primeiro ciclo:
 
 ## Caso `rafaelfreitas`
 
-O repo `/Users/rafaelpereirafreitas/Sites/rafaelfreitas` deve ser tratado como grupo fullstack:
+O repo `$HOME/Sites/rafaelfreitas` deve ser tratado como grupo fullstack:
 
 ```text
 deploy/    -> infraestrutura, AWS, Cloudflare, Nginx, Caddy

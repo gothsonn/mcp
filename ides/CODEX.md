@@ -13,7 +13,7 @@ Guias complementares:
 
 ## Estado atual encontrado
 
-- Arquivo principal: `/Users/rafaelpereirafreitas/.codex/config.toml`
+- Arquivo principal: `$HOME/.codex/config.toml`
 - Modelo atual: `gpt-5.5`
 - Raciocinio: `medium`
 - MCP externo: vazio em `[mcp_servers]`
@@ -82,6 +82,23 @@ Skills recomendadas por tipo de tarefa:
 - Caveman/RTK: reducao de tokens em sessoes longas.
 - Cybersecurity scan: auditoria mensal, pre-release ou PR sensivel.
 
+## Comando de fechamento
+
+Ao finalizar uma feature, use:
+
+```text
+/feature-done {numero-opcional-da-tarefa}
+```
+
+Exemplo:
+
+```text
+/feature-done TXP-1175
+```
+
+O comando deve executar o workflow local `.agents/workflows/feature-done.md`,
+rodando Graphify por padrao e atualizando o Obsidian do projeto.
+
 ## O que evitar
 
 - Nao adicionar MCPs de banco, cloud ou producao globalmente.
@@ -97,7 +114,7 @@ Depois de cada alteracao:
 codex mcp list
 codex mcp get openaiDeveloperDocs
 codex mcp get jetbrains
-sed -n '1,220p' /Users/rafaelpereirafreitas/.codex/config.toml
+sed -n '1,220p' $HOME/.codex/config.toml
 ```
 
 Checklist:

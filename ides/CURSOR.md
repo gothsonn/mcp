@@ -13,7 +13,7 @@ Guias complementares:
 
 ## Estado atual encontrado
 
-- Arquivo global: `/Users/rafaelpereirafreitas/.cursor/mcp.json`
+- Arquivo global: `$HOME/.cursor/mcp.json`
 - MCPs atuais:
   - `MCP_DOCKER`
   - `GitKraken`
@@ -28,10 +28,13 @@ Configuracao atual encontrada:
       "args": ["mcp", "gateway", "run"]
     },
     "GitKraken": {
-      "command": "/Users/rafaelpereirafreitas/Library/Application Support/Cursor/User/globalStorage/eamodio.gitlens/gk",
+      "command": "zsh",
       "type": "stdio",
       "name": "GitKraken",
-      "args": ["mcp", "--host=cursor", "--source=gitlens", "--scheme=cursor"],
+      "args": [
+        "-lc",
+        "exec \"$HOME/Library/Application Support/Cursor/User/globalStorage/eamodio.gitlens/gk\" mcp --host=cursor --source=gitlens --scheme=cursor"
+      ],
       "env": {}
     }
   }
@@ -101,6 +104,23 @@ Skills recomendadas:
 - Huashu Design para prototipos e demos visuais.
 - Graphify em repos grandes.
 - Taste quando houver perfil visual exportado.
+
+## Comando de fechamento
+
+Ao finalizar uma feature, use no agent/chat do Cursor:
+
+```text
+/feature-done {numero-opcional-da-tarefa}
+```
+
+Exemplo:
+
+```text
+/feature-done TXP-1175
+```
+
+O workflow local `.agents/workflows/feature-done.md` deve rodar Graphify por
+padrao, atualizar Obsidian e registrar o fechamento no `Decision Log.md`.
 
 ## Configuracao por projeto
 

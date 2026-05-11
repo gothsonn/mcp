@@ -23,14 +23,14 @@ scripts/15-bootstrap-repo.sh
 Dry-run:
 
 ```bash
-TARGET_REPO=/Users/rafaelpereirafreitas/Sites/NOME_DO_REPO \
+TARGET_REPO=$HOME/Sites/NOME_DO_REPO \
 ./scripts/15-bootstrap-repo.sh
 ```
 
 Aplicar:
 
 ```bash
-TARGET_REPO=/Users/rafaelpereirafreitas/Sites/NOME_DO_REPO \
+TARGET_REPO=$HOME/Sites/NOME_DO_REPO \
 APPLY=1 \
 ./scripts/15-bootstrap-repo.sh
 ```
@@ -38,7 +38,7 @@ APPLY=1 \
 Aplicar sem gerar Graphify:
 
 ```bash
-TARGET_REPO=/Users/rafaelpereirafreitas/Sites/NOME_DO_REPO \
+TARGET_REPO=$HOME/Sites/NOME_DO_REPO \
 APPLY=1 \
 RUN_GRAPHIFY=0 \
 ./scripts/15-bootstrap-repo.sh
@@ -71,6 +71,7 @@ No repositorio alvo:
 .agents/rules/profile-engineering.md
 .agents/rules/graphify.md
 .agents/workflows/graphify.md
+.agents/workflows/feature-done.md
 .cursor/rules/graphify.mdc
 PRODUCT.md
 DESIGN.md
@@ -93,7 +94,7 @@ No Obsidian:
 
 ## Politica
 
-- O script so aceita repos em `/Users/rafaelpereirafreitas/Sites/`.
+- O script so aceita repos em `$HOME/Sites/`.
 - `APPLY=0` e sempre dry-run.
 - `graphify-out/` fica local por padrao.
 - Obsidian recebe resumo operacional, nao logs brutos.
@@ -107,8 +108,20 @@ No Obsidian:
 
 Ao finalizar uma feature, usar:
 
+```text
+/feature-done {numero-opcional-da-tarefa}
+```
+
+Exemplo:
+
+```text
+/feature-done TXP-1175
+```
+
+Equivalente via terminal:
+
 ```bash
-TARGET_REPO=/Users/rafaelpereirafreitas/Sites/NOME_DO_REPO \
+TARGET_REPO=$HOME/Sites/NOME_DO_REPO \
 FEATURE_KEY=ISSUE-123 \
 APPLY=1 \
 ./scripts/16-feature-done.sh

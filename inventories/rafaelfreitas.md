@@ -3,7 +3,7 @@
 ## Caminho
 
 ```text
-/Users/rafaelpereirafreitas/Sites/rafaelfreitas
+$HOME/Sites/rafaelfreitas
 ```
 
 ## GitHub
@@ -89,15 +89,15 @@ Excluir:
 2. Regras Graphify instaladas no repo:
 
 ```bash
-TARGET_REPO=/Users/rafaelpereirafreitas/Sites/rafaelfreitas \
+TARGET_REPO=$HOME/Sites/rafaelfreitas \
 APPLY=1 INSTALL_GRAPHIFY_PROJECT=1 \
-/Users/rafaelpereirafreitas/Sites/mcp/scripts/11-install-optional-complements.sh
+$HOME/Sites/mcp/scripts/11-install-optional-complements.sh
 ```
 
 3. Gerar grafo inicial:
 
 ```bash
-cd /Users/rafaelpereirafreitas/Sites/rafaelfreitas
+cd $HOME/Sites/rafaelfreitas
 graphify extract . --backend gemini
 graphify cluster-only .
 ```
@@ -117,9 +117,9 @@ Grafo inicial: 110 nodes, 156 edges, 15 communities.
 Bootstrap validado em 2026-05-10:
 
 ```bash
-TARGET_REPO=/Users/rafaelpereirafreitas/Sites/rafaelfreitas \
+TARGET_REPO=$HOME/Sites/rafaelfreitas \
 APPLY=1 RUN_GRAPHIFY=1 UPDATE_OBSIDIAN=1 \
-/Users/rafaelpereirafreitas/Sites/mcp/scripts/15-bootstrap-repo.sh
+$HOME/Sites/mcp/scripts/15-bootstrap-repo.sh
 ```
 
 Resultado Graphify apos bootstrap: 116 nodes, 162 edges, 16 communities.

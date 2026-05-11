@@ -4,7 +4,7 @@ set -euo pipefail
 VAULT="${OBSIDIAN_VAULT:-$HOME/Documents/Obsidian Vault}"
 PROJECT="${OBSIDIAN_PROJECT:-mcp}"
 PROJECT_DIR="$VAULT/10-Projects/$PROJECT"
-REPO_PATH="${REPO_PATH:-/Users/rafaelpereirafreitas/Sites/mcp}"
+REPO_PATH="${REPO_PATH:-$HOME/Sites/mcp}"
 
 required_dirs=(
   ".obsidian"

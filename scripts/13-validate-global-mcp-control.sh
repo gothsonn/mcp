@@ -18,12 +18,12 @@ codex mcp get mcp-control
 
 echo
 echo "== Cursor =="
-jq -e '.mcpServers["mcp-control"].command == "node"' "$CURSOR_CONFIG" >/dev/null
+jq -e '.mcpServers["mcp-control"].command == "zsh"' "$CURSOR_CONFIG" >/dev/null
 jq '.mcpServers["mcp-control"]' "$CURSOR_CONFIG"
 
 echo
 echo "== Antigravity =="
-jq -e '.mcpServers["mcp-control"].command == "node"' "$ANTIGRAVITY_CONFIG" >/dev/null
+jq -e '.mcpServers["mcp-control"].command == "zsh"' "$ANTIGRAVITY_CONFIG" >/dev/null
 jq '.mcpServers["mcp-control"]' "$ANTIGRAVITY_CONFIG"
 
 echo

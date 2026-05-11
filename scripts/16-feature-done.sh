@@ -10,19 +10,19 @@ VALIDATION="${VALIDATION:-}"
 PR_URL="${PR_URL:-}"
 RUN_GRAPHIFY="${RUN_GRAPHIFY:-1}"
 UPDATE_OBSIDIAN="${UPDATE_OBSIDIAN:-1}"
-OBSIDIAN_VAULT="${OBSIDIAN_VAULT:-/Users/rafaelpereirafreitas/Documents/Obsidian Vault}"
+OBSIDIAN_VAULT="${OBSIDIAN_VAULT:-$HOME/Documents/Obsidian Vault}"
 MCP_REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 if [ -z "$TARGET_REPO" ]; then
-  echo "Usage: TARGET_REPO=/Users/rafaelpereirafreitas/Sites/repo FEATURE_KEY=TXP-1175 APPLY=1 $0"
+  echo "Usage: TARGET_REPO=\$HOME/Sites/repo FEATURE_KEY=TXP-1175 APPLY=1 $0"
   exit 2
 fi
 
 REPO="$(cd "$TARGET_REPO" && pwd)"
 case "$REPO" in
-  /Users/rafaelpereirafreitas/Sites/*) ;;
+  "$HOME"/Sites/*) ;;
   *)
-    echo "Refusing path outside /Users/rafaelpereirafreitas/Sites: $REPO"
+    echo "Refusing path outside \$HOME/Sites: $REPO"
     exit 2
     ;;
 esac
