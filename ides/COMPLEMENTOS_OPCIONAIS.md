@@ -251,9 +251,40 @@ Primeiro ciclo:
 
 | IDE | Complementos |
 | --- | --- |
-| Codex | RTK global, Graphify skill, Impeccable por repo, Obsidian scoped. |
+| Codex | RTK global, Graphify skill, Impeccable por repo, context-mode por repo, Obsidian scoped. |
 | IntelliJ IDEA | JetBrains MCP como contexto principal; Graphify como artefato externo. |
 | Antigravity | Somente via perfis Docker MCP Gateway; Graphify no perfil `product-architecture`, Huashu no perfil `frontend` quando necessario. |
+
+## Context Mode por repositorio
+
+O MCP `context-mode` fica global no Codex, mas as regras de roteamento podem ser
+habilitadas por repositorio para evitar despejar arquivos, logs e saidas grandes
+no contexto.
+
+Dry-run:
+
+```bash
+TARGET_REPO=$HOME/Sites/NOME_DO_REPO \
+./scripts/17-enable-context-mode-repo.sh
+```
+
+Aplicar:
+
+```bash
+TARGET_REPO=$HOME/Sites/NOME_DO_REPO \
+APPLY=1 \
+./scripts/17-enable-context-mode-repo.sh
+```
+
+Artefatos no repo alvo:
+
+```text
+AGENTS.context-mode.md
+AGENTS.md
+```
+
+O script nao sobrescreve `AGENTS.md`; apenas adiciona a referencia
+`@./AGENTS.context-mode.md` quando ela ainda nao existe.
 
 ## Caso `rafaelfreitas`
 
