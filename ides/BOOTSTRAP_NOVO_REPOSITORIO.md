@@ -101,6 +101,8 @@ No Obsidian:
 - `.gitignore` recebe apenas padroes ausentes sob o marcador `# mcp bootstrap defaults`.
 - Skills instaladas via `npx`, como Impeccable, sao executadas pelo MCP global
   com registry publico do npm para nao herdar `.npmrc` corporativo do repo alvo.
+- O npm global da maquina deve apontar para `https://registry.npmjs.org/`;
+  registry corporativo pertence ao repo alvo ou ao `credential_mcp.env`.
 - `credential_mcp.env` e sempre local por repositorio e nunca deve ser
   versionado; `credential_mcp.env.example` e o contrato versionavel.
 

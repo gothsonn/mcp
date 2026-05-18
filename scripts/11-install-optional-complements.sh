@@ -33,6 +33,19 @@ run_or_print() {
   fi
 }
 
+run_public_npm_or_print() {
+  if [ "$APPLY" = "1" ]; then
+    NPM_CONFIG_REGISTRY=https://registry.npmjs.org/ \
+      npm_config_registry=https://registry.npmjs.org/ \
+      npm_config_always_auth=false \
+      "$@"
+  else
+    printf 'DRY-RUN: NPM_CONFIG_REGISTRY=https://registry.npmjs.org/ npm_config_registry=https://registry.npmjs.org/ npm_config_always_auth=false'
+    printf ' %q' "$@"
+    printf '\n'
+  fi
+}
+
 run_in_target_or_print() {
   require_target_repo
 
@@ -40,6 +53,24 @@ run_in_target_or_print() {
     (cd "$TARGET_REPO" && "$@")
   else
     printf 'DRY-RUN: cd %q &&' "$TARGET_REPO"
+    printf ' %q' "$@"
+    printf '\n'
+  fi
+}
+
+run_public_npm_in_target_or_print() {
+  require_target_repo
+
+  if [ "$APPLY" = "1" ]; then
+    (
+      cd "$TARGET_REPO"
+      NPM_CONFIG_REGISTRY=https://registry.npmjs.org/ \
+        npm_config_registry=https://registry.npmjs.org/ \
+        npm_config_always_auth=false \
+        "$@"
+    )
+  else
+    printf 'DRY-RUN: cd %q && NPM_CONFIG_REGISTRY=https://registry.npmjs.org/ npm_config_registry=https://registry.npmjs.org/ npm_config_always_auth=false' "$TARGET_REPO"
     printf ' %q' "$@"
     printf '\n'
   fi
@@ -74,23 +105,23 @@ if [ "$INSTALL_GRAPHIFY_PROJECT" = "1" ]; then
 fi
 
 if [ "$INSTALL_IMPECCABLE" = "1" ]; then
-  run_in_target_or_print npx skills add pbakaus/impeccable
+  run_public_npm_in_target_or_print npx skills add pbakaus/impeccable
 fi
 
 if [ "$INSTALL_HUASHU" = "1" ]; then
-  run_in_target_or_print npx playbooks add skill alchaincyf/huashu-skills --skill huashu-design
+  run_public_npm_in_target_or_print npx playbooks add skill alchaincyf/huashu-skills --skill huashu-design
 fi
 
 if [ "$INSTALL_CAVEMAN_CODEX" = "1" ]; then
-  run_or_print npx skills add JuliusBrussee/caveman -a codex
+  run_public_npm_or_print npx skills add JuliusBrussee/caveman -a codex
 fi
 
 if [ "$INSTALL_CAVEMAN_CURSOR" = "1" ]; then
-  run_or_print npx skills add JuliusBrussee/caveman -a cursor
+  run_public_npm_or_print npx skills add JuliusBrussee/caveman -a cursor
 fi
 
 if [ "$INSTALL_CAVEMAN_ANTIGRAVITY" = "1" ]; then
-  run_or_print npx skills add JuliusBrussee/caveman -a antigravity
+  run_public_npm_or_print npx skills add JuliusBrussee/caveman -a antigravity
 fi
 
 if [ "$APPLY" != "1" ]; then

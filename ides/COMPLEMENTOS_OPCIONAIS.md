@@ -17,7 +17,7 @@ Regra:
 | --- | --- | --- |
 | RTK | Instalado em `/opt/homebrew/bin/rtk`, versao `0.39.0`. | Global aprovado. |
 | uv | Instalado via Homebrew. | Usar para instalar CLIs Python isoladas. |
-| npx | Instalado via Node/NVM. | Usar para skills por projeto. |
+| npx | Instalado via Node/NVM. | Usar para skills por projeto, sempre com registry publico quando instalar skills abertas. |
 | Graphify | Instalado via `uv tool install 'graphifyy[gemini]'`; binario em `~/.local/bin/graphify`. | CLI global aprovado; regras e grafo por repo. |
 | Caveman | Nao instalado ainda. | Primeiro rodar dry-run, depois por IDE/perfil. |
 | Impeccable | Nao instalado globalmente. | Instalar por projeto frontend piloto. |
@@ -34,6 +34,16 @@ Regra:
 - Huashu Design: `https://playbooks.com/skills/alchaincyf/huashu-skills/huashu-design`
 
 ## Ordem recomendada
+
+Antes de instalar qualquer skill publica via `npx`, confirmar que o npm global
+nao esta herdando registry corporativo:
+
+```bash
+npm config get registry --location=user
+```
+
+O resultado esperado e `https://registry.npmjs.org/`. Registries corporativos
+devem ficar no repo alvo, nunca em `$HOME/.npmrc`.
 
 1. Validar inventario:
 
@@ -150,6 +160,9 @@ Instalacao por projeto:
 
 ```bash
 cd /caminho/do/repo-frontend
+NPM_CONFIG_REGISTRY=https://registry.npmjs.org/ \
+npm_config_registry=https://registry.npmjs.org/ \
+npm_config_always_auth=false \
 npx skills add pbakaus/impeccable
 ```
 
@@ -174,6 +187,9 @@ Instalacao por projeto:
 
 ```bash
 cd /caminho/do/repo
+NPM_CONFIG_REGISTRY=https://registry.npmjs.org/ \
+npm_config_registry=https://registry.npmjs.org/ \
+npm_config_always_auth=false \
 npx playbooks add skill alchaincyf/huashu-skills --skill huashu-design
 ```
 
@@ -200,9 +216,9 @@ curl -fsSL https://raw.githubusercontent.com/JuliusBrussee/caveman/main/install.
 Instalacao seletiva:
 
 ```bash
-npx skills add JuliusBrussee/caveman -a codex
-npx skills add JuliusBrussee/caveman -a cursor
-npx skills add JuliusBrussee/caveman -a antigravity
+NPM_CONFIG_REGISTRY=https://registry.npmjs.org/ npm_config_registry=https://registry.npmjs.org/ npm_config_always_auth=false npx skills add JuliusBrussee/caveman -a codex
+NPM_CONFIG_REGISTRY=https://registry.npmjs.org/ npm_config_registry=https://registry.npmjs.org/ npm_config_always_auth=false npx skills add JuliusBrussee/caveman -a cursor
+NPM_CONFIG_REGISTRY=https://registry.npmjs.org/ npm_config_registry=https://registry.npmjs.org/ npm_config_always_auth=false npx skills add JuliusBrussee/caveman -a antigravity
 ```
 
 Politica:

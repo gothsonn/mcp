@@ -12,6 +12,45 @@ run_or_show() {
   fi
 }
 
+configure_public_npm_user_registry() {
+  if ! command -v npm >/dev/null 2>&1; then
+    echo "SKIP npm user registry: npm not found yet"
+    return
+  fi
+
+  local user_npmrc
+  user_npmrc="$(npm config get userconfig)"
+
+  if [ "$APPLY" != "1" ]; then
+    echo "DRY-RUN: backup and sanitize ${user_npmrc/#$HOME/\$HOME}"
+    echo "DRY-RUN: npm config set registry https://registry.npmjs.org/ --location=user"
+    echo "DRY-RUN: npm config delete strict-ssl --location=user"
+    echo "DRY-RUN: npm config set fund false --location=user"
+    echo "DRY-RUN: npm config set audit true --location=user"
+    return
+  fi
+
+  if [ -f "$user_npmrc" ]; then
+    cp "$user_npmrc" "$user_npmrc.bak-$(date +%Y%m%d-%H%M%S)"
+    local tmp_npmrc
+    tmp_npmrc="$(mktemp)"
+    awk '
+      BEGIN { IGNORECASE = 1 }
+      /^registry=.*codeartifact/ { next }
+      /codeartifact/ && /_authToken/ { next }
+      /^strict-ssl=false$/ { next }
+      /^always-auth=/ { next }
+      { print }
+    ' "$user_npmrc" > "$tmp_npmrc"
+    mv "$tmp_npmrc" "$user_npmrc"
+  fi
+
+  npm config set registry https://registry.npmjs.org/ --location=user
+  npm config delete strict-ssl --location=user >/dev/null 2>&1 || true
+  npm config set fund false --location=user
+  npm config set audit true --location=user
+}
+
 echo "== Prerequisites and global tools =="
 echo "APPLY=$APPLY"
 echo
@@ -65,6 +104,10 @@ install_formula_if_missing git git
 install_formula_if_missing node node
 install_formula_if_missing python3 python
 install_formula_if_missing rg ripgrep
+
+echo
+echo "== Public npm registry for global tools =="
+configure_public_npm_user_registry
 
 echo
 echo "== Desktop apps and agent CLIs =="

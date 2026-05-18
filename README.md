@@ -36,6 +36,20 @@ Este repositorio nao deve versionar:
 - Dumps de banco.
 - Backups reais de configuracao local.
 
+## Politica npm global
+
+O npm global da maquina deve usar sempre o registry publico:
+
+```bash
+npm config set registry https://registry.npmjs.org/ --location=user
+```
+
+Registries corporativos, tokens de CodeArtifact/Artifactory/Nexus e ajustes
+como `strict-ssl=false` nao devem ficar em `$HOME/.npmrc`. Quando um projeto
+precisar de npm corporativo, a configuracao deve ser local do repositorio, por
+exemplo em `.npmrc` do projeto ou em variaveis carregadas pelo
+`credential_mcp.env`.
+
 ## Ordem de uso em uma nova maquina
 
 1. Clonar este repositorio.
@@ -89,6 +103,7 @@ Prerequisitos cobertos pelo script:
 - Homebrew.
 - Git.
 - Node/npm/npx.
+- npm global com registry publico.
 - Python/pip.
 - Docker Desktop.
 - IntelliJ IDEA.
