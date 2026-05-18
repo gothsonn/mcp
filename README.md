@@ -8,7 +8,6 @@ Padronizar a configuracao de:
 
 - Codex.
 - IntelliJ IDEA / JetBrains AI.
-- Cursor.
 - Antigravity.
 - Obsidian / segundo cerebro.
 - Complementos: RTK, Caveman, Graphify, Impeccable, Huashu Design e Taste.
@@ -69,15 +68,13 @@ exemplo em `.npmrc` do projeto ou em variaveis carregadas pelo
 | `scripts/01-backup-current.sh` | Copia configs atuais para `backups/`. | Nao altera origem |
 | `scripts/02-install-global-tools.sh` | Instala/valida prerequisitos e ferramentas globais aprovadas. | Sim, com confirmacao por variavel |
 | `scripts/03-configure-codex.sh` | Prepara configuracao Codex a partir de template. | Sim, com confirmacao por variavel |
-| `scripts/04-configure-cursor.sh` | Prepara configuracao Cursor a partir de template. | Sim, com confirmacao por variavel |
 | `scripts/05-configure-antigravity.sh` | Prepara configuracao Antigravity a partir de template. | Sim, com confirmacao por variavel |
 | `scripts/06-validate-jetbrains-mcp.sh` | Valida plugin/config MCP JetBrains e clientes externos. | Nao |
-| `scripts/07-validate-cursor-mcp.sh` | Valida configuracao MCP do Cursor. | Nao |
 | `scripts/08-validate-antigravity-mcp.sh` | Valida Antigravity com Docker MCP Gateway e limite de tools. | Nao |
 | `scripts/09-validate-obsidian-vault.sh` | Valida vault Obsidian e notas do projeto `mcp`. | Nao |
 | `scripts/10-validate-optional-complements.sh` | Valida RTK, Graphify, npx, uv e repos piloto para complementos opcionais. | Nao |
 | `scripts/11-install-optional-complements.sh` | Instala complementos opcionais aprovados, com escopo explicito. | Sim, com confirmacao por variavel |
-| `scripts/12-configure-global-mcp-control.sh` | Configura o MCP global de controle em Codex, Cursor e Antigravity. | Sim, com confirmacao por variavel |
+| `scripts/12-configure-global-mcp-control.sh` | Configura o MCP global de controle em Codex e Antigravity. | Sim, com confirmacao por variavel |
 | `scripts/13-validate-global-mcp-control.sh` | Valida o MCP global de controle. | Nao |
 | `scripts/14-create-antigravity-docker-profiles.sh` | Cria perfis Docker MCP Gateway para Antigravity. | Sim, com confirmacao por variavel |
 | `scripts/15-bootstrap-repo.sh` | Detecta stack e prepara perfis, skills, `.gitignore`, Graphify e Obsidian para um repo. | Sim, com confirmacao por variavel |
@@ -107,7 +104,6 @@ Prerequisitos cobertos pelo script:
 - Python/pip.
 - Docker Desktop.
 - IntelliJ IDEA.
-- Cursor.
 - Codex.
 - Antigravity.
 - ripgrep.

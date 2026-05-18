@@ -113,7 +113,6 @@ echo
 echo "== Desktop apps and agent CLIs =="
 install_cask_if_missing "Docker.app" docker-desktop docker
 install_cask_if_missing "IntelliJ IDEA.app" intellij-idea idea
-install_cask_if_missing "Cursor.app" cursor cursor
 install_cask_if_missing "Codex.app" codex codex
 install_cask_if_missing "Antigravity.app" antigravity agy
 
@@ -123,7 +122,7 @@ install_formula_if_missing rtk rtk
 
 echo
 echo "== Versions after check/install =="
-for cmd in git node npm python3 docker jq rg codex rtk cursor agy idea; do
+for cmd in git node npm python3 docker jq rg codex rtk agy idea; do
   if command -v "$cmd" >/dev/null 2>&1; then
     echo "-- $cmd"
     "$cmd" --version 2>/dev/null || true
@@ -134,6 +133,5 @@ echo
 echo "Next manual checks:"
 echo "- Open Docker Desktop once and finish privileged helper setup"
 echo "- Authenticate Codex"
-echo "- Authenticate Cursor"
 echo "- Authenticate Antigravity"
 echo "- Sign in to IntelliJ IDEA and confirm JetBrains AI/MCP Server"

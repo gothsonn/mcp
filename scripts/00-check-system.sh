@@ -28,19 +28,19 @@ check_app() {
 }
 
 echo "== Commands =="
-for cmd in git brew node npm npx python3 pip3 docker jq rg codex cursor cursor-agent agy idea rtk; do
+for cmd in git brew node npm npx python3 pip3 docker jq rg codex agy idea rtk; do
   check_cmd "$cmd"
 done
 echo
 
 echo "== Applications =="
-for app in "Docker.app" "IntelliJ IDEA.app" "Cursor.app" "Codex.app" "Antigravity.app"; do
+for app in "Docker.app" "IntelliJ IDEA.app" "Codex.app" "Antigravity.app"; do
   check_app "$app"
 done
 echo
 
 echo "== Versions =="
-for cmd in git node npm python3 docker jq rg codex cursor agy idea rtk; do
+for cmd in git node npm python3 docker jq rg codex agy idea rtk; do
   if command -v "$cmd" >/dev/null 2>&1; then
     echo "-- $cmd"
     "$cmd" --version 2>/dev/null || true
@@ -53,7 +53,6 @@ for path in \
   "$HOME/.codex/config.toml" \
   "$HOME/.codex/AGENTS.md" \
   "$HOME/.codex/RTK.md" \
-  "$HOME/.cursor/mcp.json" \
   "$HOME/.gemini/antigravity/mcp_config.json"; do
   if [ -f "$path" ]; then
     echo "OK   $path"

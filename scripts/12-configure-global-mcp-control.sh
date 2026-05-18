@@ -5,7 +5,6 @@ APPLY="${APPLY:-0}"
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 SERVER="$ROOT_DIR/mcp-control/src/server.js"
 SERVER_COMMAND='exec node "$HOME/Sites/mcp/mcp-control/src/server.js"'
-CURSOR_CONFIG="$HOME/.cursor/mcp.json"
 ANTIGRAVITY_CONFIG="$HOME/.gemini/antigravity/mcp_config.json"
 
 echo "== Global MCP Control configuration =="
@@ -19,7 +18,7 @@ if [ ! -f "$SERVER" ]; then
 fi
 
 if [ "$APPLY" != "1" ]; then
-  echo "DRY-RUN only. To configure Codex, Cursor and Antigravity:"
+  echo "DRY-RUN only. To configure Codex and Antigravity:"
   echo "APPLY=1 $0"
   exit 0
 fi
@@ -28,22 +27,6 @@ if codex mcp get mcp-control >/dev/null 2>&1; then
   codex mcp remove mcp-control
 fi
 codex mcp add mcp-control -- zsh -lc "$SERVER_COMMAND"
-
-mkdir -p "$(dirname "$CURSOR_CONFIG")"
-if [ ! -f "$CURSOR_CONFIG" ]; then
-  printf '{"mcpServers":{}}\n' > "$CURSOR_CONFIG"
-fi
-
-tmp="$(mktemp)"
-jq --arg serverCommand "$SERVER_COMMAND" '
-  .mcpServers["mcp-control"] = {
-    "command": "zsh",
-    "args": ["-lc", $serverCommand]
-  }
-' "$CURSOR_CONFIG" > "$tmp"
-mv "$tmp" "$CURSOR_CONFIG"
-jq . "$CURSOR_CONFIG" >/dev/null
-echo "Cursor mcp-control configured"
 
 mkdir -p "$(dirname "$ANTIGRAVITY_CONFIG")"
 if [ ! -f "$ANTIGRAVITY_CONFIG" ]; then

@@ -66,18 +66,6 @@ else
   echo "MISS codex command"
 fi
 
-if [ -f "$HOME/.cursor/mcp.json" ]; then
-  if grep -qi 'jetbrains\|idea\|intellij' "$HOME/.cursor/mcp.json"; then
-    echo "OK   Cursor has a JetBrains/IntelliJ MCP entry"
-  else
-    echo "MISS Cursor JetBrains MCP entry"
-    echo "     Configure later in the Cursor phase if useful"
-  fi
-else
-  echo "MISS Cursor MCP config"
-fi
-echo
-
 if [ "$enabled_settings" -gt 0 ]; then
   echo "RESULT JetBrains MCP Server appears enabled in at least one IDE config."
 else

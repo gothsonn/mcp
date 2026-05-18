@@ -8,9 +8,8 @@ Para o seu perfil, a melhor arquitetura e:
 
 1. Codex como agente executor principal.
 2. IntelliJ IDEA como fonte de contexto profundo para Java/backend.
-3. Cursor como editor fullstack rapido.
-4. Antigravity como agente autonomo controlado, com gateway/perfis para nao estourar limite de tools.
-5. Obsidian como segundo cerebro, mas com acesso controlado e preferencialmente por arquivos/projeto.
+3. Antigravity como agente autonomo controlado, com gateway/perfis para nao estourar limite de tools.
+4. Obsidian como segundo cerebro, mas com acesso controlado e preferencialmente por arquivos/projeto.
 
 ## Camadas
 
@@ -20,22 +19,22 @@ Instalar primeiro porque melhora quase qualquer fluxo.
 
 | Item | Tipo | Onde usar | Motivo |
 | --- | --- | --- | --- |
-| OpenAI Developer Docs | MCP | Codex, Cursor | Docs atuais para OpenAI APIs, Codex, Agents e MCP. |
-| JetBrains MCP Server | MCP | Codex, Cursor | Contexto real do IntelliJ: modulos, run configs, problemas, inspecoes. |
+| OpenAI Developer Docs | MCP | Codex | Docs atuais para OpenAI APIs, Codex, Agents e MCP. |
+| JetBrains MCP Server | MCP | Codex | Contexto real do IntelliJ: modulos, run configs, problemas, inspecoes. |
 | GitHub | Plugin/MCP | Codex primeiro | PR, review, issues, CI e repos. |
-| Atlassian Rovo MCP | MCP | Codex, Cursor, Antigravity por perfil | Jira para entendimento de tarefa; Bitbucket Cloud para PRs quando habilitado. |
-| Azure DevOps MCP | MCP | Codex e Cursor por demanda | Boards, repos, pipelines e PRs com dominios filtrados. |
-| GitLab MCP | MCP | Cursor/Antigravity por demanda | Merge requests e projetos GitLab quando a instancia suportar MCP. |
-| Playwright MCP | MCP | Cursor, Antigravity, Codex quando necessario | UI automation por accessibility snapshots, testes e screenshots. |
-| Docker MCP Gateway | Gateway | Cursor e Antigravity | Agrega MCPs e reduz configuracao duplicada por cliente. |
-| RTK | CLI/proxy | Codex, Cursor, Antigravity | Reduz tokens em comandos shell comuns. |
+| Atlassian Rovo MCP | MCP | Codex, Antigravity por perfil | Jira para entendimento de tarefa; Bitbucket Cloud para PRs quando habilitado. |
+| Azure DevOps MCP | MCP | Codex por demanda | Boards, repos, pipelines e PRs com dominios filtrados. |
+| GitLab MCP | MCP | Antigravity por demanda | Merge requests e projetos GitLab quando a instancia suportar MCP. |
+| Playwright MCP | MCP | Antigravity, Codex quando necessario | UI automation por accessibility snapshots, testes e screenshots. |
+| Docker MCP Gateway | Gateway | Antigravity | Agrega MCPs e reduz configuracao duplicada por cliente. |
+| RTK | CLI/proxy | Codex, Antigravity | Reduz tokens em comandos shell comuns. |
 
 ### Camada 2 - Conhecimento e memoria
 
 | Item | Tipo | Onde usar | Motivo |
 | --- | --- | --- | --- |
-| Obsidian | Segundo cerebro | Codex e Cursor, por vault/projeto | Decisoes, arquitetura, runbooks, contexto de negocio e retrospectivas. |
-| Graphify | Skill/MCP | Codex, Cursor | Gera grafo de conhecimento do repo, bom para arquitetura e repos grandes. |
+| Obsidian | Segundo cerebro | Codex, por vault/projeto | Decisoes, arquitetura, runbooks, contexto de negocio e retrospectivas. |
+| Graphify | Skill/MCP | Codex, Antigravity | Gera grafo de conhecimento do repo, bom para arquitetura e repos grandes. |
 | Memory/Knowledge Graph | MCP | Avaliar por cliente | Memoria persistente; usar com escopo e privacidade claros. |
 
 Observacao: Obsidian ainda e ecossistema comunitario para MCP. Nao tratar como server oficial unico. Para comecar, prefira vault com arquivos Markdown versionaveis e acesso somente ao caminho necessario.
@@ -44,22 +43,22 @@ Observacao: Obsidian ainda e ecossistema comunitario para MCP. Nao tratar como s
 
 | Item | Tipo | Onde usar | Motivo |
 | --- | --- | --- | --- |
-| Impeccable | Skill | Codex, Cursor | Design review, polish, audit, harden, UX writing e anti-patterns. |
-| Huashu Design | Skill | Codex, Cursor, Antigravity | Prototipos HTML, slides, animacoes, infograficos e revisao visual. |
-| UI/UX Pro Max | Skill | Cursor, Codex | Biblioteca/guia de estilos UI quando precisar idear telas. |
-| Taste | Skill/MCP | Codex, Cursor | Perfil de gosto visual e anti-preferencias para UI consistente. |
-| Figma | MCP | Cursor e Codex por projeto | Quando houver design real para consultar. |
-| Playwright MCP | MCP | Cursor, Antigravity | Validar telas, fluxos, responsividade e screenshots. |
+| Impeccable | Skill | Codex | Design review, polish, audit, harden, UX writing e anti-patterns. |
+| Huashu Design | Skill | Codex, Antigravity | Prototipos HTML, slides, animacoes, infograficos e revisao visual. |
+| UI/UX Pro Max | Skill | Codex | Biblioteca/guia de estilos UI quando precisar idear telas. |
+| Taste | Skill/MCP | Codex | Perfil de gosto visual e anti-preferencias para UI consistente. |
+| Figma | MCP | Codex por projeto | Quando houver design real para consultar. |
+| Playwright MCP | MCP | Antigravity, Codex | Validar telas, fluxos, responsividade e screenshots. |
 
 ### Camada 4 - Backend, dados e cloud
 
 | Item | Tipo | Onde usar | Motivo |
 | --- | --- | --- | --- |
-| MCP Toolbox for Databases | MCP | Antigravity via gateway, Cursor por projeto | Postgres, MySQL, SQL Server e Cloud SQL com ferramentas declaradas. |
+| MCP Toolbox for Databases | MCP | Antigravity via gateway por projeto | Postgres, MySQL, SQL Server e Cloud SQL com ferramentas declaradas. |
 | AWS MCP Suite | MCP | Codex/Antigravity por projeto | Docs, custos, recursos AWS e Bedrock quando houver projeto AWS. |
 | Cloudflare MCP | MCP/plugin | Codex, se houver Workers/R2/D1/DNS | Hoje esta desativado no Codex; ativar so quando precisar. |
 | Grafana/Sentry | MCP | Codex/Antigravity por projeto | Incidentes, traces, logs, stack traces e observabilidade. |
-| Semgrep | MCP/CLI | Codex, CI, Cursor | Code review de seguranca e padroes. |
+| Semgrep | MCP/CLI | Codex, CI | Code review de seguranca e padroes. |
 
 Para Oracle e DB2, nao recomendo liberar MCP generico direto em producao. Use primeiro docs/schema exportado, usuario read-only e queries predefinidas. Se usar MCP, prefira gateway com allowlist e ambiente isolado.
 
@@ -79,7 +78,6 @@ Depois, instalar somente no perfil desejado:
 
 ```bash
 npx skills add JuliusBrussee/caveman -a codex
-npx skills add JuliusBrussee/caveman -a cursor
 npx skills add JuliusBrussee/caveman -a antigravity
 ```
 
@@ -95,7 +93,6 @@ Instalacao:
 brew install rtk
 rtk --version
 rtk init -g --codex
-rtk init -g --agent cursor
 rtk init --agent antigravity
 ```
 
@@ -162,7 +159,7 @@ Recomendacao: avaliar como complemento ao Impeccable. Nao instalar globalmente a
 
 ### Taste
 
-Uso: transformar preferencias visuais em skill/perfil para Codex e Claude/Cursor; MCP com OAuth existe no produto.
+Uso: transformar preferencias visuais em skill/perfil para Codex e Antigravity; MCP com OAuth existe no produto.
 
 Recomendacao: interessante para manter consistencia visual entre projetos. Antes de usar MCP, prefira exportar como skill/perfil local.
 
@@ -200,13 +197,12 @@ Modo isolado para evitar misturar sessoes:
 
 1. Codex: OpenAI Docs MCP.
 2. IntelliJ IDEA: habilitar JetBrains MCP Server e auto-configurar Codex.
-3. Cursor: validar MCP_DOCKER e GitKraken; adicionar Playwright por projeto frontend.
-4. Criar padrao de `docs/specs/[FEATURE]-RESEARCH.md` e `[FEATURE]-SPEC.md`.
-5. Instalar Impeccable em um projeto frontend piloto.
-6. Instalar Graphify em um repo grande ou legado.
-7. Configurar Antigravity com Docker MCP Gateway e perfis por tipo de trabalho.
-8. Avaliar Obsidian como segundo cerebro conectado por vault/projeto.
-9. Avaliar RTK e Caveman para reducao de tokens.
+3. Criar padrao de `docs/specs/[FEATURE]-RESEARCH.md` e `[FEATURE]-SPEC.md`.
+4. Instalar Impeccable em um projeto frontend piloto.
+5. Instalar Graphify em um repo grande ou legado.
+6. Configurar Antigravity com Docker MCP Gateway e perfis por tipo de trabalho.
+7. Avaliar Obsidian como segundo cerebro conectado por vault/projeto.
+8. Avaliar RTK e Caveman para reducao de tokens.
 
 ## Fontes consultadas
 

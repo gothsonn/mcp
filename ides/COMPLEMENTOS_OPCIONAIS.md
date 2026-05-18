@@ -108,7 +108,6 @@ Estado aplicado neste repo:
 ```text
 .agents/rules/graphify.md
 .agents/workflows/graphify.md
-.cursor/rules/graphify.mdc
 ```
 
 Essas regras foram geradas para o repo `mcp`. Elas nao geram o grafo por si so. No terminal, o grafo e criado com `graphify extract . --backend gemini`. Dentro de agentes que suportam slash commands, a skill pode aceitar `/graphify .`.
@@ -117,7 +116,6 @@ Regras por projeto:
 
 ```bash
 cd /caminho/do/repo
-graphify cursor install
 graphify antigravity install
 ```
 
@@ -217,7 +215,6 @@ Instalacao seletiva:
 
 ```bash
 NPM_CONFIG_REGISTRY=https://registry.npmjs.org/ npm_config_registry=https://registry.npmjs.org/ npm_config_always_auth=false npx skills add JuliusBrussee/caveman -a codex
-NPM_CONFIG_REGISTRY=https://registry.npmjs.org/ npm_config_registry=https://registry.npmjs.org/ npm_config_always_auth=false npx skills add JuliusBrussee/caveman -a cursor
 NPM_CONFIG_REGISTRY=https://registry.npmjs.org/ npm_config_registry=https://registry.npmjs.org/ npm_config_always_auth=false npx skills add JuliusBrussee/caveman -a antigravity
 ```
 
@@ -255,7 +252,6 @@ Primeiro ciclo:
 | IDE | Complementos |
 | --- | --- |
 | Codex | RTK global, Graphify skill, Impeccable por repo, Obsidian scoped. |
-| Cursor | Playwright, Impeccable por repo, Graphify por repo. |
 | IntelliJ IDEA | JetBrains MCP como contexto principal; Graphify como artefato externo. |
 | Antigravity | Somente via perfis Docker MCP Gateway; Graphify no perfil `product-architecture`, Huashu no perfil `frontend` quando necessario. |
 

@@ -2,7 +2,7 @@
 
 ## Objetivo
 
-Ter um MCP global em Codex, Cursor e Antigravity para controlar a configuracao de perfis, regras e skills por repositorio.
+Ter um MCP global em Codex e Antigravity para controlar a configuracao de perfis, regras e skills por repositorio.
 
 Servidor:
 
@@ -20,7 +20,7 @@ mcp-control
 
 | Tool | Uso |
 | --- | --- |
-| `global_mcp_status` | Verifica se Codex, Cursor e Antigravity tem `mcp-control` configurado. |
+| `global_mcp_status` | Verifica se Codex e Antigravity tem `mcp-control` configurado. |
 | `inspect_repository_profiles` | Lista perfis, regras, skills e artefatos Graphify de um repositorio. |
 | `install_repository_profiles` | Cria perfis padrao em `.agents/profiles/`, instala `.agents/rules/profile-engineering.md` e instala as skills padrao do perfil dentro do repo. |
 | `install_repository_skill` | Instala regras/skills suportadas por repo: `graphify`, `impeccable`, `huashu`, `taste`. |
@@ -48,7 +48,7 @@ APPLY=1 ./scripts/12-configure-global-mcp-control.sh
 ./scripts/13-validate-global-mcp-control.sh
 ```
 
-Codex, Cursor e Antigravity sao configurados automaticamente pelo script.
+Codex e Antigravity sao configurados automaticamente pelo script.
 
 Os criterios enriquecidos de engenharia ficam documentados em `ides/CRITERIOS_PERFIS_E_STACKS.md` e sao materializados por repositorio em:
 

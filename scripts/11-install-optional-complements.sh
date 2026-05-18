@@ -7,7 +7,6 @@ INSTALL_GRAPHIFY_PROJECT="${INSTALL_GRAPHIFY_PROJECT:-0}"
 INSTALL_IMPECCABLE="${INSTALL_IMPECCABLE:-0}"
 INSTALL_HUASHU="${INSTALL_HUASHU:-0}"
 INSTALL_CAVEMAN_CODEX="${INSTALL_CAVEMAN_CODEX:-0}"
-INSTALL_CAVEMAN_CURSOR="${INSTALL_CAVEMAN_CURSOR:-0}"
 INSTALL_CAVEMAN_ANTIGRAVITY="${INSTALL_CAVEMAN_ANTIGRAVITY:-0}"
 TARGET_REPO="${TARGET_REPO:-}"
 
@@ -18,7 +17,6 @@ echo "INSTALL_GRAPHIFY_PROJECT=$INSTALL_GRAPHIFY_PROJECT"
 echo "INSTALL_IMPECCABLE=$INSTALL_IMPECCABLE"
 echo "INSTALL_HUASHU=$INSTALL_HUASHU"
 echo "INSTALL_CAVEMAN_CODEX=$INSTALL_CAVEMAN_CODEX"
-echo "INSTALL_CAVEMAN_CURSOR=$INSTALL_CAVEMAN_CURSOR"
 echo "INSTALL_CAVEMAN_ANTIGRAVITY=$INSTALL_CAVEMAN_ANTIGRAVITY"
 echo "TARGET_REPO=${TARGET_REPO:-<none>}"
 echo
@@ -100,7 +98,6 @@ fi
 
 if [ "$INSTALL_GRAPHIFY_PROJECT" = "1" ]; then
   require_target_repo
-  run_in_target_or_print uvx --from graphifyy graphify cursor install
   run_in_target_or_print uvx --from graphifyy graphify antigravity install
 fi
 
@@ -114,10 +111,6 @@ fi
 
 if [ "$INSTALL_CAVEMAN_CODEX" = "1" ]; then
   run_public_npm_or_print npx skills add JuliusBrussee/caveman -a codex
-fi
-
-if [ "$INSTALL_CAVEMAN_CURSOR" = "1" ]; then
-  run_public_npm_or_print npx skills add JuliusBrussee/caveman -a cursor
 fi
 
 if [ "$INSTALL_CAVEMAN_ANTIGRAVITY" = "1" ]; then

@@ -528,9 +528,7 @@ async function readBitbucketPullRequest(repoPath, options = {}) {
 
 function globalStatus() {
   const codexConfig = path.join(HOME, ".codex/config.toml");
-  const cursorConfig = path.join(HOME, ".cursor/mcp.json");
   const antigravityConfig = path.join(HOME, ".gemini/antigravity/mcp_config.json");
-  const cursorJson = readJson(cursorConfig);
   const antigravityJson = readJson(antigravityConfig);
   const codexText = exists(codexConfig) ? fs.readFileSync(codexConfig, "utf8") : "";
 
@@ -540,11 +538,6 @@ function globalStatus() {
       hasMcpControl: codexText.includes("[mcp_servers.mcp-control]"),
       hasOpenAiDocs: codexText.includes("[mcp_servers.openaiDeveloperDocs]"),
       hasJetBrains: codexText.includes("[mcp_servers.jetbrains]"),
-    },
-    cursor: {
-      config: cursorConfig,
-      servers: Object.keys(cursorJson?.mcpServers || {}),
-      hasMcpControl: Boolean(cursorJson?.mcpServers?.["mcp-control"]),
     },
     antigravity: {
       config: antigravityConfig,
@@ -577,12 +570,11 @@ function inspectRepository(repoPath) {
     rules: {
       agentRules: listFiles(path.join(repo, ".agents/rules")).map((file) => path.relative(repo, file)),
       workflows: listFiles(path.join(repo, ".agents/workflows")).map((file) => path.relative(repo, file)),
-      cursorRules: listFiles(path.join(repo, ".cursor/rules")).map((file) => path.relative(repo, file)),
       profileEngineeringRules: exists(path.join(repo, ".agents/rules/profile-engineering.md")),
     },
     skills: {
       graphifyGlobal: exists(path.join(HOME, ".agents/skills/graphify/SKILL.md")),
-      graphifyProjectRules: exists(path.join(repo, ".agents/rules/graphify.md")) || exists(path.join(repo, ".cursor/rules/graphify.mdc")),
+      graphifyProjectRules: exists(path.join(repo, ".agents/rules/graphify.md")),
       impeccableProjectHints: exists(path.join(repo, "PRODUCT.md")) || exists(path.join(repo, "DESIGN.md")),
       tasteProjectProfile: exists(path.join(repo, ".agents/skills/taste.md")) || exists(path.join(repo, "docs/design/TASTE.md")),
       huashuProjectHints: exists(path.join(repo, ".agents/skills/huashu.md")),
@@ -674,7 +666,6 @@ function installSkill(repoPath, skill, apply) {
   const symlinkChanges = [];
 
   if (skill === "graphify") {
-    commands.push(["graphify", "cursor", "install"]);
     commands.push(["graphify", "antigravity", "install"]);
   } else if (skill === "impeccable") {
     for (const name of ["PRODUCT.md", "DESIGN.md"]) {
@@ -807,7 +798,7 @@ async function main() {
     tools: [
       {
         name: "global_mcp_status",
-        description: "Inspect global MCP configuration status for Codex, Cursor and Antigravity.",
+        description: "Inspect global MCP configuration status for Codex and Antigravity.",
         inputSchema: { type: "object", properties: {} },
       },
       {
