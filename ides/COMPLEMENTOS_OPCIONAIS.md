@@ -256,7 +256,7 @@ Primeiro ciclo:
 | IntelliJ IDEA | JetBrains MCP como contexto principal; Graphify como artefato externo. |
 | Antigravity | Context Mode MCP direto; demais MCPs preferencialmente via Docker MCP Gateway/perfis. Graphify no perfil `product-architecture`, Huashu no perfil `frontend` quando necessario. |
 | Cursor | Context Mode MCP/hooks quando usado pontualmente. |
-| Claude | Context Mode MCP/hooks quando Claude Code estiver instalado. |
+| Claude | Context Mode MCP/hooks no Claude CLI e MCP no Claude UI/Desktop. |
 
 ## Context Mode por repositorio
 

@@ -12,6 +12,7 @@ CURSOR_HOOKS_CONFIG="$HOME/.cursor/hooks.json"
 CLAUDE_SETTINGS="$HOME/.claude/settings.json"
 CLAUDE_MD="$HOME/.claude/CLAUDE.md"
 CLAUDE_CONTEXT_MD="$HOME/.claude/CLAUDE.context-mode.md"
+CLAUDE_DESKTOP_CONFIG="$HOME/Library/Application Support/Claude/claude_desktop_config.json"
 
 backup_file() {
   local file="$1"
@@ -59,9 +60,9 @@ pkg_dir="$(context_mode_pkg_dir)"
 if [ "$APPLY" != "1" ]; then
   [ "$CONFIGURE_ANTIGRAVITY" = "1" ] && echo "DRY  would add context-mode MCP to $ANTIGRAVITY_CONFIG"
   [ "$CONFIGURE_CURSOR" = "1" ] && echo "DRY  would add context-mode MCP and hooks to $CURSOR_MCP_CONFIG and $CURSOR_HOOKS_CONFIG"
-  [ "$CONFIGURE_CLAUDE" = "1" ] && echo "DRY  would add context-mode Claude rules/hooks under $HOME/.claude"
+  [ "$CONFIGURE_CLAUDE" = "1" ] && echo "DRY  would add context-mode Claude CLI rules/hooks under $HOME/.claude and Claude UI MCP config"
   if command -v claude >/dev/null 2>&1; then
-    echo "DRY  would run: claude mcp add context-mode -- context-mode"
+    echo "DRY  would run: claude mcp add -s user context-mode -- context-mode"
   else
     echo "DRY  claude command not found; would prepare files only"
   fi
@@ -164,14 +165,20 @@ EOF_SETTINGS
   fi
 
   if command -v claude >/dev/null 2>&1; then
-    if claude mcp get context-mode >/dev/null 2>&1; then
-      claude mcp remove context-mode
-    fi
-    claude mcp add context-mode -- context-mode
-    echo "OK   Claude context-mode MCP configured"
+    claude mcp remove context-mode -s local >/dev/null 2>&1 || true
+    claude mcp remove context-mode -s user >/dev/null 2>&1 || true
+    claude mcp add -s user context-mode -- context-mode
+    echo "OK   Claude CLI context-mode MCP configured"
   else
     echo "WARN claude command not found; Claude files/hooks prepared, MCP CLI registration skipped"
   fi
+
+  mkdir -p "$(dirname "$CLAUDE_DESKTOP_CONFIG")"
+  if [ ! -f "$CLAUDE_DESKTOP_CONFIG" ]; then
+    printf '{"mcpServers":{}}\n' > "$CLAUDE_DESKTOP_CONFIG"
+  fi
+  write_json "$CLAUDE_DESKTOP_CONFIG" '.mcpServers["context-mode"] = {"command":"context-mode"}'
+  echo "OK   Claude UI context-mode MCP configured"
 fi
 
 echo
@@ -179,3 +186,4 @@ echo "Validation commands:"
 echo "- context-mode doctor"
 echo "- jq '.mcpServers[\"context-mode\"]' \"$ANTIGRAVITY_CONFIG\""
 echo "- jq '.mcpServers[\"context-mode\"]' \"$CURSOR_MCP_CONFIG\""
+echo "- jq '.mcpServers[\"context-mode\"]' \"$CLAUDE_DESKTOP_CONFIG\""
