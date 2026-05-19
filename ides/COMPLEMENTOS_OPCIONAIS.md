@@ -310,6 +310,25 @@ repositorios Git aninhados:
 APPLY=1 ./scripts/21-inject-context-mode-all-sites.sh
 ```
 
+Para criar ou atualizar a indexacao inicial padronizada do context-mode em um
+repositorio:
+
+```bash
+TARGET_REPO=$HOME/Sites/NOME_DO_REPO \
+APPLY=1 \
+$HOME/Sites/mcp/scripts/22-index-context-mode-repo.sh
+```
+
+Para aplicar a indexacao nos projetos diretos de `$HOME/Sites` e em
+repositorios Git aninhados:
+
+```bash
+APPLY=1 $HOME/Sites/mcp/scripts/23-index-context-mode-all-sites.sh
+```
+
+O script usa manifesto incremental em `$HOME/.context-mode-kit/manifests`, entao
+as proximas execucoes indexam apenas arquivos novos ou alterados.
+
 O script cria `CONTEXT_MODE_PROMPT.md` e injeta a referencia em:
 
 ```text

@@ -9,6 +9,7 @@ FEATURE_SUMMARY="${FEATURE_SUMMARY:-}"
 VALIDATION="${VALIDATION:-}"
 PR_URL="${PR_URL:-}"
 RUN_GRAPHIFY="${RUN_GRAPHIFY:-1}"
+RUN_CONTEXT_INDEX="${RUN_CONTEXT_INDEX:-1}"
 UPDATE_OBSIDIAN="${UPDATE_OBSIDIAN:-1}"
 OBSIDIAN_VAULT="${OBSIDIAN_VAULT:-$HOME/Documents/Obsidian Vault}"
 MCP_REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -41,6 +42,7 @@ echo "Repo:            $REPO"
 echo "Feature:         ${FEATURE_KEY:-not provided}"
 echo "APPLY:           $APPLY"
 echo "RUN_GRAPHIFY:    $RUN_GRAPHIFY"
+echo "RUN_CONTEXT_IDX: $RUN_CONTEXT_INDEX"
 echo "UPDATE_OBSIDIAN: $UPDATE_OBSIDIAN"
 echo
 
@@ -62,6 +64,22 @@ if [ "$RUN_GRAPHIFY" = "1" ]; then
     )
     graphify_status="updated"
     echo "OK   graphify updated"
+  fi
+fi
+
+context_index_status="not-run"
+if [ "$RUN_CONTEXT_INDEX" = "1" ]; then
+  echo
+  echo "== Context-mode incremental index =="
+  if [ ! -x "$MCP_REPO/scripts/22-index-context-mode-repo.sh" ]; then
+    context_index_status="missing-script"
+    echo "MISS $MCP_REPO/scripts/22-index-context-mode-repo.sh"
+  elif [ "$APPLY" != "1" ]; then
+    context_index_status="dry-run"
+    echo "DRY  would run context-mode incremental index"
+  else
+    TARGET_REPO="$REPO" APPLY=1 "$MCP_REPO/scripts/22-index-context-mode-repo.sh"
+    context_index_status="updated"
   fi
 fi
 
@@ -108,6 +126,10 @@ $REPO
 ## Graphify
 
 $graphify_status at $timestamp.
+
+## Context Mode
+
+$context_index_status at $timestamp.
 EOF_NOTE
     else
       cat >> "$feature_note" <<EOF_NOTE
@@ -118,11 +140,12 @@ EOF_NOTE
 - Validation: ${VALIDATION:-Pending validation notes.}
 - Pull Request: ${PR_URL:-Pending PR link.}
 - Graphify: $graphify_status.
+- Context Mode: $context_index_status.
 EOF_NOTE
     fi
 
     if [ -f "$decision_log" ]; then
-      printf '%s\n' "- $today: Feature ${FEATURE_KEY:-unknown} finalized; Obsidian updated; Graphify status: $graphify_status." >> "$decision_log"
+      printf '%s\n' "- $today: Feature ${FEATURE_KEY:-unknown} finalized; Obsidian updated; Graphify status: $graphify_status; Context Mode status: $context_index_status." >> "$decision_log"
     else
       cat > "$decision_log" <<EOF_LOG
 ---
@@ -137,7 +160,7 @@ tags:
 
 ## Entries
 
-- $today: Feature ${FEATURE_KEY:-unknown} finalized; Obsidian updated; Graphify status: $graphify_status.
+- $today: Feature ${FEATURE_KEY:-unknown} finalized; Obsidian updated; Graphify status: $graphify_status; Context Mode status: $context_index_status.
 EOF_LOG
     fi
     echo "OK   updated $feature_note"

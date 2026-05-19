@@ -83,6 +83,8 @@ exemplo em `.npmrc` do projeto ou em variaveis carregadas pelo
 | `scripts/18-configure-context-mode-clients.sh` | Configura context-mode em Antigravity, Cursor, Claude CLI e Claude UI. | Sim, com confirmacao por variavel |
 | `scripts/20-inject-context-mode-prompt.sh` | Injeta prompt comum de context-mode em `AGENTS.md`, `GEMINI.md` e `CLAUDE.md` por repositorio. | Sim, com confirmacao por variavel |
 | `scripts/21-inject-context-mode-all-sites.sh` | Injeta o prompt context-mode nos projetos diretos de `$HOME/Sites` e em repositorios Git aninhados. | Sim, com confirmacao por variavel |
+| `scripts/22-index-context-mode-repo.sh` | Indexa arquivos importantes de um repositorio no context-mode, com manifesto incremental fora do repo. | Sim, com confirmacao por variavel |
+| `scripts/23-index-context-mode-all-sites.sh` | Executa a indexacao context-mode nos projetos diretos de `$HOME/Sites` e em repositorios Git aninhados. | Sim, com confirmacao por variavel |
 
 ## Como rodar em modo seguro
 
