@@ -295,6 +295,22 @@ Antigravity e Claude UI/Desktop nao oferecem hooks equivalentes aos do Codex ou
 Claude CLI. Nesses clientes, a melhor ergonomia e usar o proprio `context-mode`
 diretamente no prompt.
 
+Para automatizar a instrucao por projeto:
+
+```bash
+TARGET_REPO=$HOME/Sites/NOME_DO_REPO \
+APPLY=1 \
+./scripts/20-inject-context-mode-prompt.sh
+```
+
+O script cria `CONTEXT_MODE_PROMPT.md` e injeta a referencia em:
+
+```text
+AGENTS.md
+GEMINI.md
+CLAUDE.md
+```
+
 Exemplos recomendados:
 
 ```text
