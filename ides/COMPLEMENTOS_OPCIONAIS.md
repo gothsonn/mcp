@@ -329,6 +329,17 @@ APPLY=1 $HOME/Sites/mcp/scripts/23-index-context-mode-all-sites.sh
 O script usa manifesto incremental em `$HOME/.context-mode-kit/manifests`, entao
 as proximas execucoes indexam apenas arquivos novos ou alterados.
 
+Para uma carga inicial completa de todo conteudo textual seguro de um
+repositorio, use:
+
+```bash
+TARGET_REPO=$HOME/Sites/NOME_DO_REPO \
+INDEX_ALL=1 \
+FORCE_REINDEX=1 \
+APPLY=1 \
+$HOME/Sites/mcp/scripts/22-index-context-mode-repo.sh
+```
+
 O script cria `CONTEXT_MODE_PROMPT.md` e injeta a referencia em:
 
 ```text

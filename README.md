@@ -86,6 +86,16 @@ exemplo em `.npmrc` do projeto ou em variaveis carregadas pelo
 | `scripts/22-index-context-mode-repo.sh` | Indexa arquivos importantes de um repositorio no context-mode, com manifesto incremental fora do repo. | Sim, com confirmacao por variavel |
 | `scripts/23-index-context-mode-all-sites.sh` | Executa a indexacao context-mode nos projetos diretos de `$HOME/Sites` e em repositorios Git aninhados. | Sim, com confirmacao por variavel |
 
+Para indexar todo conteudo textual seguro de um repositorio:
+
+```bash
+TARGET_REPO=$HOME/Sites/NOME_DO_REPO \
+INDEX_ALL=1 \
+FORCE_REINDEX=1 \
+APPLY=1 \
+$HOME/Sites/mcp/scripts/22-index-context-mode-repo.sh
+```
+
 ## Como rodar em modo seguro
 
 Por padrao, scripts de configuracao nao devem aplicar mudancas destrutivas.

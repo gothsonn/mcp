@@ -7,8 +7,11 @@ import path from "node:path";
 
 const repo = path.resolve(process.env.TARGET_REPO || process.argv[2] || "");
 const apply = process.env.APPLY === "1";
-const maxFiles = Number.parseInt(process.env.MAX_FILES || "120", 10);
+const indexAll = process.env.INDEX_ALL === "1";
+const forceReindex = process.env.FORCE_REINDEX === "1";
+const maxFiles = Number.parseInt(process.env.MAX_FILES || (indexAll ? "10000" : "120"), 10);
 const maxFileBytes = Number.parseInt(process.env.MAX_FILE_BYTES || "500000", 10);
+const maxDepth = Number.parseInt(process.env.MAX_DEPTH || (indexAll ? "20" : "6"), 10);
 const manifestRoot = process.env.CONTEXT_MODE_MANIFEST_DIR || path.join(os.homedir(), ".context-mode-kit", "manifests");
 
 async function main() {
@@ -39,7 +42,7 @@ async function main() {
         mtimeMs: Math.round(stat.mtimeMs),
         hash,
         source: `${repoName}:${rel}`,
-        changed: previous.files?.[rel]?.hash !== hash,
+        changed: forceReindex || previous.files?.[rel]?.hash !== hash,
       };
     })
     .sort((a, b) => Number(b.changed) - Number(a.changed) || a.rel.localeCompare(b.rel))
@@ -50,6 +53,8 @@ async function main() {
   console.log("== Context-mode repo index ==");
   console.log(`Repo:      ${repo}`);
   console.log(`APPLY:     ${apply ? "1" : "0"}`);
+  console.log(`INDEX_ALL: ${indexAll ? "1" : "0"}`);
+  console.log(`FORCE:     ${forceReindex ? "1" : "0"}`);
   console.log(`Manifest:  ${manifestPath}`);
   console.log(`Files:     ${candidates.length}`);
   console.log(`Changed:   ${changed.length}`);
@@ -88,6 +93,8 @@ async function main() {
     updatedAt: new Date().toISOString(),
     maxFiles,
     maxFileBytes,
+    maxDepth,
+    indexAll,
     files: Object.fromEntries(
       candidates.map((item) => [
         item.rel,
@@ -118,7 +125,7 @@ function discover(root) {
 }
 
 function walk(root, dir, depth, result) {
-  if (depth > 6) return;
+  if (depth > maxDepth) return;
   const base = path.basename(dir);
   if (shouldSkipDir(base)) return;
 
@@ -156,6 +163,10 @@ function shouldSkipDir(name) {
     "venv",
     "__pycache__",
     "graphify-out",
+    ".idea",
+    ".vscode",
+    ".cursor",
+    ".DS_Store",
   ].includes(name);
 }
 
@@ -168,6 +179,7 @@ function isCandidate(file, root) {
 
   if (stat.size <= 0 || stat.size > maxFileBytes) return false;
   if (isSensitive(name)) return false;
+  if (indexAll) return isTextLikeFile(name);
 
   const rootFiles = new Set([
     "AGENTS.md",
@@ -201,6 +213,66 @@ function isCandidate(file, root) {
   if (/architecture|arquitetura|adr|decision|decisao/i.test(rel) && /\.(md|mdx)$/i.test(name)) return true;
 
   return lower === "readme.md";
+}
+
+function isTextLikeFile(name) {
+  const lower = name.toLowerCase();
+  const textExtensions = [
+    ".md",
+    ".mdx",
+    ".txt",
+    ".json",
+    ".jsonc",
+    ".yaml",
+    ".yml",
+    ".toml",
+    ".xml",
+    ".html",
+    ".htm",
+    ".css",
+    ".scss",
+    ".sass",
+    ".less",
+    ".js",
+    ".jsx",
+    ".ts",
+    ".tsx",
+    ".mjs",
+    ".cjs",
+    ".java",
+    ".kt",
+    ".kts",
+    ".py",
+    ".php",
+    ".sql",
+    ".sh",
+    ".bash",
+    ".zsh",
+    ".properties",
+    ".gradle",
+    ".graphql",
+    ".gql",
+    ".proto",
+    ".csv",
+    ".tsv",
+    ".drawio",
+    ".puml",
+    ".plantuml",
+  ];
+  const knownTextFiles = new Set([
+    "dockerfile",
+    "makefile",
+    "readme",
+    "license",
+    "changelog",
+    "pom.xml",
+    "package.json",
+    "composer.json",
+    "requirements.txt",
+    "settings.gradle",
+    "build.gradle",
+  ]);
+  return textExtensions.some((ext) => lower.endsWith(ext)) || knownTextFiles.has(lower);
 }
 
 function isSensitive(name) {
