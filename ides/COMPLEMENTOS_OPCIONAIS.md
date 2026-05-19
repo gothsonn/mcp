@@ -303,6 +303,13 @@ APPLY=1 \
 ./scripts/20-inject-context-mode-prompt.sh
 ```
 
+Para aplicar em todos os projetos diretos dentro de `$HOME/Sites` e em
+repositorios Git aninhados:
+
+```bash
+APPLY=1 ./scripts/21-inject-context-mode-all-sites.sh
+```
+
 O script cria `CONTEXT_MODE_PROMPT.md` e injeta a referencia em:
 
 ```text
