@@ -81,6 +81,7 @@ exemplo em `.npmrc` do projeto ou em variaveis carregadas pelo
 | `scripts/16-feature-done.sh` | Atualiza Obsidian e Graphify ao finalizar uma feature. | Sim, com confirmacao por variavel |
 | `scripts/17-enable-context-mode-repo.sh` | Habilita regras context-mode por repositorio para Codex e registra no Obsidian. | Sim, com confirmacao por variavel |
 | `scripts/18-configure-context-mode-clients.sh` | Configura context-mode em Antigravity, Cursor, Claude CLI e Claude UI. | Sim, com confirmacao por variavel |
+| `scripts/19-configure-context-router.sh` | Configura o MCP `context-router` para Antigravity e Claude UI usarem ferramentas seguras sem hooks reais. | Sim, com confirmacao por variavel |
 
 ## Como rodar em modo seguro
 

@@ -289,6 +289,58 @@ AGENTS.md
 O script nao sobrescreve `AGENTS.md`; apenas adiciona a referencia
 `@./AGENTS.context-mode.md` quando ela ainda nao existe.
 
+## Context Router para clientes sem hooks
+
+Antigravity e Claude UI/Desktop nao oferecem hooks equivalentes aos do Codex ou
+Claude CLI. Para reduzir o risco de saida bruta nesses clientes, use o MCP
+`context-router` como proxy de ferramentas seguras.
+
+Configurar:
+
+```bash
+APPLY=1 ./scripts/19-configure-context-router.sh
+```
+
+Tools expostas:
+
+| Tool | Uso |
+| --- | --- |
+| `safe_shell` | Executar comandos sob `$HOME/Sites` com saida limitada e filtro por intencao. |
+| `safe_read_file` | Ler arquivo sob `$HOME/Sites` com resumo/linhas relevantes. |
+| `safe_search` | Buscar com ripgrep e limite de resultados. |
+| `safe_fetch_url` | Buscar URL e devolver preview textual limitado. |
+
+Prompt recomendado para Antigravity/Claude UI:
+
+```text
+Use context-router para comandos, buscas, leitura de arquivos e URLs.
+Use context-mode para indexacao e busca sem despejar conteudo bruto.
+Nao use ferramentas cruas quando a saida puder passar de 20 linhas.
+```
+
+Exemplos de prompts com o proxy:
+
+```text
+Use context-router.safe_shell para diagnosticar este projeto e context-mode para
+indexar qualquer saida grande. Retorne somente stack, riscos, comandos de
+validacao e proximos passos.
+```
+
+```text
+Use context-router.safe_read_file para analisar este log grande. Filtre por
+erros, excecoes e warnings. Nao cole o log bruto.
+```
+
+```text
+Use context-router.safe_search para localizar os arquivos relevantes e depois
+use context-mode ctx_index/ctx_search para responder com evidencias curtas.
+```
+
+```text
+Use context-router.safe_fetch_url para buscar a URL, limite o preview e indexe
+o conteudo relevante com context-mode antes de responder.
+```
+
 ## Caso `rafaelfreitas`
 
 O repo `$HOME/Sites/rafaelfreitas` deve ser tratado como grupo fullstack:
