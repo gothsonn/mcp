@@ -289,56 +289,28 @@ AGENTS.md
 O script nao sobrescreve `AGENTS.md`; apenas adiciona a referencia
 `@./AGENTS.context-mode.md` quando ela ainda nao existe.
 
-## Context Router para clientes sem hooks
+## Uso em clientes sem hooks
 
 Antigravity e Claude UI/Desktop nao oferecem hooks equivalentes aos do Codex ou
-Claude CLI. Para reduzir o risco de saida bruta nesses clientes, use o MCP
-`context-router` como proxy de ferramentas seguras.
+Claude CLI. Nesses clientes, a melhor ergonomia e usar o proprio `context-mode`
+diretamente no prompt.
 
-Configurar:
-
-```bash
-APPLY=1 ./scripts/19-configure-context-router.sh
-```
-
-Tools expostas:
-
-| Tool | Uso |
-| --- | --- |
-| `safe_shell` | Executar comandos sob `$HOME/Sites` com saida limitada e filtro por intencao. |
-| `safe_read_file` | Ler arquivo sob `$HOME/Sites` com resumo/linhas relevantes. |
-| `safe_search` | Buscar com ripgrep e limite de resultados. |
-| `safe_fetch_url` | Buscar URL e devolver preview textual limitado. |
-
-Prompt recomendado para Antigravity/Claude UI:
+Exemplos recomendados:
 
 ```text
-Use context-router para comandos, buscas, leitura de arquivos e URLs.
-Use context-mode para indexacao e busca sem despejar conteudo bruto.
-Nao use ferramentas cruas quando a saida puder passar de 20 linhas.
-```
-
-Exemplos de prompts com o proxy:
-
-```text
-Use context-router.safe_shell para diagnosticar este projeto e context-mode para
-indexar qualquer saida grande. Retorne somente stack, riscos, comandos de
-validacao e proximos passos.
+Use context-mode para analisar este repositorio sem despejar outputs grandes no contexto.
 ```
 
 ```text
-Use context-router.safe_read_file para analisar este log grande. Filtre por
-erros, excecoes e warnings. Nao cole o log bruto.
+Use ctx_batch_execute para rodar os comandos de diagnostico do projeto e retorne so os achados relevantes.
 ```
 
 ```text
-Use context-router.safe_search para localizar os arquivos relevantes e depois
-use context-mode ctx_index/ctx_search para responder com evidencias curtas.
+Use ctx_execute_file para analisar este log grande e me diga apenas os erros e causas provaveis.
 ```
 
 ```text
-Use context-router.safe_fetch_url para buscar a URL, limite o preview e indexe
-o conteudo relevante com context-mode antes de responder.
+Indexe a documentacao com ctx_index e depois use ctx_search para responder.
 ```
 
 ## Caso `rafaelfreitas`
