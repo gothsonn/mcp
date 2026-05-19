@@ -99,6 +99,23 @@ install_cask_if_missing() {
   run_or_show brew install --cask "$cask_name"
 }
 
+install_codex_cli() {
+  if ! command -v npm >/dev/null 2>&1; then
+    echo "SKIP Codex CLI: npm not found"
+    return
+  fi
+
+  if [ "$APPLY" = "1" ]; then
+    echo "+ npm install -g @openai/codex@latest"
+    NPM_CONFIG_REGISTRY=https://registry.npmjs.org/ \
+      npm_config_registry=https://registry.npmjs.org/ \
+      npm_config_always_auth=false \
+      npm install -g @openai/codex@latest
+  else
+    echo "DRY-RUN: npm install -g @openai/codex@latest"
+  fi
+}
+
 echo "== CLI prerequisites =="
 install_formula_if_missing git git
 install_formula_if_missing node node
@@ -108,6 +125,10 @@ install_formula_if_missing rg ripgrep
 echo
 echo "== Public npm registry for global tools =="
 configure_public_npm_user_registry
+
+echo
+echo "== Codex CLI =="
+install_codex_cli
 
 echo
 echo "== Desktop apps and agent CLIs =="

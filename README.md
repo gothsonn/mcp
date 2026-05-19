@@ -104,6 +104,7 @@ Prerequisitos cobertos pelo script:
 - Git.
 - Node/npm/npx.
 - npm global com registry publico.
+- Codex CLI via `@openai/codex`.
 - Python/pip.
 - Docker Desktop.
 - IntelliJ IDEA.
