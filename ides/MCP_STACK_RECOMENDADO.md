@@ -27,7 +27,8 @@ Instalar primeiro porque melhora quase qualquer fluxo.
 | GitLab MCP | MCP | Antigravity por demanda | Merge requests e projetos GitLab quando a instancia suportar MCP. |
 | Playwright MCP | MCP | Antigravity, Codex quando necessario | UI automation por accessibility snapshots, testes e screenshots. |
 | Docker MCP Gateway | Gateway | Antigravity | Agrega MCPs e reduz configuracao duplicada por cliente. |
-| RTK | CLI/proxy | Codex, Antigravity | Reduz tokens em comandos shell comuns. |
+| Context Mode | MCP/hooks | Codex, Antigravity, Cursor e Claude | Camada principal de economia de contexto, sandbox, FTS5 e continuidade. |
+| RTK | CLI/proxy | Uso auxiliar | Compactacao pontual de comandos simples quando context-mode nao for necessario. |
 
 ### Camada 2 - Conhecimento e memoria
 
@@ -83,9 +84,22 @@ npx skills add JuliusBrussee/caveman -a antigravity
 
 Recomendacao: opcional. Bom para sessoes longas, mas nao e prioridade antes de Graphify, Playwright e Impeccable.
 
+### Context Mode
+
+Uso: economizar contexto de forma estrutural, indexar saidas grandes em SQLite/FTS5, analisar logs/repositorios/documentos sem despejar dados brutos no chat e manter continuidade de sessao.
+
+Instalacao:
+
+```bash
+npm install -g context-mode
+APPLY=1 ./scripts/18-configure-context-mode-clients.sh
+```
+
+Recomendacao: usar como camada principal de economia de contexto. RTK fica como fallback auxiliar.
+
 ### RTK
 
-Uso: comprimir saida de comandos como `git status`, `git diff`, `rg`, `npm test`, `pytest`, `docker ps`.
+Uso: comprimir saida de comandos pequenos ou pontuais quando nao vale acionar o fluxo completo do context-mode.
 
 Instalacao:
 
@@ -96,7 +110,7 @@ rtk init -g --codex
 rtk init --agent antigravity
 ```
 
-Recomendacao: instalar depois que Codex/IntelliJ estiverem estaveis.
+Recomendacao: manter como auxiliar. Nao tratar como camada principal de economia de contexto.
 
 ### Graphify
 
@@ -202,7 +216,7 @@ Modo isolado para evitar misturar sessoes:
 5. Instalar Graphify em um repo grande ou legado.
 6. Configurar Antigravity com Docker MCP Gateway e perfis por tipo de trabalho.
 7. Avaliar Obsidian como segundo cerebro conectado por vault/projeto.
-8. Avaliar RTK e Caveman para reducao de tokens.
+8. Manter RTK e Caveman como auxiliares, depois que context-mode estiver validado.
 
 ## Fontes consultadas
 

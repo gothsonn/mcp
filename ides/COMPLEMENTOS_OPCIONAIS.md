@@ -15,7 +15,8 @@ Regra:
 
 | Item | Estado | Decisao |
 | --- | --- | --- |
-| RTK | Instalado em `/opt/homebrew/bin/rtk`, versao `0.39.0`. | Global aprovado. |
+| Context Mode | Instalado via npm publico. | Principal camada de economia de contexto para Codex; configurar tambem em Antigravity, Cursor e Claude quando usados. |
+| RTK | Instalado em `/opt/homebrew/bin/rtk`, versao `0.39.0`. | Auxiliar aprovado; nao e mais a camada principal de economia de contexto. |
 | uv | Instalado via Homebrew. | Usar para instalar CLIs Python isoladas. |
 | npx | Instalado via Node/NVM. | Usar para skills por projeto, sempre com registry publico quando instalar skills abertas. |
 | Graphify | Instalado via `uv tool install 'graphifyy[gemini]'`; binario em `~/.local/bin/graphify`. | CLI global aprovado; regras e grafo por repo. |
@@ -251,9 +252,11 @@ Primeiro ciclo:
 
 | IDE | Complementos |
 | --- | --- |
-| Codex | RTK global, Graphify skill, Impeccable por repo, context-mode por repo, Obsidian scoped. |
+| Codex | Context Mode global + regras por repo, Graphify skill, Impeccable por repo, Obsidian scoped. |
 | IntelliJ IDEA | JetBrains MCP como contexto principal; Graphify como artefato externo. |
-| Antigravity | Somente via perfis Docker MCP Gateway; Graphify no perfil `product-architecture`, Huashu no perfil `frontend` quando necessario. |
+| Antigravity | Context Mode MCP direto; demais MCPs preferencialmente via Docker MCP Gateway/perfis. Graphify no perfil `product-architecture`, Huashu no perfil `frontend` quando necessario. |
+| Cursor | Context Mode MCP/hooks quando usado pontualmente. |
+| Claude | Context Mode MCP/hooks quando Claude Code estiver instalado. |
 
 ## Context Mode por repositorio
 
