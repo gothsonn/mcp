@@ -4,6 +4,7 @@ set -euo pipefail
 APPLY="${APPLY:-0}"
 TARGET_REPO="${TARGET_REPO:-${1:-}}"
 UPDATE_OBSIDIAN="${UPDATE_OBSIDIAN:-1}"
+UPDATE_PROMPT="${UPDATE_PROMPT:-1}"
 OBSIDIAN_VAULT="${OBSIDIAN_VAULT:-$HOME/Documents/Obsidian Vault}"
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 TEMPLATE="$ROOT_DIR/templates/context-mode/CONTEXT_MODE_PROMPT.md"
@@ -45,6 +46,7 @@ echo "APPLY:           $APPLY"
 echo "Template:        $TEMPLATE"
 echo "Prompt file:     $context_file"
 echo "UPDATE_OBSIDIAN: $UPDATE_OBSIDIAN"
+echo "UPDATE_PROMPT:   $UPDATE_PROMPT"
 echo
 
 if [ "$APPLY" != "1" ]; then
@@ -70,7 +72,15 @@ if [ "$APPLY" != "1" ]; then
 fi
 
 if [ -f "$context_file" ]; then
-  echo "KEEP $context_file"
+  if cmp -s "$TEMPLATE" "$context_file"; then
+    echo "KEEP $context_file"
+  elif [ "$UPDATE_PROMPT" = "1" ]; then
+    cp "$context_file" "$context_file.bak-context-mode-$(date +%Y%m%d-%H%M%S)"
+    cp "$TEMPLATE" "$context_file"
+    echo "UPDATE $context_file"
+  else
+    echo "KEEP $context_file differs from template"
+  fi
 else
   cp "$TEMPLATE" "$context_file"
   echo "COPY $context_file"

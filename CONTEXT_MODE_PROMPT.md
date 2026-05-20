@@ -22,6 +22,23 @@ Depois da ingestao inicial:
 - use `ctx_execute_file` para analisar logs, specs, Swagger/OpenAPI ou arquivos grandes;
 - use `ctx_batch_execute` para diagnosticos de build, testes e estrutura.
 
+## Regra obrigatoria para base local antes de internet
+
+Antes de buscar na internet, consulte a base local do projeto.
+
+Ordem obrigatoria:
+
+1. use `ctx_search` na base indexada do projeto;
+2. quando existir Markdown convertido, priorize sources com `converted`, por exemplo `mvno-bb:converted`;
+3. quando necessario, use o MCP `markdown-converter` para `list_cache`, `convert_file` ou `convert_repo`;
+4. so use internet se a base local nao responder, estiver desatualizada para a pergunta, ou se o usuario pedir explicitamente pesquisa externa.
+
+Ao responder, informe as evidencias locais usadas:
+
+- source do `ctx_search`;
+- caminho do arquivo original ou Markdown convertido;
+- lacuna encontrada antes de usar internet, quando internet for necessaria.
+
 Sempre que houver analise de repositorio, comandos, logs, documentacao ou
 arquivos grandes:
 
