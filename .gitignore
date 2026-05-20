@@ -25,6 +25,7 @@ credential_mcp.env
 # Node dependencies
 node_modules/
 mcp-control/node_modules/
+markdown-converter/node_modules/
 
 # Generated Graphify outputs when this repo is used as a target
 graphify-out/

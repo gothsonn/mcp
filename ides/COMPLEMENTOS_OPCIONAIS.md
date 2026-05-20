@@ -340,6 +340,28 @@ APPLY=1 \
 $HOME/Sites/mcp/scripts/22-index-context-mode-repo.sh
 ```
 
+## Markdown converter para futuro RAG
+
+Antes de montar um RAG completo, use o MCP `markdown-converter` para transformar
+PDF, DOCX, PPTX, XLSX, HTML, OpenAPI, Postman e Draw.io em Markdown cacheado.
+
+Instalacao:
+
+```bash
+APPLY=1 $HOME/Sites/mcp/scripts/24-install-markdown-converter.sh
+```
+
+Conversao por repositorio:
+
+```bash
+TARGET_REPO=$HOME/Sites/NOME_DO_REPO \
+APPLY=1 \
+$HOME/Sites/mcp/scripts/25-convert-repo-markdown.sh
+```
+
+O cache fica em `$HOME/.context-mode-kit/markdown-cache`, fora do repositorio,
+para nao poluir o Git.
+
 O script cria `CONTEXT_MODE_PROMPT.md` e injeta a referencia em:
 
 ```text

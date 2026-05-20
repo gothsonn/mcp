@@ -85,6 +85,8 @@ exemplo em `.npmrc` do projeto ou em variaveis carregadas pelo
 | `scripts/21-inject-context-mode-all-sites.sh` | Injeta o prompt context-mode nos projetos diretos de `$HOME/Sites` e em repositorios Git aninhados. | Sim, com confirmacao por variavel |
 | `scripts/22-index-context-mode-repo.sh` | Indexa arquivos importantes de um repositorio no context-mode, com manifesto incremental fora do repo. | Sim, com confirmacao por variavel |
 | `scripts/23-index-context-mode-all-sites.sh` | Executa a indexacao context-mode nos projetos diretos de `$HOME/Sites` e em repositorios Git aninhados. | Sim, com confirmacao por variavel |
+| `scripts/24-install-markdown-converter.sh` | Instala o MCP markdown-converter e o worker Python com Unstructured. | Sim, com confirmacao por variavel |
+| `scripts/25-convert-repo-markdown.sh` | Converte arquivos seguros de um repositorio para Markdown em cache externo. | Sim, com confirmacao por variavel |
 
 Para indexar todo conteudo textual seguro de um repositorio:
 
@@ -94,6 +96,32 @@ INDEX_ALL=1 \
 FORCE_REINDEX=1 \
 APPLY=1 \
 $HOME/Sites/mcp/scripts/22-index-context-mode-repo.sh
+```
+
+## Markdown converter MCP
+
+O `markdown-converter` prepara documentos para `context-mode`, Graphify,
+Obsidian e futuro RAG. Ele roda como MCP Node.js e usa um worker Python com
+Unstructured para documentos Office/PDF.
+
+Instalacao:
+
+```bash
+APPLY=1 $HOME/Sites/mcp/scripts/24-install-markdown-converter.sh
+```
+
+Conversao de um repositorio:
+
+```bash
+TARGET_REPO=$HOME/Sites/NOME_DO_REPO \
+APPLY=1 \
+$HOME/Sites/mcp/scripts/25-convert-repo-markdown.sh
+```
+
+O cache fica fora do repositorio:
+
+```text
+$HOME/.context-mode-kit/markdown-cache
 ```
 
 ## Como rodar em modo seguro
